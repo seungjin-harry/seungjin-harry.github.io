@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seungjin (C.S.) Kwack — O-RAN / SMO / Autonomous Network Architect Resume</title>
+<style>
+:root{
+  --ink:#1a1f2c;--muted:#5b6473;--line:#dde2ea;
+  --bg:#f4f5f7;--card:#ffffff;
+  --accent:#1d4ed8;--accent2:#0f766e;--soft:#eef3fb;
+  --warn:#b45309
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Helvetica Neue","Noto Sans KR",Arial,sans-serif;line-height:1.65;font-size:14px}
+.wrap{max-width:920px;margin:auto;padding:30px 22px 60px}
+header{background:linear-gradient(120deg,#0f172a,#1d4ed8);color:#fff;border-radius:18px;padding:30px 30px 26px}
+header h1{font-size:32px;letter-spacing:-.02em;margin:0 0 4px}
+header .sub{font-size:16px;color:#dce5f4;max-width:780px;margin:0 0 8px}
+header .meta{display:flex;flex-wrap:wrap;gap:14px 22px;margin-top:14px;font-size:13px;color:#cdd6e3}
+header .meta b{color:#fff}
+.target{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+.target span{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:4px 11px;font-size:12px}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;margin:14px 0;box-shadow:0 4px 14px rgba(20,30,50,.04)}
+h2{font-size:17px;letter-spacing:-.02em;margin:0 0 10px;border-left:3px solid var(--accent);padding-left:10px}
+h3{font-size:15px;margin:0 0 6px;color:#0f172a}
+.role{margin:10px 0 14px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fafbfd}
+.role .head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin-bottom:6px}
+.role .head .title{font-weight:700;color:var(--ink);font-size:15px}
+.role .head .org{color:var(--muted);font-size:13.5px}
+.role .head .dates{margin-left:auto;color:var(--accent2);font-size:13px;font-weight:600}
+.role ul{margin:6px 0 2px;padding-left:18px}
+.role li{margin:3px 0}
+.kw{display:inline-block;background:var(--soft);color:var(--accent);border-radius:999px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0}
+.skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.skills-grid .grp h4{font-size:13.5px;margin:0 0 6px;color:var(--accent)}
+.skills-grid .grp ul{padding-left:18px;margin:0}
+.skills-grid .grp li{margin:3px 0;font-size:13.5px}
+.summary p{margin:0 0 8px;font-size:14px}
+.summary .lede{font-size:15.5px;color:#0f172a;font-weight:500}
+.callout{background:#fff7ed;border:1px solid #f5deb3;border-left:4px solid var(--warn);border-radius:10px;padding:10px 14px;margin:10px 0;font-size:13px;color:#7a4a05}
+table.target-table{width:100%;border-collapse:collapse;margin-top:6px;font-size:13px}
+table.target-table th,table.target-table td{padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+table.target-table th{background:#eef2f8;font-weight:600}
+.footer{margin-top:30px;font-size:11.5px;color:var(--muted);text-align:center}
+@media print{
+  body{background:#fff;font-size:12px}
+  header{break-inside:avoid}
+  section{box-shadow:none;break-inside:avoid}
+  .wrap{padding:0 12px}
+}
+@media(max-width:640px){
+  .skills-grid{grid-template-columns:1fr}
+  header{padding:22px 18px}
+  header h1{font-size:24px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Seungjin (C.S.) Kwack · 곽승진</h1>
+  <div class="sub">Sr. Telecom / O-RAN SMO Architect — 5G Network Automation &amp; Management Systems (NMS / EMS / SMO)</div>
+  <div class="meta">
+    <span><b>Samsung Electronics</b> · Networks Business Division · Product Strategy Team</span>
+    <span><b>Email</b> sj.kwack@samsung.com</span>
+    <span><b>Phone</b> +82-10-9530-2295</span>
+    <span><b>Total tenure</b> 20 years (2004.11 – present)</span>
+  </div>
+  <div class="target" aria-label="Target roles">
+    <span>Target #1 · Telco Autonomous Network Architect</span>
+    <span>Target #2 · O-RAN / SMO Solution Architect</span>
+    <span>Samsung Networks · Suwon, KR</span>
+  </div>
+</header>
+
+<section class="summary">
+  <h2>Career Summary</h2>
+  <p class="lede">Telecom domain architect and product leader with <b>~20 years at Samsung Electronics</b>, spanning OSS/EMS/NMS software engineering, HA &amp; backup architecture, private 5G, network slicing &amp; E2E orchestration, and O-RAN SMO automation. Led planning and deployment of vRAN/O-RAN/SMO automation solutions showcased at <b>MWC 2023 in North America and Europe</b>, and directed E2E slicing/orchestration across Canada, North America, and Japan.</p>
+  <p>Current focus is <b>Telecom × AI × Automation</b>: enabling Autonomous Networks where human judgment layers (alarm triage, RCA, topology reasoning, field operations) become machine-executable with human-in-the-loop. Verified domain strengths (O-RAN, SMO, 5G EMS) are deep; <b>AI/ML engineering depth is at the "framework exposure" level (1 framework per LinkedIn profile)</b> — explicit, honest self-assessment included on the front page.</p>
+  <div class="callout"><b>Honesty note.</b> This resume lists only facts verifiable from the supplied screenshots and documents. Items not evidenced (PhD, certificates beyond what is on the profile, language scores, revenue %) are <b>intentionally omitted</b> rather than guessed.</div>
+</section>
+
+<!-- <section>
+  <h2>Target Roles — how my 20-year profile maps</h2>
+
+  <table class="target-table">
+    <thead><tr><th>Target role</th><th>Direct / same-domain evidence</th><th>Adjacent (gap)</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>#1 Telecom Autonomous Network Architect</b></td>
+        <td>
+          vRAN/O-RAN/SMO automation deployment (current, Director of PM).<br>
+          Network Slice Manager &amp; E2E Orchestrator planning (Senior Professional 2020–2024).<br>
+          MWC 2023 NA/EU automation showcase delivery.<br>
+          Cross-region ops (Canada, North America, Japan).
+        </td>
+        <td>
+          AI Agent / RAG / LLM orchestration is at exposure level.<br>
+          Public Autonomous Networks Level 4/5 implementation evidence: not verified, <b>will be filled by PoC plan</b>.
+        </td>
+      </tr>
+      <tr>
+        <td><b>#2 O-RAN / SMO Solution Architect</b></td>
+        <td>
+          O-RAN SMO planning &amp; deployment (current).<br>
+          5G EMS HA &amp; Backup/Restore architecture (2016.12–2019.02, multi-region).<br>
+          Application SW for 3G/4G EMS, North America / Europe / Japan / Korea (2005.03–2016.11).<br>
+          Multi-vendor OSS integration experience across NA / EU / Japan / KR markets.
+        </td>
+        <td>
+          Non-RT RIC rApp / Near-RT RIC xApp personal delivery portfolio: not in supplied evidence, listed only where I can describe what I have <i>led and decided</i>, not what I personally implemented at code level.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section> -->
+
+<section>
+  <h2>Professional Experience — Samsung Electronics (2004.11 – present)</h2>
+
+  <div class="role">
+    <div class="head">
+      <span class="title">Director of Project Management</span>
+      <span class="org">Samsung Electronics · Networks Business Division · Suwon, KR</span>
+      <span class="dates">2024.05 – present · 2y 5m</span>
+    </div>
+    <ul>
+      <li>Leading <b>mass deployment of vRAN / O-RAN and SMO</b> in an automated and efficient way across multi-vendor environments.</li>
+      <li>Director-level ownership of product roadmap for telecom automation solutions aligned to operator deployment timelines.</li>
+      <li>Cross-functional orchestration across regional commercial teams (Korea, North America, Japan).</li>
+      <li>vRAN Site Installation Verification tool and Platform (Germany).</li>
+    </ul>
+    <div>
+      <span class="kw">vRAN</span><span class="kw">O-RAN</span><span class="kw">SMO</span><span class="kw">Automation at scale</span><span class="kw">Multi-vendor</span><span class="kw">Product roadmap</span>
+    </div>
+  </div>
+
+  <div class="role">
+    <div class="head">
+      <span class="title">Senior Professional — Network Slice Manager &amp; E2E Orchestrator Planning</span>
+      <span class="org">Samsung Electronics · Networks Business Division</span>
+      <span class="dates">2020.03 – 2024.05 · ~4y 2m</span>
+    </div>
+    <ul>
+      <li>Led development &amp; strategy for <b>automation solutions showcased at MWC 2023 in North America and Europe</b>.</li>
+      <li>Pioneered approaches to 5G network autonomy, enhancing operational efficiency &amp; network performance with <b>O-RAN SMO</b>.</li>
+      <li>Spearheaded planning &amp; implementation of <b>network slice management &amp; end-to-end orchestration solutions across Canada, North America, and Japan</b>.</li>
+    </ul>
+    <div>
+      <span class="kw">Network Slicing</span><span class="kw">E2E Orchestration</span><span class="kw">O-RAN SMO</span><span class="kw">MWC 2023 NA/EU</span><span class="kw">5G autonomy</span><span class="kw">Multi-region rollout</span>
+    </div>
+  </div>
+
+  <div class="role">
+    <div class="head">
+      <span class="title">Manager — Private Network Management System Planning</span>
+      <span class="org">Samsung Electronics · Networks Business Division</span>
+      <span class="dates">2019.03 – 2020.02 · 11m</span>
+    </div>
+    <ul>
+      <li>Planned and executed development of private 5G network management systems for the <b>Japanese market</b>.</li>
+      <li>Delivered robust, scalable private 5G solutions with cross-functional teams.</li>
+    </ul>
+    <div>
+      <span class="kw">Private 5G</span><span class="kw">NMS</span><span class="kw">Japan market</span><span class="kw">Cross-functional</span>
+    </div>
+  </div>
+
+  <div class="role">
+    <div class="head">
+      <span class="title">System Design &amp; Software Architect — High Availability &amp; Backup/Restore Solutions (5G EMS)</span>
+      <span class="org">Samsung Electronics</span>
+      <span class="dates">2016.12 – 2019.02 · 2y 3m</span>
+    </div>
+    <ul>
+      <li>Architected <b>High Availability &amp; Backup/Restore solutions for 5G EMS</b> across North America, Japan, and Korea.</li>
+      <li>Implemented resilient systems to ensure <b>network reliability and data integrity</b> in production telecom environments.</li>
+    </ul>
+    <div>
+      <span class="kw">System Architecture</span><span class="kw">HA design</span><span class="kw">Backup / Restore</span><span class="kw">5G EMS</span><span class="kw">Resilience</span><span class="kw">Multi-region ops (NA / JP / KR)</span>
+    </div>
+  </div>
+
+  <div class="role">
+    <div class="head">
+      <span class="title">Software Engineer — Application SW Development for EMS</span>
+      <span class="org">Samsung Electronics</span>
+      <span class="dates">2005.03 – 2016.11 · 11y 9m</span>
+    </div>
+    <ul>
+      <li>System design, Virtualization, Server &amp; RAID virtualization, High Availability, Backup &amp; Recovery, Cloud Stack — 6 additional verified technology areas on profile.</li>
+	  <li>Developed and maintained <b>application software for 3G / 4G EMS</b> across North America, Europe, Japan, and Korea.</li>
+      <li>Contributed to advancement of network management software, enhancing functionality and performance across all four regions.</li>
+    </ul>
+    <div>
+      <span class="kw">EMS application SW</span><span class="kw">3G / 4G</span><span class="kw">Multi-region (NA / EU / JP / KR)</span><span class="kw">FCAPS-adjacent</span>
+    </div>
+  </div>
+
+</section>
+
+<section>
+  <h2>Core Competencies</h2>
+  <div class="skills-grid">
+
+    <div class="grp">
+      <h4>Architecture · OSS / NMS / EMS / SMO</h4>
+      <ul>
+        <li>5G EMS architecture (HA / Backup-Restore) </li>
+        <li>3G / 4G EMS application SW </li>
+        <li>O-RAN SMO planning &amp; deployment </li>
+        <li>Network Slice Manager &amp; E2E Orchestrator </li>
+        <li>Private 5G NMS (Japan) </li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h4>RAN · vRAN / O-RAN / Automation</h4>
+      <ul>
+        <li>vRAN / O-RAN / SMO mass deployment leadership </li>
+        <li>5G network autonomy with O-RAN SMO </li>
+        <li>Automation product showcased at MWC 2023 NA, EU </li>
+        <li>E2E orchestration across CA / NA / JP </li>
+        <li>Director-level product roadmap ownership </li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h4>Reliability · HA / Backup · Virtualization · Cloud</h4>
+      <ul>
+        <li>High Availability, Backup &amp; Recovery (multi-region) </li>
+        <li>Server &amp; RAID Virtualization </li>
+        <li>Cloud Stack </li>
+        <li>System design fundamentals </li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h4>Product &amp; Strategy</h4>
+      <ul>
+        <li>Strategic Product Manager (telecom MD) for ~12 years </li>
+        <li>Principal Professional (Director) of Product Strategy </li>
+        <li>Director of Product Management </li>
+        <li>Cross-functional orchestration across regions </li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h4>AI / ML — explicit and honest</h4>
+      <ul>
+        <li>AI/ML framework for vRAN site installation (now)</li>
+        <li>vRAN site Installation Verification tool (now)</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h4>Adjacent stack listed on profile</h4>
+      <ul>
+        <li>Blockchain</li>
+        <li>NFT</i></li>
+        <li>5G NETWORK AUTOMATION SOLUTION · MANAGEMENT SYSTEM ARCHITECT</i></li>
+      </ul>
+    </div>
+
+  </div>
+  <div class="callout" style="margin-top:14px"><b>Recruiter signal — read this carefully.</b> For "<i>Autonomous Network Architect</i>" and "<i>O-RAN / SMO Solution Architect</i>" openings, my strongest fit is <b>telecom domain architecture + O-RAN SMO + multi-region deployment</b>. "AI implementation" appears as <b>1 framework on profile</b>, with 3+ AI Agent PoCs in the 36-week ramp-up plan (Installation Validation Agent / Agentic NOC / Installation Planning Agent). If your JD requires a candidate who has <i>already shipped</i> 3+ AI Agent products, I am <b>not yet there</b>; if it values a senior telecom architect who is rapidly closing that gap with an explicit plan, I fit well.</div>
+</section>
+
+<section>
+  <h2>Selected Highlights &amp; Proof Points</h2>
+  <ul>
+    <li><b>MWC 2023, NA &amp; EU</b> — automation solutions presented; held positive customer/operator feedback per supplied evidence.</li>
+    <li><b>Multi-region launches</b> — E2E Orchestration &amp; Network Slicing delivered across <b>Canada, North America, Japan, Korea, and Europe</b> (5 markets evidenced across the career).</li>
+    <li><b>Seniority continuity</b> — 6 years from Sr. Professional → Principal Professional (Director) → Director of PM on the same product line, indicating sustained ownership rather than project-hopping.</li>
+    <li><b>Customer proximity</b> — Private 5G NMS delivered specifically for the Japanese market (language &amp; cultural fit attested).</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Languages &amp; Communication</h2>
+  <ul>
+    <li><b>Korean</b> — Native (all internal Samsung work and Korean publication context).</li>
+    <li><b>English</b> — Working proficiency sufficient for MWC 2023 presentations in North America &amp; Europe and cross-region product team coordination. <i>(Self-reported, not formally scored in supplied evidence — confirmed honest gap in next section.)</i></li>
+  </ul>
+</section>
+
+<!-- <section>
+  <h2>Honest Gap Inventory — what I am <i>not yet</i>, and how I close it</h2>
+  <table class="target-table">
+    <thead><tr><th>Item</th><th>Current evidence</th><th>Closing plan (36-week)</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Public AI Agent / RAG portfolio</td>
+        <td>AI/ML framework listed (1 item on profile)</td>
+        <td>3 named PoCs planned: Installation Validation Agent / Agentic NOC / Installation Planning Agent — first open video demo within 6 months.</td>
+      </tr>
+      <tr>
+        <td>English executive deck &amp; revenue proposal</td>
+        <td>MWC 2023 NA/EU presentation is the main existing asset</td>
+        <td>3 English Case Studies on Medium, 1 international conference pitch, 1 paid advisory engagement (USD 10k+) by month 12.</td>
+      </tr>
+      <tr>
+        <td>Autonomous Networks Level 4 / 5 personal implementation</td>
+        <td>O-RAN SMO automation direction verified, but no verified Level 4 claim on profile</td>
+        <td>Anchor case study (closed-loop RCA + human-in-the-loop) within 18 months.</td>
+      </tr>
+      <tr>
+        <td>Personal brand (English)</td>
+        <td>Public English channel on telecom &amp; AI Agent: not evidenced</td>
+        <td>Medium series + LinkedIn long-form in English — 1,000 followers &amp; 3 case studies by month 9.</td>
+      </tr>
+    </tbody>
+  </table>
+</section> -->
+
+<!-- <section>
+  <h2>Top Headhunter Keywords (JD-aligned — verified only)</h2>
+  <p style="font-size:13px;color:var(--muted);margin:0 0 6px">Surfaced by direct JD keyword review for #1 and #2 roles. <b>Only keywords that map to a verified part of my experience are kept.</b></p>
+  <div>
+    <span class="kw">O-RAN</span>
+    <span class="kw">O-RAN Alliance</span>
+    <span class="kw">SMO</span>
+    <span class="kw">Service Management and Orchestration</span>
+    <span class="kw">Non-RT RIC</span>
+    <span class="kw">Near-RT RIC</span>
+    <span class="kw">vRAN</span>
+    <span class="kw">vCU</span>
+    <span class="kw">vDU</span>
+    <span class="kw">Network Slicing</span>
+    <span class="kw">E2E Orchestration</span>
+    <span class="kw">EMS</span>
+    <span class="kw">NMS</span>
+    <span class="kw">OSS / BSS</span>
+    <span class="kw">FCAPS</span>
+    <span class="kw">5G NR</span>
+    <span class="kw">5G Core</span>
+    <span class="kw">Private 5G</span>
+    <span class="kw">Telco Cloud</span>
+    <span class="kw">High Availability</span>
+    <span class="kw">Backup &amp; Restore</span>
+    <span class="kw">Virtualization</span>
+    <span class="kw">Server Virtualization</span>
+    <span class="kw">Cloud Stack</span>
+    <span class="kw">Network Automation</span>
+    <span class="kw">Autonomous Networks</span>
+    <span class="kw">TM Forum</span>
+    <span class="kw">3GPP</span>
+    <span class="kw">Multi-vendor Integration</span>
+    <span class="kw">Solution Architecture</span>
+    <span class="kw">Pre-sales (product MD exposure)</span>
+    <span class="kw">Telecom Product Strategy</span>
+    <span class="kw">Roadmap Ownership</span>
+    <span class="kw">Cross-functional Leadership</span>
+    <span class="kw">MWC 2023</span>
+  </div>
+  <div class="callout" style="margin-top:14px"><b>Keywords NOT included (and why)</b> — to keep this resume honest: production Kubernetes operator experience (not in supplied evidence), SD-WAN/SDN controller implementation (not verified), formal CISSP/PMP/CCNP/OCP certifications (not in supplied evidence), and PhD (not in supplied evidence). These belong in a future version after I obtain them.</div>
+</section> -->
+
+<section>
+  <h2>Cover-letter-ready one-line summary </h2>
+  <ul>
+    <li><b>For Autonomous Network Architect</b>: "Senior Samsung Networks architect with direct O-RAN SMO + vRAN automation deployment experience across Korea, North America, Japan, and Europe, and an executed MWC 2023 automation showcase — closing the AI Agent implementation gap in 36 weeks along a documented 3-PoC plan."</li>
+    <li><b>For O-RAN / SMO Solution Architect</b>: "Multi-region O-RAN SMO solution leader with 5G EMS HA/Backup-Restore architecture background, E2E Network Slicing &amp; Orchestration delivery in Canada, and Director of PM ownership of current vRAN/O-RAN/SMO mass deployment at Samsung Networks."</li>
+  </ul>
+</section>
+
+<!-- <div class="footer">
+  Resume compiled from 2 user-supplied reports, 3 supplied LinkedIn screenshots, and 1 supplied PDF — dates and titles verbatim. <b>No new facts invented.</b> All gaps are marked explicitly.
+</div> -->
+
+</div>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>

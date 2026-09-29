@@ -2,39 +2,322 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Compute Portal — Contribution Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f4f6f8;--card:#fff;--text:#20252b;--muted:#68727d;--line:#e1e5e9;--accent:#3157d5;--soft:#eef2ff;--dark:#20252b}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.7}
-main{max-width:1080px;margin:auto;padding:28px 18px 70px}
-.hero{background:linear-gradient(135deg,#20252b,#3e4b59);color:white;border-radius:22px;padding:48px 42px;margin-bottom:18px}
-.hero .tag{display:inline-block;border:1px solid #ffffff35;background:#ffffff12;border-radius:999px;padding:4px 12px;font-size:13px;margin-bottom:16px}
-.hero h1{font-size:39px;line-height:1.2;margin:0 0 14px}
-.hero p{margin:5px 0;color:#dce2e7}
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px;margin:16px 0;box-shadow:0 4px 18px rgba(20,30,40,.04)}
-h2{font-size:25px;margin:0 0 17px}
-h3{font-size:18px;margin:22px 0 9px}
-p{margin:8px 0}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.box{background:#f8f9fb;border:1px solid var(--line);border-radius:13px;padding:17px}
-.box b{display:block;margin-bottom:5px}
-.highlight{background:var(--soft);border-left:4px solid var(--accent);border-radius:9px;padding:17px 19px;margin:15px 0}
-.big{font-size:22px;font-weight:700;line-height:1.45}
-.flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:18px 0}
-.step{background:#f8f9fb;border:1px solid var(--line);border-radius:10px;padding:10px 13px;font-weight:600}
-.arrow{color:var(--accent);font-weight:700}
-table{width:100%;border-collapse:collapse;font-size:14px;margin-top:10px}
-th,td{padding:11px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-th{background:#f7f8fa}
-.phase{border-left:4px solid var(--accent);padding:4px 0 4px 17px;margin:20px 0}
-.phase .title{font-size:19px;font-weight:700}
-ul,ol{padding-left:22px}
-li{margin:6px 0}
-.quote{font-size:20px;font-weight:600;background:#fafbfc;border:1px solid var(--line);padding:20px;border-radius:13px}
-.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:28px}
-@media(max-width:700px){.hero{padding:32px 24px}.hero h1{font-size:29px}.grid{grid-template-columns:1fr}.card{padding:22px 18px}.flow{display:block}.step{display:inline-block;margin:3px}}
+:root {
+  --bg-main: #0B0F17;
+  --bg-card: rgba(23, 31, 47, 0.6);
+  --bg-card-hover: rgba(30, 41, 61, 0.8);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-highlight: rgba(99, 102, 241, 0.3);
+  
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  
+  --accent-primary: #6366F1;
+  --accent-glow: rgba(99, 102, 241, 0.25);
+  --accent-gradient: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%);
+  --card-gradient: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%);
+  
+  --radius-lg: 20px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 0% 40%, rgba(139, 92, 246, 0.08) 0%, transparent 40%);
+  background-attachment: fixed;
+}
+
+main {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 60px 24px 100px;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.8) 100%);
+  border: 1px solid var(--border-highlight);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  border-radius: var(--radius-lg);
+  padding: 56px 48px;
+  margin-bottom: 32px;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 400px;
+  height: 400px;
+  background: var(--accent-gradient);
+  filter: blur(120px);
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.hero .tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  color: #A5B4FC;
+  border-radius: 99px;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1.25;
+  margin: 0 0 16px;
+  letter-spacing: -0.02em;
+  background: linear-gradient(180deg, #FFFFFF 0%, #CBD5E1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  margin: 6px 0;
+  color: var(--text-secondary);
+  font-size: 16px;
+}
+
+.hero p.date {
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 12px;
+}
+
+/* Cards & Layout */
+.card {
+  background: var(--bg-card);
+  background-image: var(--card-gradient);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  margin-bottom: 28px;
+  backdrop-filter: blur(10px);
+  transition: border-color 0.3s ease, transform 0.2s ease;
+}
+
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 20px;
+  letter-spacing: -0.01em;
+  color: #F1F5F9;
+  display: flex;
+  align-items: center;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #E2E8F0;
+  margin: 24px 0 12px;
+}
+
+p { margin: 8px 0; color: var(--text-secondary); }
+
+/* Grid Layouts (Bento) */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.box {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  transition: all 0.25s ease;
+}
+
+.box:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-highlight);
+  transform: translateY(-2px);
+}
+
+.box b {
+  display: block;
+  font-size: 15px;
+  color: #F8FAFC;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.highlight {
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin: 20px 0;
+  position: relative;
+}
+
+.big {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+}
+
+/* Workflow Steps */
+.flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 24px 0;
+  padding: 16px;
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+}
+
+.step {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #E2E8F0;
+}
+
+.arrow {
+  color: var(--accent-primary);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 14px;
+  margin-top: 16px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+th, td {
+  padding: 14px 18px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+th {
+  background: rgba(255, 255, 255, 0.04);
+  color: #94A3B8;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border-color);
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+
+td {
+  background: rgba(15, 23, 42, 0.2);
+  border-bottom: 1px solid var(--border-color);
+  color: #CBD5E1;
+}
+
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+/* Phases / Timeline */
+.phase {
+  position: relative;
+  border-left: 2px solid var(--accent-primary);
+  padding: 4px 0 4px 20px;
+  margin: 24px 0;
+}
+
+.phase .title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #F8FAFC;
+  margin-bottom: 6px;
+}
+
+/* Lists */
+ul, ol {
+  padding-left: 20px;
+  color: var(--text-secondary);
+}
+
+li {
+  margin: 8px 0;
+}
+
+/* Quote Box */
+.quote {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.6;
+  color: #F1F5F9;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--border-color);
+  padding: 24px 28px;
+  border-radius: var(--radius-md);
+  position: relative;
+}
+
+.footer {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-color);
+}
+
+@media(max-width: 768px) {
+  main { padding: 32px 16px; }
+  .hero { padding: 36px 24px; }
+  .hero h1 { font-size: 30px; }
+  .grid { grid-template-columns: 1fr; }
+  .card { padding: 24px 20px; }
+  .flow { flex-direction: column; align-items: flex-start; }
+  .arrow { transform: rotate(90deg); margin: 2px 0; }
+}
 </style>
 </head>
 <body>
@@ -44,7 +327,7 @@ li{margin:6px 0}
 <div class="tag">Compute Portal · Advisor Contribution Proposal</div>
 <h1>How I Understand Compute Portal,<br>and What I Will Do</h1>
 <p>Personal proposal to discuss future collaboration directions with Yoonil</p>
-<p>2026.09</p>
+<p class="date">2026.09</p>
 </section>
 
 <section class="card">
@@ -71,7 +354,7 @@ li{margin:6px 0}
 <div class="quote">
 “The core competitiveness of Compute Portal does not seem to lie merely in 'offering cheaper compute than AWS'.”
 </div>
-<p>Price competition can be replicated by other providers. Over the long term, I believe what matters most is how seamlessly we can build the <strong>entire experience—allowing Agents to discover, select, deploy, monitor, and manage costs of compute infrastructure</strong>.</p>
+<p style="margin-top:16px;">Price competition can be replicated by other providers. Over the long term, I believe what matters most is how seamlessly we can build the <strong>entire experience—allowing Agents to discover, select, deploy, monitor, and manage costs of compute infrastructure</strong>.</p>
 
 <div class="flow">
 <span class="step">AI Agent</span><span class="arrow">→</span>
@@ -87,15 +370,19 @@ li{margin:6px 0}
 <section class="card">
 <h2>4. Alignment with My Experience</h2>
 <table>
+<thead>
 <tr><th>My Experience</th><th>Relevance to Compute Portal</th></tr>
+</thead>
+<tbody>
 <tr><td>Telecom & Infrastructure Systems</td><td>Perspective to understand complex infrastructure and analyze interrelationships between components</td></tr>
 <tr><td>System Architecture</td><td>Experience in designing multiple systems and features into a unified End-to-End flow</td></tr>
 <tr><td>Product Strategy</td><td>Translating technical capabilities into actual products and use cases used by customers</td></tr>
 <tr><td>Automation</td><td>Structuring repetitive manual procedures into automated system workflows</td></tr>
 <tr><td>AI Agent</td><td>Applying LLM, RAG, MCP, and Agent Workflows into real-world business scenarios</td></tr>
 <tr><td>Field / Operations</td><td>Perspective that real-world operations require prioritizing exception handling and UX over sunny-day scenarios</td></tr>
+</tbody>
 </table>
-<div class="highlight"><b>Therefore, I believe my contribution lies not in "writing code directly," but in bridging technology, product, user experience, and operations.</b></div>
+<div class="highlight" style="margin-top:20px;"><b>Therefore, I believe my contribution lies not in "writing code directly," but in bridging technology, product, user experience, and operations.</b></div>
 </section>
 
 <section class="card">
@@ -124,13 +411,16 @@ li{margin:6px 0}
 <li>Review Costs and Billing</li>
 <li>Terminate session and clean up Resources</li>
 </ol>
-<p>By executing this process myself, I want to document <strong>"where users get stuck" rather than focusing solely on "what works well."</strong></p>
+<p style="margin-top:16px;">By executing this process myself, I want to document <strong>"where users get stuck" rather than focusing solely on "what works well."</strong></p>
 </section>
 
 <section class="card">
 <h2>7. First Deliverable — Compute Portal User Journey Report</h2>
 <table>
+<thead>
 <tr><th>Area</th><th>Key Checkpoints</th></tr>
+</thead>
+<tbody>
 <tr><td>Onboarding</td><td>What should a first-time user do first?</td></tr>
 <tr><td>Agent / MCP</td><td>How should requests be structured for the Agent?</td></tr>
 <tr><td>Compute Selection</td><td>What criteria are used to select resources?</td></tr>
@@ -138,20 +428,21 @@ li{margin:6px 0}
 <tr><td>Failure</td><td>Can users clearly understand the root cause when an error occurs?</td></tr>
 <tr><td>Cost</td><td>Are usage metrics and billing easily understandable?</td></tr>
 <tr><td>Trust</td><td>Does the system build enough trust to grant infrastructure permissions to an Agent?</td></tr>
+</tbody>
 </table>
-<p>The output will be structured as <strong>10 Identified Pain Points + 10 Actionable Improvement Ideas</strong>.</p>
+<p style="margin-top:16px;">The output will be structured as <strong>10 Identified Pain Points + 10 Actionable Improvement Ideas</strong>.</p>
 </section>
 
 <section class="card">
 <h2>8. Second Task — Narrowing Down the Target Customer</h2>
 <p>At this stage, rather than targeting all enterprise customers, it is crucial to identify users who are most likely to adopt the platform quickly.</p>
-<div class="grid">
-<div class="box"><b>Individual Developers</b><br>Developers who have exhausted AWS/Azure credits or are seeking alternatives due to high GPU costs</div>
-<div class="box"><b>AI Startups</b><br>Teams that need to secure GPU/Compute rapidly without committing to large cloud contracts or complex infra ops</div>
-<div class="box"><b>Agent Developers</b><br>Developers whose AI Agents need to autonomously provision and manage actual compute resources</div>
-<div class="box"><b>Small AI Teams</b><br>Small teams looking to quickly set up model training or inference environments</div>
+<div class="grid" style="margin-top:16px;">
+<div class="box"><b>Individual Developers</b><br><span style="font-size:13px; color:var(--text-secondary);">Developers who have exhausted AWS/Azure credits or are seeking alternatives due to high GPU costs</span></div>
+<div class="box"><b>AI Startups</b><br><span style="font-size:13px; color:var(--text-secondary);">Teams that need to secure GPU/Compute rapidly without committing to large cloud contracts or complex infra ops</span></div>
+<div class="box"><b>Agent Developers</b><br><span style="font-size:13px; color:var(--text-secondary);">Developers whose AI Agents need to autonomously provision and manage actual compute resources</span></div>
+<div class="box"><b>Small AI Teams</b><br><span style="font-size:13px; color:var(--text-secondary);">Small teams looking to quickly set up model training or inference environments</span></div>
 </div>
-<div class="highlight"><b>Key Question:</b> Validate with real usage data: “Who needs Compute Portal the most right now?”</div>
+<div class="highlight" style="margin-top:20px;"><b>Key Question:</b> Validate with real usage data: “Who needs Compute Portal the most right now?”</div>
 </section>
 
 <section class="card">
@@ -168,7 +459,7 @@ li{margin:6px 0}
 </div>
 <h3>Example Prompt</h3>
 <div class="quote">“I need a server for a small web service. Find a suitable low-cost resource, deploy it, run Nginx, and tell me the estimated cost.”</div>
-<p>If an Agent can process this request autonomously, we can clearly convey the message: <strong>“Compute Portal = Infrastructure Layer for Agents.”</strong></p>
+<p style="margin-top:16px;">If an Agent can process this request autonomously, we can clearly convey the message: <strong>“Compute Portal = Infrastructure Layer for Agents.”</strong></p>
 </section>
 
 <section class="card">
@@ -196,13 +487,17 @@ li{margin:6px 0}
 <section class="card">
 <h2>11. Future Expansion Pathways</h2>
 <table>
+<thead>
 <tr><th>Stage</th><th>Potential Role</th></tr>
+</thead>
+<tbody>
 <tr><td>Current</td><td>Advisor — Advising on Product, AI Agent, and Use Case perspectives</td></tr>
 <tr><td>Post-Validation</td><td>Product Advisor / AI Infrastructure Strategy Lead</td></tr>
 <tr><td>Deeper Engagement</td><td>AI Agent / MCP Product Ownership</td></tr>
 <tr><td>Long-Term</td><td>Core leadership role in Infrastructure Product & Business Strategy</td></tr>
+</tbody>
 </table>
-<p>I prefer an approach where we <strong>deliver tangible results first, and then expand the role iteratively</strong>, rather than defining a broad title upfront.</p>
+<p style="margin-top:16px;">I prefer an approach where we <strong>deliver tangible results first, and then expand the role iteratively</strong>, rather than defining a broad title upfront.</p>
 </section>
 
 <section class="card">

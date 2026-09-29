@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -7,7 +7,7 @@
 <style>
 :root{--bg:#f4f6f8;--card:#fff;--text:#20252b;--muted:#68727d;--line:#e1e5e9;--accent:#3157d5;--soft:#eef2ff;--dark:#20252b}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Arial,sans-serif;line-height:1.7}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.7}
 main{max-width:1080px;margin:auto;padding:28px 18px 70px}
 .hero{background:linear-gradient(135deg,#20252b,#3e4b59);color:white;border-radius:22px;padding:48px 42px;margin-bottom:18px}
 .hero .tag{display:inline-block;border:1px solid #ffffff35;background:#ffffff12;border-radius:999px;padding:4px 12px;font-size:13px;margin-bottom:16px}
@@ -42,42 +42,42 @@ li{margin:6px 0}
 
 <section class="hero">
 <div class="tag">Compute Portal · Advisor Contribution Proposal</div>
-<h1>Compute Portal을 어떻게 이해하고,<br>나는 무엇을 할 것인가?</h1>
-<p>윤일님과 향후 협력 방향을 논의하기 위한 개인 제안서</p>
+<h1>How I Understand Compute Portal,<br>and What I Will Do</h1>
+<p>Personal proposal to discuss future collaboration directions with Yoonil</p>
 <p>2026.09</p>
 </section>
 
 <section class="card">
-<h2>1. 내가 이해한 Compute Portal의 의미</h2>
+<h2>1. My Understanding of Compute Portal</h2>
 <div class="highlight">
-<div class="big">“Compute를 직접 구매하고 관리하는 방식에서,<br>AI Agent가 필요한 Compute를 스스로 찾아서 사용하게 만드는 플랫폼”</div>
+<div class="big">“Shifting from directly purchasing and managing compute,<br>to a platform where AI Agents autonomously find and use the compute they need.”</div>
 </div>
-<p>현재의 Cloud 시장은 사용자가 AWS, Azure, GCP 등의 환경을 직접 선택하고, 리소스를 생성하고, 설정하고, 비용을 관리해야 한다.</p>
-<p>Compute Portal이 지향하는 방향은 여러 Compute 공급자를 하나의 플랫폼으로 연결하고, 향후에는 <strong>AI Agent가 가격·성능·지역·보안 등의 조건을 보고 적절한 Compute를 선택하고 실행하도록 만드는 것</strong>이라고 이해했다.</p>
+<p>In today's cloud market, users must manually select environments like AWS, Azure, or GCP, provision resources, configure settings, and manage costs.</p>
+<p>I understand the vision of Compute Portal as connecting multiple compute providers into a single platform, and ultimately <strong>enabling AI Agents to autonomously evaluate pricing, performance, region, and security to select and execute the right compute resources</strong>.</p>
 </section>
 
 <section class="card">
-<h2>2. 왜 이 방향이 중요한가?</h2>
+<h2>2. Why Is This Direction Important?</h2>
 <div class="grid">
-<div class="box"><b>① Compute의 복잡성 증가</b>CPU, GPU, LPU, Memory, Storage 등 다양한 리소스와 Provider가 등장하면서 사용자가 직접 비교·선택하기가 어려워진다.</div>
-<div class="box"><b>② AI Agent의 등장</b>AI Agent가 단순히 정보를 답하는 수준을 넘어 실제 서버와 서비스를 생성하고 실행하는 방향으로 발전하고 있다.</div>
-<div class="box"><b>③ Agent Economy</b>향후 Agent가 가격, 속도, 성능, 보안 등을 판단해 필요한 인프라를 선택하고 비용을 지불하는 구조가 가능하다.</div>
-<div class="box"><b>④ Compute Portal의 기회</b>단순 Compute Marketplace보다 한 단계 위인 <strong>Agent가 Infrastructure를 사용하는 Control Plane</strong>으로 발전할 가능성이 있다.</div>
+<div class="box"><b>① Increasing Complexity of Compute</b>With diverse providers and resources emerging—such as CPUs, GPUs, LPUs, Memory, and Storage—it becomes increasingly difficult for human users to compare and choose manually.</div>
+<div class="box"><b>② The Emergence of AI Agents</b>AI Agents are evolving beyond merely answering questions to provisioning and executing actual servers and services.</div>
+<div class="box"><b>③ Agent Economy</b>A structure is taking shape where Agents independently evaluate price, speed, performance, and security to select the necessary infrastructure and make payments.</div>
+<div class="box"><b>④ Compute Portal's Opportunity</b>It has the potential to evolve into a <strong>Control Plane where Agents utilize Infrastructure</strong>, stepping beyond a simple Compute Marketplace.</div>
 </div>
 </section>
 
 <section class="card">
-<h2>3. 내가 특히 의미 있다고 보는 부분</h2>
+<h2>3. What I Find Particularly Meaningful</h2>
 <div class="quote">
-“Compute Portal의 핵심 경쟁력이 단순히 ‘AWS보다 저렴한 Compute를 제공하는 것’에만 있지는 않을 것 같다.”
+“The core competitiveness of Compute Portal does not seem to lie merely in 'offering cheaper compute than AWS'.”
 </div>
-<p>가격 경쟁은 다른 Provider가 따라올 수 있다. 반면 장기적으로는 <strong>Agent가 Compute Infrastructure를 발견하고, 선택하고, 배포하고, 모니터링하고, 비용까지 관리하는 전체 경험</strong>을 얼마나 자연스럽게 만들 수 있는지가 중요하다고 생각한다.</p>
+<p>Price competition can be replicated by other providers. Over the long term, I believe what matters most is how seamlessly we can build the <strong>entire experience—allowing Agents to discover, select, deploy, monitor, and manage costs of compute infrastructure</strong>.</p>
 
 <div class="flow">
 <span class="step">AI Agent</span><span class="arrow">→</span>
-<span class="step">Compute 요구사항 이해</span><span class="arrow">→</span>
-<span class="step">Provider 탐색</span><span class="arrow">→</span>
-<span class="step">최적 자원 선택</span><span class="arrow">→</span>
+<span class="step">Understand Compute Requirements</span><span class="arrow">→</span>
+<span class="step">Search Providers</span><span class="arrow">→</span>
+<span class="step">Select Optimal Resources</span><span class="arrow">→</span>
 <span class="step">Deployment</span><span class="arrow">→</span>
 <span class="step">Monitoring</span><span class="arrow">→</span>
 <span class="step">Cost / Billing</span>
@@ -85,151 +85,151 @@ li{margin:6px 0}
 </section>
 
 <section class="card">
-<h2>4. 내가 가진 경험과 연결되는 지점</h2>
+<h2>4. Alignment with My Experience</h2>
 <table>
-<tr><th>내 경험</th><th>Compute Portal에서의 연결</th></tr>
-<tr><td>통신·인프라 시스템</td><td>복잡한 Infrastructure를 이해하고 구성 요소 간 관계를 보는 관점</td></tr>
-<tr><td>System Architecture</td><td>여러 시스템과 기능을 하나의 End-to-End 흐름으로 설계하는 경험</td></tr>
-<tr><td>Product Strategy</td><td>기술을 고객이 실제 사용하는 Product와 Use Case로 전환</td></tr>
-<tr><td>Automation</td><td>사람이 반복하던 절차를 시스템이 수행하도록 구조화</td></tr>
-<tr><td>AI Agent</td><td>LLM, RAG, MCP, Agent Workflow를 실제 업무에 적용</td></tr>
-<tr><td>Field / Operation</td><td>실제 운영에서는 정상 시나리오보다 예외 처리와 사용자 경험이 중요하다는 관점</td></tr>
+<tr><th>My Experience</th><th>Relevance to Compute Portal</th></tr>
+<tr><td>Telecom & Infrastructure Systems</td><td>Perspective to understand complex infrastructure and analyze interrelationships between components</td></tr>
+<tr><td>System Architecture</td><td>Experience in designing multiple systems and features into a unified End-to-End flow</td></tr>
+<tr><td>Product Strategy</td><td>Translating technical capabilities into actual products and use cases used by customers</td></tr>
+<tr><td>Automation</td><td>Structuring repetitive manual procedures into automated system workflows</td></tr>
+<tr><td>AI Agent</td><td>Applying LLM, RAG, MCP, and Agent Workflows into real-world business scenarios</td></tr>
+<tr><td>Field / Operations</td><td>Perspective that real-world operations require prioritizing exception handling and UX over sunny-day scenarios</td></tr>
 </table>
-<div class="highlight"><b>따라서 내가 기여할 수 있는 영역은 “코드를 대신 작성하는 것”보다, 기술·제품·사용자·운영을 연결하는 부분이라고 생각한다.</b></div>
+<div class="highlight"><b>Therefore, I believe my contribution lies not in "writing code directly," but in bridging technology, product, user experience, and operations.</b></div>
 </section>
 
 <section class="card">
-<h2>5. 내가 생각하는 나의 역할</h2>
+<h2>5. How I See My Role</h2>
 <div class="grid">
-<div class="box"><b>Product Strategy</b>누가 왜 Compute Portal을 사용하는지, 어떤 문제를 먼저 해결해야 하는지 정의</div>
-<div class="box"><b>AI Agent Strategy</b>Agent가 Compute Portal을 어떻게 사용해야 하는지 End-to-End 시나리오 설계</div>
-<div class="box"><b>Use Case Design</b>개발자·AI Startup·Agent Builder 등이 실제로 돈을 지불할 만한 Use Case 발굴</div>
-<div class="box"><b>UX / Workflow Review</b>실제 사용자가 처음 접했을 때 막히는 부분을 찾아 Product 개선안으로 전환</div>
+<div class="box"><b>Product Strategy</b>Define who uses Compute Portal, why they use it, and which problems must be solved first</div>
+<div class="box"><b>AI Agent Strategy</b>Design End-to-End scenarios on how AI Agents should interact with and use Compute Portal</div>
+<div class="box"><b>Use Case Design</b>Identify high-value use cases that developers, AI startups, and agent builders are willing to pay for</div>
+<div class="box"><b>UX / Workflow Review</b>Pinpoint user drop-off points during initial onboarding and convert them into product enhancements</div>
 </div>
 </section>
 
 <section class="card">
-<h2>6. 첫 번째로 직접 해보고 싶은 것</h2>
+<h2>6. What I Want to Do First</h2>
 <div class="highlight">
-<div class="big">“내가 고객이라고 생각하고 Compute Portal을 처음부터 끝까지 사용해 본다.”</div>
+<div class="big">“Experience Compute Portal from end-to-end, acting directly as a customer.”</div>
 </div>
 <ol>
-<li>Compute Portal Account 생성</li>
-<li>Claude + MCP 연결</li>
-<li>Agent에게 Compute Resource 탐색 요청</li>
-<li>CPU / GPU 등 Resource 선택</li>
-<li>Server 생성</li>
-<li>Nginx 또는 간단한 Workload 배포</li>
-<li>상태 확인 및 Monitoring</li>
-<li>비용 확인</li>
-<li>사용 종료 및 Resource 정리</li>
+<li>Create a Compute Portal Account</li>
+<li>Connect Claude + MCP</li>
+<li>Request the Agent to search for Compute Resources</li>
+<li>Select resources (CPU / GPU, etc.)</li>
+<li>Provision a Server</li>
+<li>Deploy Nginx or a simple Workload</li>
+<li>Verify status and check Monitoring</li>
+<li>Review Costs and Billing</li>
+<li>Terminate session and clean up Resources</li>
 </ol>
-<p>이 과정을 직접 수행하면서 <strong>“무엇이 잘 되는가”보다 “어디에서 사용자가 멈추는가”</strong>를 기록하고 싶다.</p>
+<p>By executing this process myself, I want to document <strong>"where users get stuck" rather than focusing solely on "what works well."</strong></p>
 </section>
 
 <section class="card">
-<h2>7. 첫 번째 산출물 — Compute Portal User Journey Report</h2>
+<h2>7. First Deliverable — Compute Portal User Journey Report</h2>
 <table>
-<tr><th>영역</th><th>확인할 내용</th></tr>
-<tr><td>Onboarding</td><td>처음 온 사용자가 무엇부터 해야 하는가?</td></tr>
-<tr><td>Agent / MCP</td><td>Agent에게 어떤 식으로 요청해야 하는가?</td></tr>
-<tr><td>Compute Selection</td><td>어떤 기준으로 Resource를 선택하는가?</td></tr>
-<tr><td>Deployment</td><td>실제 Workload 실행까지 얼마나 자연스러운가?</td></tr>
-<tr><td>Failure</td><td>실패했을 때 사용자가 원인을 이해할 수 있는가?</td></tr>
-<tr><td>Cost</td><td>사용량과 비용을 쉽게 이해할 수 있는가?</td></tr>
-<tr><td>Trust</td><td>Agent에게 Infrastructure 권한을 줘도 된다는 신뢰를 줄 수 있는가?</td></tr>
+<tr><th>Area</th><th>Key Checkpoints</th></tr>
+<tr><td>Onboarding</td><td>What should a first-time user do first?</td></tr>
+<tr><td>Agent / MCP</td><td>How should requests be structured for the Agent?</td></tr>
+<tr><td>Compute Selection</td><td>What criteria are used to select resources?</td></tr>
+<tr><td>Deployment</td><td>How seamless is the path to running an actual workload?</td></tr>
+<tr><td>Failure</td><td>Can users clearly understand the root cause when an error occurs?</td></tr>
+<tr><td>Cost</td><td>Are usage metrics and billing easily understandable?</td></tr>
+<tr><td>Trust</td><td>Does the system build enough trust to grant infrastructure permissions to an Agent?</td></tr>
 </table>
-<p>결과는 <strong>10개의 문제 + 10개의 개선 아이디어</strong> 형태로 정리할 수 있다.</p>
+<p>The output will be structured as <strong>10 Identified Pain Points + 10 Actionable Improvement Ideas</strong>.</p>
 </section>
 
 <section class="card">
-<h2>8. 두 번째 과제 — Target Customer를 좁히기</h2>
-<p>현재 단계에서 모든 기업을 대상으로 하기보다, 실제로 빠르게 사용할 가능성이 높은 사용자를 찾는 것이 중요하다고 생각한다.</p>
+<h2>8. Second Task — Narrowing Down the Target Customer</h2>
+<p>At this stage, rather than targeting all enterprise customers, it is crucial to identify users who are most likely to adopt the platform quickly.</p>
 <div class="grid">
-<div class="box"><b>Individual Developer</b><br>AWS/Azure Credit을 모두 사용했거나 GPU 비용 때문에 대안을 찾는 개발자</div>
-<div class="box"><b>AI Startup</b><br>빠르게 GPU/Compute를 확보해야 하지만 대형 Cloud 계약이나 복잡한 인프라 운영을 원하지 않는 팀</div>
-<div class="box"><b>Agent Developer</b><br>AI Agent가 실제 Compute를 자동으로 생성·관리해야 하는 개발자</div>
-<div class="box"><b>Small AI Team</b><br>모델 학습·Inference 환경을 빠르게 만들고 싶은 소규모 팀</div>
+<div class="box"><b>Individual Developers</b><br>Developers who have exhausted AWS/Azure credits or are seeking alternatives due to high GPU costs</div>
+<div class="box"><b>AI Startups</b><br>Teams that need to secure GPU/Compute rapidly without committing to large cloud contracts or complex infra ops</div>
+<div class="box"><b>Agent Developers</b><br>Developers whose AI Agents need to autonomously provision and manage actual compute resources</div>
+<div class="box"><b>Small AI Teams</b><br>Small teams looking to quickly set up model training or inference environments</div>
 </div>
-<div class="highlight"><b>질문:</b> “누가 Compute Portal을 가장 먼저 필요로 하는가?”를 실제 사용 데이터로 확인한다.</div>
+<div class="highlight"><b>Key Question:</b> Validate with real usage data: “Who needs Compute Portal the most right now?”</div>
 </section>
 
 <section class="card">
-<h2>9. 세 번째 과제 — Agent → Compute Portal Demo</h2>
-<p>Compute Portal의 비전을 가장 직관적으로 보여주는 방법은 설명보다 실제 Agent가 Infrastructure를 사용하는 모습을 보여주는 것이라고 생각한다.</p>
+<h2>9. Third Task — Agent → Compute Portal Demo</h2>
+<p>I believe the most intuitive way to showcase Compute Portal's vision is demonstrating an actual Agent utilizing the infrastructure, rather than relying solely on explanations.</p>
 <div class="flow">
 <span class="step">User</span><span class="arrow">→</span>
 <span class="step">AI Agent</span><span class="arrow">→</span>
 <span class="step">Compute Portal</span><span class="arrow">→</span>
-<span class="step">Provider 선택</span><span class="arrow">→</span>
-<span class="step">Server 생성</span><span class="arrow">→</span>
-<span class="step">Workload 실행</span><span class="arrow">→</span>
-<span class="step">결과 반환</span>
+<span class="step">Select Provider</span><span class="arrow">→</span>
+<span class="step">Provision Server</span><span class="arrow">→</span>
+<span class="step">Execute Workload</span><span class="arrow">→</span>
+<span class="step">Return Results</span>
 </div>
-<h3>예시</h3>
+<h3>Example Prompt</h3>
 <div class="quote">“I need a server for a small web service. Find a suitable low-cost resource, deploy it, run Nginx, and tell me the estimated cost.”</div>
-<p>이런 요청을 Agent가 스스로 처리할 수 있다면 <strong>“Compute Portal = Agent의 Infrastructure Layer”</strong>라는 메시지를 쉽게 전달할 수 있다.</p>
+<p>If an Agent can process this request autonomously, we can clearly convey the message: <strong>“Compute Portal = Infrastructure Layer for Agents.”</strong></p>
 </section>
 
 <section class="card">
-<h2>10. 내가 생각하는 3개월 협력 계획</h2>
+<h2>10. Proposed 3-Month Collaboration Roadmap</h2>
 
 <div class="phase">
 <div class="title">Phase 1 — Product Immersion</div>
-<p>실제 제품을 사용하고 User Journey를 분석한다.</p>
-<ul><li>Compute Portal 직접 사용</li><li>Claude / MCP 테스트</li><li>CPU/GPU workflow 테스트</li><li>UX / Error / Cost / Permission 이슈 정리</li></ul>
+<p>Experience the product firsthand and analyze the User Journey.</p>
+<ul><li>Direct hands-on testing of Compute Portal</li><li>Test Claude / MCP integration</li><li>Test CPU/GPU workflow execution</li><li>Document UX, error handling, cost transparency, and permission issues</li></ul>
 </div>
 
 <div class="phase">
 <div class="title">Phase 2 — Customer & Use Case</div>
-<p>누가 실제로 구매할 것인지 구체화한다.</p>
-<ul><li>Target Customer 후보 정의</li><li>사용 시나리오 3–5개 작성</li><li>Customer Pain Point와 구매 이유 정리</li><li>우선순위가 높은 Use Case 검증</li></ul>
+<p>Define who will actually buy and use the product.</p>
+<ul><li>Define target customer profiles</li><li>Draft 3–5 core usage scenarios</li><li>Outline Customer Pain Points and value propositions</li><li>Validate high-priority use cases</li></ul>
 </div>
 
 <div class="phase">
 <div class="title">Phase 3 — Agentic Compute Demo</div>
-<p>Compute Portal의 방향성을 보여주는 실제 Demo를 만든다.</p>
-<ul><li>Agent → MCP → Compute Portal 연결</li><li>Resource Discovery</li><li>Deployment / Monitoring / Cost 확인</li><li>가능하면 실패·재시도·권한·HITL까지 검토</li></ul>
+<p>Build a working demo illustrating Compute Portal's core vision.</p>
+<ul><li>Connect Agent → MCP → Compute Portal</li><li>Enable automated Resource Discovery</li><li>Verify Deployment, Monitoring, and Cost tracking</li><li>Evaluate failure recovery, retries, permissions, and HITL (Human-in-the-Loop) flows</li></ul>
 </div>
 </section>
 
 <section class="card">
-<h2>11. 이후에 확장할 수 있는 방향</h2>
+<h2>11. Future Expansion Pathways</h2>
 <table>
-<tr><th>단계</th><th>가능한 역할</th></tr>
-<tr><td>현재</td><td>Advisor — Product / AI Agent / Use Case 관점의 자문</td></tr>
-<tr><td>성과 확인 후</td><td>Product Advisor / AI Infrastructure Strategy Lead</td></tr>
-<tr><td>더 깊은 협력</td><td>AI Agent / MCP Product Ownership</td></tr>
-<tr><td>장기적으로</td><td>Infrastructure Product / Business Strategy의 핵심 역할</td></tr>
+<tr><th>Stage</th><th>Potential Role</th></tr>
+<tr><td>Current</td><td>Advisor — Advising on Product, AI Agent, and Use Case perspectives</td></tr>
+<tr><td>Post-Validation</td><td>Product Advisor / AI Infrastructure Strategy Lead</td></tr>
+<tr><td>Deeper Engagement</td><td>AI Agent / MCP Product Ownership</td></tr>
+<tr><td>Long-Term</td><td>Core leadership role in Infrastructure Product & Business Strategy</td></tr>
 </table>
-<p>처음부터 역할을 크게 정하기보다 <strong>실제 결과물을 만들어 본 뒤 역할을 확대하는 방식</strong>을 선호한다.</p>
+<p>I prefer an approach where we <strong>deliver tangible results first, and then expand the role iteratively</strong>, rather than defining a broad title upfront.</p>
 </section>
 
 <section class="card">
-<h2>12. 윤일님과 논의하고 싶은 것</h2>
+<h2>12. Key Topics to Discuss with Yoonil</h2>
 <ol>
-<li><b>Compute Portal이 장기적으로 어떤 회사가 되기를 원하는지</b></li>
-<li>Marketplace와 Agentic Infrastructure 중 어느 방향에 더 큰 비중을 두고 있는지</li>
-<li>현재 가장 해결하기 어려운 Product 문제는 무엇인지</li>
-<li>내가 우선적으로 해결해 보면 좋을 문제는 무엇인지</li>
-<li>내 역할을 Advisor 수준으로 시작할지, 특정 Product 영역을 직접 맡을지</li>
-<li>3개월 후 어떤 결과가 나오면 서로 “잘했다”고 판단할 수 있을지</li>
+<li><b>What company Compute Portal aspires to become in the long term</b></li>
+<li>Which direction holds greater weight: Marketplace vs. Agentic Infrastructure</li>
+<li>What the most critical product challenge is right now</li>
+<li>Which problem I should prioritize solving first</li>
+<li>Whether to start at an Advisor level or directly take ownership of a specific Product area</li>
+<li>What outcomes after 3 months would signify a successful collaboration for both of us</li>
 </ol>
 </section>
 
 <section class="card">
-<h2>13. 내가 제안하는 협력 방식</h2>
+<h2>13. Proposed Collaboration Approach</h2>
 <div class="highlight">
-<div class="big">“먼저 제가 실제 사용자처럼 Compute Portal을 깊게 사용해 보고,<br>
-그 결과를 바탕으로 Product / Customer / Agent Use Case를 구체화해 보겠습니다.”</div>
+<div class="big">“I will first use Compute Portal deeply as a real user,<br>
+and based on that experience, refine our Product, Customer, and Agent Use Case strategy.”</div>
 </div>
-<p>처음부터 큰 조직이나 역할을 정하기보다, <strong>작은 범위에서 실제 결과물을 만들고 → 서로의 Fit을 확인하고 → 필요하면 역할을 확대</strong>하는 방식이다.</p>
+<p>Instead of defining large organization structures or roles upfront, I advocate <strong>delivering tangible outputs in a small scope → verifying mutual fit → expanding roles as needed</strong>.</p>
 </section>
 
 <section class="card">
-<h2>14. 최종 메시지</h2>
+<h2>14. Closing Message</h2>
 <div class="quote">
-“제가 Compute Portal에 관심을 갖는 이유는 단순히 Compute Marketplace가 새로운 사업이기 때문만은 아닙니다. 제가 지난 20년 동안 경험한 Infrastructure, System Architecture, Product Strategy, Automation 경험이 AI Agent와 만나는 지점이라고 생각합니다. 먼저 직접 사용해 보고, 실제 고객 관점에서 문제를 찾아보고, Agent가 Compute를 사용하는 End-to-End 경험을 만들어 보는 것부터 시작해 보고 싶습니다.”
+“My interest in Compute Portal stems from more than just the fact that a Compute Marketplace is a new business opportunity. I see it as the intersection where my 20 years of experience in Infrastructure, System Architecture, Product Strategy, and Automation converge with AI Agents. I want to start by using the platform directly, identifying problems from a customer perspective, and crafting an End-to-End experience where Agents seamlessly interact with compute.”
 </div>
 </section>
 

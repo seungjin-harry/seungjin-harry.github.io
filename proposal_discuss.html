@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compute Portal — My Thoughts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0f17;
+            --card-bg: rgba(22, 31, 48, 0.7);
+            --card-border: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-primary: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.15);
+            --accent-border: rgba(56, 189, 248, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 4rem 1.5rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        /* Header */
+        header {
+            margin-bottom: 3.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -0.025em;
+            margin-bottom: 0.75rem;
+        }
+
+        header p.subtitle {
+            font-size: 1.25rem;
+            color: var(--accent-primary);
+            font-weight: 500;
+        }
+
+        header p.meta {
+            margin-top: 0.75rem;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* Card Section */
+        .section {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: border-color 0.2s ease;
+        }
+
+        .section:hover {
+            border-color: rgba(56, 189, 248, 0.2);
+        }
+
+        .section h2 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+        }
+
+        /* Highlight Headline */
+        .headline {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--accent-primary);
+            background: var(--accent-glow);
+            border: 1px solid var(--accent-border);
+            border-left: 4px solid var(--accent-primary);
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+            border-radius: 6px;
+        }
+
+        /* Lists */
+        ul, ol {
+            padding-left: 1.25rem;
+            color: #cbd5e1;
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+        }
+
+        li strong {
+            color: var(--text-main);
+        }
+
+        /* Grid Cards */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .grid-card {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 1.25rem;
+        }
+
+        .grid-card h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .grid-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Workflow Steps */
+        .workflow {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .workflow-step {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid var(--card-border);
+            padding: 0.85rem 1rem;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            color: #cbd5e1;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--card-border);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Compute Portal — My Thoughts</h1>
+        <p class="subtitle">From Compute Marketplace to Agentic Infrastructure</p>
+        <p class="meta">Seungjin · Advisor</p>
+    </header>
+
+    <!-- Slide 1 -->
+    <div class="section">
+        <h2>1. How I See Compute Portal</h2>
+        <div class="headline">
+            "How autonomous can this workflow become?"
+        </div>
+        <ul>
+            <li><strong>Today: Distributing Compute Resource</strong> — Manage, Orchestrate, Billing for distributed compute resources (compute, memory, storage).</li>
+            <li><strong>Opportunity:</strong> Automatically making infrastructure usable by AI Agents &rarr; <em>Agentic Infrastructure Platform</em>.</li>
+            <li><strong>Long-term vision:</strong> Agent &rarr; Compute &rarr; Workload &rarr; Result</li>
+        </ul>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="section">
+        <h2>2. Who Should Use It First?</h2>
+        <div class="headline">
+            “Who will use it first and actually pay for it?” — Validate a narrow, fast-moving customer segment first.
+        </div>
+        <div class="grid">
+            <div class="grid-card">
+                <h3>Individual SW Developers</h3>
+                <p>Simple access, lower cost, less infrastructure work.</p>
+            </div>
+            <div class="grid-card">
+                <h3>AI Startups</h3>
+                <p>Flexible capacity, GPU availability, cost control.</p>
+            </div>
+            <div class="grid-card">
+                <h3>AI Agent Developers</h3>
+                <p>Infrastructure that Agents can discover and control.</p>
+            </div>
+            <div class="grid-card">
+                <h3>Enterprises</h3>
+                <p>Larger opportunity, but longer sales and approval cycles.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="section">
+        <h2>3. One User Journey I Want to Test</h2>
+        <div class="headline">
+            User: "Deploy my workload using the best available compute." &rarr; Compute Portal autonomously performs it and provides feedback.
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0.5rem;"><strong>Agent Workflow Execution:</strong></p>
+        <div class="workflow">
+            <div class="workflow-step">1. Understand workload requirements</div>
+            <div class="workflow-step">2. Find available compute</div>
+            <div class="workflow-step">3. Compare price / capacity / location</div>
+            <div class="workflow-step">4. Allocate and deploy</div>
+            <div class="workflow-step">5. Monitor the workload</div>
+            <div class="workflow-step">6. Release or optimize resources</div>
+        </div>
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="section">
+        <h2>4. What I Want to Learn from the Product</h2>
+        <div class="headline">
+            Goal: Turn real usage observations into concrete product requirements.
+        </div>
+        <ul>
+            <li>Where does the user get confused?</li>
+            <li>Where does the Agent need human help?</li>
+            <li>Which MCP tools / APIs are missing or difficult to use?</li>
+            <li>Which steps should remain human-controlled?</li>
+            <li>Where can failures occur?</li>
+        </ul>
+    </div>
+
+    <!-- Slide 5 -->
+    <div class="section">
+        <h2>5. My First 4-Steps Journey</h2>
+        <ol>
+            <li><strong>Step 1 — Product Immersion:</strong> Use CLI, MCP, Claude, compute allocation, deployment and billing.</li>
+            <li><strong>Step 2 — Product & UX Review:</strong> Document friction, missing information, failures and automation opportunities.</li>
+            <li><strong>Step 3 — Agentic Workflow:</strong> Design one end-to-end Agent &rarr; Compute Portal workflow.</li>
+            <li><strong>Step 4 — Prototype / Demo:</strong> Demonstrate one real workflow and propose the next product priorities.</li>
+        </ol>
+    </div>
+
+    <footer>
+        <p>Verified from computeportal.io, docs.computeportal.io and computeportal.io/llms.txt</p>
+    </footer>
+</div>
+
+</body>
+</html>

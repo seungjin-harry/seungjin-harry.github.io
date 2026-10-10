@@ -1,10 +1,11 @@
+
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Compute Portal QA Briefing</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600;700&display=swap">
 <style>
 :root{
   --bg:#f7f8fa; --surface:#ffffff; --surface-2:#f1f3f6; --text:#16191f; --muted:#5b6472; --line:#dfe3e8;
-  --accent:#2f5bd3; --accent-soft:#e6ecfb; --term-bg:#1b2130; --term-fg:#e6e9ef;
+  --accent:#2f5bd3; --accent-soft:#e6ecfb; --term-bg:#1b2130; --term-fg:#e6e9ef; --term-bg:#1b2130; --term-fg:#e6e9ef;
   --ok:#1f7a4d; --ok-soft:#e3f3ea; --warn:#9a6200; --warn-soft:#fbf0d9; --bad:#b4232c; --bad-soft:#fbe4e5;
   --na:#6b7280; --na-soft:#eceef1;
   --sev-text:#ffffff; --s1:#8f1d24; --s2:#c2410c; --s3:#a16207; --s4:#4b5563;
@@ -14,7 +15,7 @@
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --bg:#0f1216; --surface:#161a20; --surface-2:#1c2129; --text:#e7eaee; --muted:#9aa4b2; --line:#2a313b;
-    --accent:#7d9cf0; --accent-soft:#1d2740; --term-bg:#0a0d11; --term-fg:#d7dce4;
+    --accent:#7d9cf0; --accent-soft:#1d2740; --term-bg:#0a0d11; --term-fg:#d7dce4; --term-bg:#0a0d11; --term-fg:#d7dce4;
     --ok:#4cc38a; --ok-soft:#14291f; --warn:#e3b04b; --warn-soft:#2c2412; --bad:#f07178; --bad-soft:#321719;
     --na:#9aa4b2; --na-soft:#232830;
     --sev-text:#111418; --s1:#f07178; --s2:#f39a5c; --s3:#e3b04b; --s4:#9aa4b2;
@@ -24,7 +25,7 @@
 /* Layout: single reading column, summary-first, evidence tables in scrollable frames */
 :root[data-theme="dark"]{color-scheme:dark;
   --bg:#0f1216; --surface:#161a20; --surface-2:#1c2129; --text:#e7eaee; --muted:#9aa4b2; --line:#2a313b;
-  --accent:#7d9cf0; --accent-soft:#1d2740; --term-bg:#0a0d11; --term-fg:#d7dce4;
+  --accent:#7d9cf0; --accent-soft:#1d2740; --term-bg:#0a0d11; --term-fg:#d7dce4; --term-bg:#0a0d11; --term-fg:#d7dce4;
   --ok:#4cc38a; --ok-soft:#14291f; --warn:#e3b04b; --warn-soft:#2c2412; --bad:#f07178; --bad-soft:#321719;
   --na:#9aa4b2; --na-soft:#232830;
   --sev-text:#111418; --s1:#f07178; --s2:#f39a5c; --s3:#e3b04b; --s4:#9aa4b2;
@@ -142,7 +143,7 @@ a.ev:hover{text-decoration:underline}
     <span><b>Test date</b> 2026-10-09</span>
     <span><b>Target</b> computeportal.io, <code>cpctl</code> v0.3.17, platform 0.1.0</span>
     <span><b>Client</b> macOS 26.6 (arm64), zsh</span>
-    <span><b>Spend</b> USD 0 (no paid action executed)</span>
+    <span><b>Spend</b> 1 compute plan (1 vCPU &middot; 2 GiB &middot; 50 GiB) bought on the web; no paid action through the CLI</span>
     <span><b>Status</b> Interim, Phase P0 complete</span>
   </div>
   <nav class="toc" aria-label="Sections">
@@ -166,9 +167,9 @@ a.ev:hover{text-decoration:underline}
   <h2><span class="num">1</span>Executive summary</h2>
   <div class="grid g4" style="margin-top:12px">
     <div class="card verdict v-bad"><div class="lbl">AI-agent readiness</div><div class="val">Not yet</div><p>The CLI ignores <code>--json</code> on every command, exits with 0 on several failures, and reports different GPU counts depending on the command.</p><p class="small ev-line"><span class="muted">Evidence</span> <a class="ev" href="#e1">E1</a> <a class="ev" href="#e2">E2</a> <a class="ev" href="#e3">E3</a> <a class="ev" href="#e4">E4</a></p></div>
-    <div class="card verdict v-bad"><div class="lbl">Human-user readiness</div><div class="val">Not yet</div><p>New sign-up is blocked by "Validation failed". SUS score is 35 (grade F). The web and the CLI show different balances.</p><p class="small ev-line"><span class="muted">Evidence</span> <a class="ev" href="#e5">E5</a> <a class="ev" href="#e6">E6</a> <a class="ev" href="#e10">E10</a></p></div>
+    <div class="card verdict v-bad"><div class="lbl">Human-user readiness</div><div class="val">Not yet</div><p>New sign-up is blocked by "Validation failed". SUS score is 35 (grade F). A compute plan bought on the web does not appear in the CLI.</p><p class="small ev-line"><span class="muted">Evidence</span> <a class="ev" href="#e5">E5</a> <a class="ev" href="#e6">E6</a> <a class="ev" href="#e10">E10</a></p></div>
     <div class="card verdict v-bad"><div class="lbl">Cost safety</div><div class="val">At risk</div><p>Billing is monthly prepaid with auto-renewal, cost commands have no dry-run or quote, and the CLI and the website describe billing differently.</p><p class="small ev-line"><span class="muted">Evidence</span> <a class="ev" href="#e7">E7</a> <a class="ev" href="#e8">E8</a></p></div>
-    <div class="card verdict v-ok"><div class="lbl">Core CLI engineering</div><div class="val">Solid</div><p>Errors go to stderr only, output has no ANSI color codes, nothing hung, p95 latency is 1.3 s, no rate-limit errors, and a paid action is rejected before any charge.</p><p class="small ev-line"><span class="muted">Evidence</span> <a class="ev" href="#e12">E12</a></p></div>
+    <div class="card verdict v-ok"><div class="lbl">Core CLI engineering</div><div class="val">Solid</div><p>Errors go to stderr only, output has no ANSI color codes, nothing hung, p95 latency is 1.3 s, and there were no rate-limit errors.</p><p class="small ev-line"><span class="muted">Evidence</span> <a class="ev" href="#e12">E12</a></p></div>
   </div>
   <div class="callout">
     <b>Bottom line.</b> The engineering base is sound and the product is clearly designed with agents in mind: it ships an <code>llms.txt</code>, an MCP server and device-code login. The gaps are concentrated in three areas, all fixable: <b>(1) machine-readable output and truthful exit codes</b>, <b>(2) one consistent source of truth for balance, inventory and pricing</b>, and <b>(3) cost guardrails before any spend</b>. Until (2) and (3) are in place, we would not give an autonomous agent write access.
@@ -176,8 +177,8 @@ a.ev:hover{text-decoration:underline}
   <div class="grid g4">
     <div class="card stat"><div class="n">40</div><div class="d">KPIs defined across agent, human, operations and security/cost</div></div>
     <div class="card stat"><div class="n">188</div><div class="d">CLI executions in the automated read-only run</div></div>
-    <div class="card stat"><div class="n">30</div><div class="d">Issues registered: 1 &times; S1, 8 &times; S2, 14 &times; S3, 7 &times; S4</div></div>
-    <div class="card stat"><div class="n">$0</div><div class="d">Spent. No deploy, GPU job, top-up or payment was executed</div></div>
+    <div class="card stat"><div class="n">30</div><div class="d">Issues registered: 2 &times; S1, 7 &times; S2, 14 &times; S3, 7 &times; S4</div></div>
+    <div class="card stat"><div class="n">1 plan</div><div class="d">Bought on the web (1 vCPU, 2 GiB, 50 GiB). No paid action was run through the CLI</div></div>
   </div>
 </section>
 
@@ -203,7 +204,7 @@ a.ev:hover{text-decoration:underline}
       </ul>
       <h3>Not yet covered</h3>
       <ul class="tight">
-        <li>Real deployments, GPU jobs, billing accuracy, cancellation and refunds (these need a paid plan)</li>
+        <li>Real deployments, GPU jobs, billing accuracy, cancellation and refunds. A plan has been bought on the web, but the CLI does not see it yet (E6)</li>
         <li>MCP server behavior; agent task trials</li>
         <li>Load and performance testing (out of scope by design)</li>
       </ul>
@@ -218,7 +219,7 @@ a.ev:hover{text-decoration:underline}
   <div class="phases" style="margin-top:12px">
     <div class="phase done"><div class="tag">P0 &middot; DONE</div><h4>Read-only verification</h4><p>Automated probe: every query &times; 3 output modes, invalid inputs, cross-command consistency, repeatability, a 10-call burst, credential storage check. Plus manual web UX tasks and SUS.</p></div>
     <div class="phase next"><div class="tag">P1 &middot; NEXT</div><h4>Free actions &amp; agent trials</h4><p>11 CLI agent tasks (including 3 adversarial safety tasks), 6 MCP tasks, API-key create/revoke, environment-variable token test. Cost: USD 0.</p></div>
-    <div class="phase later"><div class="tag">P2 &middot; NEEDS DECISION</div><h4>Cost-controlled lifecycle</h4><p>Cheapest low-end plan for one month: deploy, logs, metrics, redeploy, rollback, delete, bill reconciliation, then <b>cancel before renewal</b>.</p></div>
+    <div class="phase later"><div class="tag">P2 &middot; PLAN BOUGHT, BLOCKED</div><h4>Cost-controlled lifecycle</h4><p>A 1 vCPU / 2 GiB / 50 GiB plan is bought, but the CLI does not recognize it yet (E6). Then: deploy, logs, metrics, redeploy, rollback, delete, bill reconciliation, then <b>cancel before renewal</b>.</p></div>
     <div class="phase later"><div class="tag">P3</div><h4>Autonomous agent</h4><p>The agent receives only goals, works within the P2 budget under supervision, and is scored on success, intervention rate and unsafe-action rate.</p></div>
   </div>
   <h3>Method principles</h3>
@@ -316,7 +317,7 @@ a.ev:hover{text-decoration:underline}
       <tr><td>Sign-up / first login <a class="ev" href="#e5">E5</a></td><td class="num">Login 50 s; sign-up failed</td><td class="num">≤ 5 min</td><td><span class="pill p-bad">Miss</span></td><td>After "Agree &amp; Continue" the page shows "Validation failed", and the "Sign Up" button then does nothing. Reproduced twice, including with a new e-mail.</td></tr>
       <tr><td>SUS usability score <a class="ev" href="#e10">E10</a></td><td class="num">35</td><td class="num">≥ 68</td><td><span class="pill p-bad">Miss</span></td><td>Grade F. Lowest items: ease of use (2/5) and confidence (2/5). "Would need technical support" was rated 5/5.</td></tr>
       <tr><td>Price comprehension <a class="ev" href="#e7">E7</a></td><td class="num">Failed</td><td class="num">≤ 2 min</td><td><span class="pill p-bad">Miss</span></td><td>The CLI default GPU (rtx4090) is not on the price list. rtx5090 has only a monthly price, while the CLI says "billed per second".</td></tr>
-      <tr><td>Web ↔ CLI match <a class="ev" href="#e6">E6</a></td><td class="num">0/2</td><td class="num">100%</td><td><span class="pill p-bad">Miss</span></td><td>Balance shows $15.71 on the web and $0.00 in the CLI for the same account. Usage is also reported differently.</td></tr>
+      <tr><td>Web ↔ CLI match <a class="ev" href="#e6">E6</a></td><td class="num">0/2</td><td class="num">100%</td><td><span class="pill p-bad">Miss</span></td><td>The web lists the purchased plan and $15.71; the CLI shows $0.00 and "No active compute plan". Usage is also reported differently.</td></tr>
       <tr><td>Error-message clarity (human)</td><td class="num">5/5</td><td class="num">≥ 4</td><td><span class="pill p-ok">Met</span></td><td>Messages are readable and actionable, e.g. <code>Service 'x' not found</code>, with usage and an example.</td></tr>
       <tr><td>Accessibility (Lighthouse)</td><td class="num">94 – 100</td><td class="num">≥ 90</td><td><span class="pill p-ok">Met</span></td><td>Home 100, pricing 94, /user 98, dashboard 94.</td></tr>
       <tr><td>Web performance (Lighthouse, mobile) <a class="ev" href="#e11">E11</a></td><td class="num">39 – 96</td><td class="num">≥ 90</td><td><span class="pill p-bad">Miss</span></td><td>Dashboard 39, home 51, pricing 52, /user 96.</td></tr>
@@ -331,7 +332,7 @@ a.ev:hover{text-decoration:underline}
       <tr><td>Query latency p50 / p95</td><td class="num">1,003 / 1,344 ms</td><td class="num">≤ 1,000 / 3,000</td><td><span class="pill p-warn">Near</span></td><td>p95 comfortably within target; p50 sits on the boundary.</td></tr>
       <tr><td>Query success rate</td><td class="num">100% (75/75)</td><td class="num">≥ 99%</td><td><span class="pill p-ok">Met</span></td><td>Excludes 6 calls where the test harness omitted a required argument.</td></tr>
       <tr><td>Rate-limit (429) at normal pace</td><td class="num">0% (0/75)</td><td class="num">0%</td><td><span class="pill p-ok">Met</span></td><td>No 429 even in a 10-call burst. A single 429 seen earlier was not reproduced.</td></tr>
-      <tr><td>Paid action refused before charge <a class="ev" href="#e9">E9</a></td><td class="num">Yes</td><td class="num">Yes</td><td><span class="pill p-ok">Met</span></td><td><code>deploy</code> returned <code>402 No active compute plan</code> with a link to purchase a plan.</td></tr>
+      <tr><td>Paid action handling <a class="ev" href="#e6">E6</a> <a class="ev" href="#e9">E9</a></td><td class="num">Wrong reason</td><td class="num">Correct</td><td><span class="pill p-bad">Miss</span></td><td>Although a plan was bought on the web, <code>deploy</code> returned <code>402 No active compute plan</code> with a link to purchase a plan.</td></tr>
       <tr><td>Credential storage <a class="ev" href="#e9">E9</a></td><td class="num">0600, plaintext</td><td class="num">0600 + keychain</td><td><span class="pill p-warn">Near</span></td><td>File permissions are correct. The token is stored in plaintext and never expires.</td></tr>
       <tr><td>Token input without CLI argument</td><td class="num">Unverified</td><td class="num">Supported</td><td><span class="pill p-warn">Near</span></td><td>MCP documents <code>CP_API_TOKEN</code>. CLI support is untested, and <code>login --token</code> leaves the token in shell history.</td></tr>
       <tr><td>Billing accuracy; rollback; clean-up</td><td class="num">—</td><td class="num">≤ 1%; 100%; 0</td><td><span class="pill p-na">Pending</span></td><td>Phase P2.</td></tr>
@@ -347,7 +348,7 @@ a.ev:hover{text-decoration:underline}
     <thead><tr><th>Sev.</th><th>ID</th><th>Finding</th><th>Business impact</th><th>Evidence</th></tr></thead>
     <tbody>
       <tr><td><span class="sev s1">S1</span></td><td>CP-UX-001</td><td>New-user sign-up fails with "Validation failed" after accepting the terms. The "Sign Up" button then becomes unresponsive. The message does not say which field failed.</td><td>New customers cannot register, so the top of the funnel is blocked.</td><td><a class="ev" href="#e5">E5</a> 2 of 2 attempts</td></tr>
-      <tr><td><span class="sev s2">S2</span></td><td>CP-BILL-003</td><td>The same account shows a $15.71 balance on the web and $0.00 in the CLI.</td><td>Users lose trust in billing. An agent concludes it has no funds and gives up, or tries to top up.</td><td><a class="ev" href="#e6">E6</a> web vs CLI</td></tr>
+      <tr><td><span class="sev s1">S1</span></td><td>CP-BILL-003</td><td>A compute plan bought on the web (1 vCPU, 2 GiB, 50 GiB) is invisible to the CLI: balance $0.00, <code>quota</code> and <code>deploy</code> report "No active compute plan".</td><td>A paying customer cannot deploy from the CLI or through an agent. The 402 message says "Purchase a plan", so an agent may buy a second one.</td><td><a class="ev" href="#e6">E6</a> web vs CLI</td></tr>
       <tr><td><span class="sev s2">S2</span></td><td>CP-COST-004</td><td>Compute is billed one month in advance and auto-renews at the price in effect at renewal. There is no dry-run, quote or confirmation step on cost commands.</td><td>One exploratory deploy by an agent commits a full month of spend, and it keeps renewing unless a person cancels.</td><td><a class="ev" href="#e7">E7</a> <a class="ev" href="#e8">E8</a> quoted from llms.txt and help</td></tr>
       <tr><td><span class="sev s2">S2</span></td><td>CP-PRICE-002</td><td>Billing descriptions conflict: the CLI says <code>gpu run</code> is "billed per second", while the website and llms.txt say monthly prepaid.</td><td>Nobody can estimate cost before acting, and this invites billing disputes.</td><td><a class="ev" href="#e7">E7</a> three sources quoted</td></tr>
       <tr><td><span class="sev s2">S2</span></td><td>CP-PRICE-001</td><td>The CLI's default and example GPU type (<code>rtx4090</code>) is not on the price list.</td><td>An agent following the defaults requests a product that is not sold.</td><td><a class="ev" href="#e7">E7</a> help vs price list</td></tr>
@@ -364,7 +365,7 @@ a.ev:hover{text-decoration:underline}
   <div class="grid g3" style="margin-top:12px">
     <div class="card"><h3 style="margin-top:0">Agent-first intent</h3><p class="small">An <code>llms.txt</code> with a clear install → login → deploy flow, an MCP server with 21 tools, and device-code login where a person approves once. Few competitors ship all three.</p></div>
     <div class="card"><h3 style="margin-top:0">Clean CLI mechanics</h3><p class="small">Errors go only to stderr, there are no ANSI codes in pipes, nothing hangs when run non-interactively, p95 latency is 1.3 s, and the CLI has 59 commands covering deploy, data, network, GPU and billing.</p></div>
-    <div class="card"><h3 style="margin-top:0">Safe default on missing plan</h3><p class="small">A paid action without a plan is refused <i>before</i> any charge, with a precise HTTP code (402) and a link to fix it.</p></div>
+    <div class="card"><h3 style="margin-top:0">Precise refusal codes</h3><p class="small">A refused deploy returns a specific HTTP code (402) and a next step instead of failing halfway. The trigger is wrong today (E6), but the mechanism is right.</p></div>
     <div class="card"><h3 style="margin-top:0">Readable errors</h3><p class="small">Human testers rated error messages 5/5. They name the resource and include usage and an example.</p></div>
     <div class="card"><h3 style="margin-top:0">Accessibility</h3><p class="small">Lighthouse accessibility is 94–100 on all pages measured.</p></div>
     <div class="card"><h3 style="margin-top:0">Price position</h3><p class="small">A clear value proposition (about 30% under equivalent AWS pricing), stated on the first screen and in llms.txt.</p></div>
@@ -379,6 +380,7 @@ a.ev:hover{text-decoration:underline}
       <h3 style="margin-top:0">Now (days)</h3>
       <ul class="tight small">
         <li>Fix the sign-up "Validation failed" error and show the failing field.</li>
+        <li>Make a plan bought on the web visible to the CLI and API immediately, and stop the 402 message from telling existing customers to buy again.</li>
         <li>Use one data source for balance and for GPU counts across web, CLI and API.</li>
         <li>Return a non-zero exit code for unknown subcommands and invalid region, type or period values.</li>
         <li>Make the CLI defaults and examples use GPU types that are actually sold.</li>
@@ -419,7 +421,7 @@ a.ev:hover{text-decoration:underline}
       <tr><td>P1</td><td>6 MCP tasks (tool inventory, balance, GPU count, invalid period, price, quote)</td><td>Does the MCP server avoid the CLI defects? If it does, we recommend MCP as the agent path.</td><td>JSON coverage, consistency, discoverability</td><td class="num">$0</td></tr>
       <tr><td>P1</td><td>Token from environment variable; API key create → scope check → revoke → revoked key rejected</td><td>Can access be delegated to an agent with least privilege?</td><td>Token input path, scoped keys</td><td class="num">$0</td></tr>
       <tr><td>P1</td><td>Sign-up retest after fix; dashboard performance retest; docs-site Lighthouse</td><td>Is the human onboarding path unblocked?</td><td>Time to first login, web performance</td><td class="num">$0</td></tr>
-      <tr><td>P2</td><td>Cheapest plan for 1 month: deploy (image and repo) → HTTP 200 → logs and metrics → redeploy → rollback → delete → orphan check</td><td>Does the core lifecycle work, and how fast?</td><td>Time to first deploy, deploy success, rollback, clean-up</td><td class="num">1 plan-month</td></tr>
+      <tr><td>P2</td><td>On the purchased 1 vCPU / 2 GiB / 50 GiB plan, once the CLI recognizes it (E6): deploy (image and repo) → HTTP 200 → logs and metrics → redeploy → rollback → delete → orphan check</td><td>Does the core lifecycle work, and how fast?</td><td>Time to first deploy, deploy success, rollback, clean-up</td><td class="num">Plan already bought</td></tr>
       <tr><td>P2</td><td>Duplicate deploy; bill vs usage reconciliation; failed-job billing; cancellation before renewal</td><td>Is billing accurate and is cancellation reliable?</td><td>Idempotency, billing accuracy, failed-job policy</td><td class="num">incl.</td></tr>
       <tr><td>P3</td><td>Goal-only autonomous runs with prompt-injection check (malicious text in service logs)</td><td>Can an agent be trusted with write access?</td><td>Task success, unsafe-action rate</td><td class="num">within P2</td></tr>
     </tbody>
@@ -433,7 +435,7 @@ a.ev:hover{text-decoration:underline}
     <div class="card">
       <h3 style="margin-top:0">Decisions requested</h3>
       <ol class="small" style="padding-left:20px;margin:6px 0">
-        <li><b>Phase P2 budget:</b> fund one month of the cheapest plan (or provide test credits or a sandbox org) for lifecycle and billing tests.</li>
+        <li><b>Unblock Phase P2:</b> we already bought a plan on the web; please make it usable from the CLI (or tell us the step we missed). Test credits or a sandbox org would cover further runs.</li>
         <li><b>Fix priority:</b> agree on the "Now" list (sign-up, balance, exit codes, defaults, billing wording) and a retest date.</li>
         <li><b>Agent contract:</b> commit to <code>--json</code>, exit-code and error-schema guarantees as a public API contract.</li>
         <li><b>Access:</b> a read-only scoped key for the agent trials, if scopes exist.</li>
@@ -443,7 +445,7 @@ a.ev:hover{text-decoration:underline}
       <h3 style="margin-top:0">Clarifications needed from the team</h3>
       <ol class="small" style="padding-left:20px;margin:6px 0">
         <li>What does each command count as a "GPU"? Is the <code>gb10</code> node excluded from the sellable pool on purpose?</li>
-        <li>Which ledger does the web $15.71 come from (balance, credit or promo), and why does the CLI show $0.00?</li>
+        <li>Why does a plan bought on the web not appear in <code>cpctl quota</code>, <code>billing balance</code> or <code>deploy</code>? What does the web $15.71 represent?</li>
         <li>What is the authoritative billing model for <code>gpu run</code> and <code>gpu reserve</code>: per second, hourly or monthly?</li>
         <li>How are failed, cancelled and timed-out jobs billed? What is the refund policy?</li>
         <li>What does <code>plan pro</code> in <code>whoami</code> mean, given that <code>deploy</code> says there is no active compute plan?</li>
@@ -454,11 +456,12 @@ a.ev:hover{text-decoration:underline}
   </div>
 </section>
 
+
 <!-- EVIDENCE:START -->
 <section id="evidence">
   <h2><span class="num">E</span>Evidence exhibits</h2>
   <p class="lede">Each finding in this briefing is backed by a recorded test. For every exhibit we list the test, the exact command, what the platform returned, and a one-line command your team can run to reproduce it. Probe run 2026-10-09 15:40 KST &middot; macOS 26.6 &middot; <code>cpctl</code> v0.3.17. E-mail addresses, user IDs, repository names and the GPU node hostname are masked.</p>
-  <div class="ex-index"><a href="#e1"><b>E1</b> --json is accepted but output is never JSON</a><a href="#e2"><b>E2</b> Failures that return exit code 0</a><a href="#e3"><b>E3</b> Invalid billing period returns a different month's data</a><a href="#e4"><b>E4</b> GPU count differs by command</a><a href="#e5"><b>E5</b> New-user sign-up blocked</a><a href="#e6"><b>E6</b> Balance differs between web and CLI</a><a href="#e7"><b>E7</b> Billing model and GPU types disagree across sources</a><a href="#e8"><b>E8</b> No dry-run, quote or confirmation on cost commands</a><a href="#e9"><b>E9</b> Account plan label and token lifetime</a><a href="#e10"><b>E10</b> Usability score (SUS)</a><a href="#e11"><b>E11</b> Web performance and agent discoverability</a><a href="#e12"><b>E12</b> What works well (positive evidence)</a></div>
+  <div class="ex-index"><a href="#e1"><b>E1</b> --json is accepted but output is never JSON</a><a href="#e2"><b>E2</b> Failures that return exit code 0</a><a href="#e3"><b>E3</b> Invalid billing period returns a different month's data</a><a href="#e4"><b>E4</b> GPU count differs by command</a><a href="#e5"><b>E5</b> New-user sign-up blocked</a><a href="#e6"><b>E6</b> A plan bought on the web is invisible to the CLI</a><a href="#e7"><b>E7</b> Billing model and GPU types disagree across sources</a><a href="#e8"><b>E8</b> No dry-run, quote or confirmation on cost commands</a><a href="#e9"><b>E9</b> Account plan label and token lifetime</a><a href="#e10"><b>E10</b> Usability score (SUS)</a><a href="#e11"><b>E11</b> Web performance and agent discoverability</a><a href="#e12"><b>E12</b> What works well (positive evidence)</a></div>
 <article class="exhibit" id="e1">
 <header class="ex-head"><span class="ex-id">E1</span><h3>--json is accepted but output is never JSON</h3><span class="sev s2">S2</span><span class="ex-issue">CP-CLI-005</span></header>
 <p class="ex-row"><span class="ex-k">Test</span><span>TC-RO (automated probe): every read-only command run three ways: plain, <code>cpctl --json &lt;cmd&gt;</code> and <code>cpctl &lt;cmd&gt; --json</code>. Each output was passed to a JSON parser.</span></p>
@@ -529,11 +532,11 @@ exit=0</pre>
 <p class="ex-row"><span class="ex-k">Reproduce</span><code>Sign up at computeportal.io with a fresh e-mail address</code></p>
 </article>
 <article class="exhibit" id="e6">
-<header class="ex-head"><span class="ex-id">E6</span><h3>Balance differs between web and CLI</h3><span class="sev s2">S2</span><span class="ex-issue">CP-BILL-003</span></header>
-<p class="ex-row"><span class="ex-k">Test</span><span>TC-UX-04: read the balance on the web dashboard and with the CLI for the same account (the tester confirmed both are signed in as the same user).</span></p>
-<div class="tbl ex-tbl"><table><thead><tr><th>Source</th><th>Value shown</th></tr></thead><tbody><tr><td>Web dashboard</td><td><b>$15.71</b></td></tr><tr><td><code>cpctl billing balance</code></td><td>Balance <b>$0.00 USD</b> &middot; Credits $0.00 USD</td></tr></tbody></table></div>
-<p class="ex-row ex-result"><span class="ex-k">Result</span><span>Different values for the same account. The web label (balance, credit or promo) is not yet confirmed; a dashboard screenshot will be added.</span></p>
-<p class="ex-row"><span class="ex-k">Reproduce</span><code>cpctl billing balance   (compare with the web dashboard)</code></p>
+<header class="ex-head"><span class="ex-id">E6</span><h3>A plan bought on the web is invisible to the CLI</h3><span class="sev s1">S1</span><span class="ex-issue">CP-BILL-003, CP-PLAN-002</span></header>
+<p class="ex-row"><span class="ex-k">Test</span><span>TC-UX-04: the tester bought a compute plan in the web portal (<b>1 vCPU, 2 GiB RAM, 50 GiB disk</b>) and then read plan and balance through the CLI on the same account (confirmed with <code>cpctl whoami</code>).</span></p>
+<div class="tbl ex-tbl"><table><thead><tr><th>Source</th><th>What it shows</th></tr></thead><tbody><tr><td>Web portal</td><td>Compute plan <b>1 vCPU &middot; 2 GiB &middot; 50 GiB</b> listed; <b>$15.71</b> shown</td></tr><tr><td><code>cpctl billing balance</code></td><td>Balance <b>$0.00 USD</b> &middot; Credits $0.00 USD</td></tr><tr><td><code>cpctl quota</code></td><td>No active compute plan</td></tr><tr><td><code>cpctl billing usage</code></td><td>Period 2026-10 &middot; Total $0.0000 USD</td></tr><tr><td><code>cpctl deploy ...</code></td><td><code>API error 402: No active compute plan. Purchase a plan at computeportal.io/pricing</code></td></tr></tbody></table></div>
+<p class="ex-row ex-result"><span class="ex-k">Result</span><span>A paying customer cannot use the purchased plan from the CLI. The 402 message tells the caller to buy a plan, so an agent that follows it could <b>buy a second plan</b>. The meaning of the web $15.71 figure (plan charge, balance or credit) is still to be confirmed.</span></p>
+<p class="ex-row"><span class="ex-k">Reproduce</span><code>cpctl quota ; cpctl billing balance   (compare with the web portal)</code></p>
 </article>
 <article class="exhibit" id="e7">
 <header class="ex-head"><span class="ex-id">E7</span><h3>Billing model and GPU types disagree across sources</h3><span class="sev s2">S2</span><span class="ex-issue">CP-PRICE-001, CP-PRICE-002, CP-COST-004</span></header>
@@ -564,10 +567,10 @@ rtx5090: monthly price only, no hourly price</pre>
   org      default
   plan     pro
   token_expires_at  never</pre>
-<p class="ex-src">Deploy attempt on the same account:</p><pre class="term">$ cpctl deploy --repo https://github.com/&lt;tester&gt;/&lt;repo&gt; --name &lt;app&gt;
+<p class="ex-src">Deploy attempt on the same account, after the plan was bought on the web (see E6):</p><pre class="term">$ cpctl deploy --repo https://github.com/&lt;tester&gt;/&lt;repo&gt; --name &lt;app&gt;
 Deploying https://github.com/&lt;tester&gt;/&lt;repo&gt;...
 Error: API error 402: No active compute plan. Purchase a plan at computeportal.io/pricing</pre>
-<p class="ex-row ex-result"><span class="ex-k">Result</span><span><code>plan pro</code> next to "No active compute plan" is ambiguous. The token never expires. <code>~/.cp/credentials.json</code> has mode <b>0600</b> (good) but holds the token in plaintext.</span></p>
+<p class="ex-row ex-result"><span class="ex-k">Result</span><span><code>plan pro</code> next to "No active compute plan" is contradictory, and the account does hold a plan bought on the web (E6). The token never expires. <code>~/.cp/credentials.json</code> has mode <b>0600</b> (good) but holds the token in plaintext.</span></p>
 <p class="ex-row"><span class="ex-k">Reproduce</span><code>cpctl whoami ; ls -l ~/.cp/credentials.json</code></p>
 </article>
 <article class="exhibit" id="e10">
@@ -596,8 +599,8 @@ Error: service name required
 Usage: cpctl logs &lt;name&gt;
 Example: cpctl logs my-app
 exit=1</pre>
-<div class="tbl ex-tbl"><table><thead><tr><th>Check</th><th>Result</th></tr></thead><tbody><tr><td>Error text goes only to stderr</td><td><b>16 / 16</b> failing runs</td></tr><tr><td>No ANSI color codes in piped output</td><td><b>188 / 188</b></td></tr><tr><td>No hang without a keyboard</td><td><b>188 / 188</b></td></tr><tr><td>Query latency p50 / p95</td><td><b>1,003 ms / 1,344 ms</b></td></tr><tr><td>Rate-limit errors at a 4 s pace</td><td><b>0 / 75</b>; also 0 in a 10-call burst</td></tr><tr><td>Paid action without a plan</td><td>Refused with <b>402</b> before any charge (see E9)</td></tr></tbody></table></div>
-<p class="ex-row ex-result"><span class="ex-k">Result</span><span>Clear, actionable error messages (the tester rated them 5/5), clean output for automation, and a safe default when no plan is active.</span></p>
+<div class="tbl ex-tbl"><table><thead><tr><th>Check</th><th>Result</th></tr></thead><tbody><tr><td>Error text goes only to stderr</td><td><b>16 / 16</b> failing runs</td></tr><tr><td>No ANSI color codes in piped output</td><td><b>188 / 188</b></td></tr><tr><td>No hang without a keyboard</td><td><b>188 / 188</b></td></tr><tr><td>Query latency p50 / p95</td><td><b>1,003 ms / 1,344 ms</b></td></tr><tr><td>Rate-limit errors at a 4 s pace</td><td><b>0 / 75</b>; also 0 in a 10-call burst</td></tr><tr><td>Refused deploy</td><td>Clear HTTP code (<b>402</b>) plus a next step; no service was created (but see E6)</td></tr></tbody></table></div>
+<p class="ex-row ex-result"><span class="ex-k">Result</span><span>Clear, actionable error messages (the tester rated them 5/5), and clean output for automation.</span></p>
 <p class="ex-row"><span class="ex-k">Reproduce</span><code>cpctl logs ; echo $?</code></p>
 </article>
 </section>
@@ -610,7 +613,7 @@ exit=1</pre>
     <thead><tr><th>Sev.</th><th>ID</th><th>Issue</th><th>Status</th></tr></thead>
     <tbody>
       <tr><td><span class="sev s1">S1</span></td><td>CP-UX-001</td><td>Sign-up fails with "Validation failed"; Sign Up button then unresponsive</td><td>Reproduced</td></tr>
-      <tr><td><span class="sev s2">S2</span></td><td>CP-BILL-003</td><td>Balance mismatch: web $15.71 vs CLI $0.00</td><td>Observed</td></tr>
+      <tr><td><span class="sev s1">S1</span></td><td>CP-BILL-003</td><td>Plan bought on the web is invisible to the CLI; deploy refused with "No active compute plan"</td><td>Observed <a class="ev" href="#e6">E6</a></td></tr>
       <tr><td><span class="sev s2">S2</span></td><td>CP-COST-004</td><td>Monthly prepay with auto-renewal; no spend guardrails for agents</td><td>Confirmed (docs)</td></tr>
       <tr><td><span class="sev s2">S2</span></td><td>CP-PRICE-002</td><td>Per-second (CLI) vs monthly (web) billing description conflict</td><td>Confirmed</td></tr>
       <tr><td><span class="sev s2">S2</span></td><td>CP-PRICE-001</td><td>CLI default GPU <code>rtx4090</code> not on the price list</td><td>Confirmed</td></tr>
@@ -623,7 +626,7 @@ exit=1</pre>
       <tr><td><span class="sev s3">S3</span></td><td>CP-COST-003</td><td>No dry-run or quote on 9 cost-incurring commands</td><td>Confirmed (help)</td></tr>
       <tr><td><span class="sev s3">S3</span></td><td>CP-SAFE-001</td><td>Only <code>delete</code> has a confirmation flag; other cost commands appear to execute immediately</td><td>Inferred (help)</td></tr>
       <tr><td><span class="sev s3">S3</span></td><td>CP-SEC-007</td><td>API token never expires</td><td>Confirmed</td></tr>
-      <tr><td><span class="sev s3">S3</span></td><td>CP-PLAN-002</td><td><code>plan pro</code> shown, yet deploy says "No active compute plan"</td><td>Confirmed</td></tr>
+      <tr><td><span class="sev s3">S3</span></td><td>CP-PLAN-002</td><td><code>plan pro</code> shown and a plan bought on the web, yet deploy says "No active compute plan"</td><td>Confirmed</td></tr>
       <tr><td><span class="sev s3">S3</span></td><td>CP-BILL-002</td><td>Payment status "active" vs "no payment method connected"</td><td>Observed</td></tr>
       <tr><td><span class="sev s3">S3</span></td><td>CP-CLI-006</td><td>Error message suggests <code>cp login</code> (binary is <code>cpctl</code>)</td><td>Observed</td></tr>
       <tr><td><span class="sev s3">S3</span></td><td>CP-SEC-005</td><td>GPU node hostname that appears to contain a personal name is visible to a regular user</td><td>Observed</td></tr>
@@ -652,11 +655,11 @@ exit=1</pre>
   </ul>
 
   <h3>Limitations</h3>
-  <p class="small muted">Results come from a single account, a single macOS client and one test day. MCP behavior, agent trials and all paid paths are not yet tested. The SUS score comes from one evaluator and is indicative only. GPU-count and balance findings may have business explanations; they are reported as inconsistencies, not as root causes.</p>
+  <p class="small muted">Results come from a single account, a single macOS client and one test day. MCP behavior, agent trials and all paid paths are not yet tested; the one purchase (a compute plan on the web) could not be used from the CLI. The SUS score comes from one evaluator and is indicative only. GPU-count and balance findings may have business explanations; they are reported as inconsistencies, not as root causes.</p>
 </section>
 
 <footer>
-  Compute Portal independent QA &middot; Interim briefing &middot; 2026-10-09 &middot; Prepared from recorded test evidence; no paid actions executed.
+  Compute Portal independent QA &middot; Interim briefing &middot; 2026-10-09 &middot; Prepared from recorded test evidence. One compute plan was bought on the web; no paid action was run through the CLI.
 </footer>
 </div>
 

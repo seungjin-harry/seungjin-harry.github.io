@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Why an HP EliteBook 8 G1i fails to connect to the iDRAC Direct USB-C port of a Dell PowerEdge XR8720t, and how to fix it.">
+  <meta name="theme-color" content="#0b0f14">
+  <title>iDRAC Direct Fix</title>
+  <style>
+    :root{
+      --bg:#0b0f14; --panel:#111820; --text:#eef3f7; --muted:#9aa8b5; --line:#26323d;
+      --accent:#7dd3fc; --ok:#a7f3d0; --warn:#fcd34d; --bad:#fca5a5; --radius:14px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.65}
+    .wrap{max-width:900px;margin:auto;padding:48px 16px 80px}
+    a{color:var(--accent)}
+    h1{font-size:clamp(26px,5vw,38px);line-height:1.2;margin:0 0 8px}
+    h2{margin:48px 0 12px;font-size:22px;border-top:1px solid var(--line);padding-top:28px}
+    h3{margin:24px 0 8px;font-size:17px}
+    .lead{color:var(--muted)}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:14px 0}
+    .tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;margin-right:6px}
+    .p1{background:rgba(252,165,165,.15);color:var(--bad)} .p2{background:rgba(252,211,77,.15);color:var(--warn)} .p3{background:rgba(167,243,208,.15);color:var(--ok)}
+    code,pre{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13.5px}
+    code{background:#1a242e;padding:1px 6px;border-radius:6px}
+    pre{background:#0f151b;border:1px solid var(--line);border-radius:10px;padding:14px;overflow-x:auto}
+    table{width:100%;border-collapse:collapse;font-size:14.5px}
+    th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+    th{color:var(--muted);font-weight:600}
+    .tbl{overflow-x:auto}
+    ol li,ul li{margin:4px 0}
+    .muted{color:var(--muted);font-size:14px}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>HP EliteBook 8 G1i ↔ iDRAC Direct (Dell XR8720t)</h1>
+  <p class="lead">Why the "Remote NDIS Compatible Device" adapter doesn't appear on the HP laptop when it does on a Lenovo, and how to fix it.</p>
+
+  <h2>How iDRAC Direct is supposed to work</h2>
+  <ol>
+    <li>You press and hold the server's System ID (<b>i</b>) button for 5 seconds or more. The USB-C service port switches from host mode to <b>iDRAC Direct</b> mode, and a solid green LED lights next to the wrench icon.</li>
+    <li>The laptop acts as USB host. The iDRAC presents itself as a USB network device (Dell vendor ID <code>VID_413C</code>).</li>
+    <li>Windows binds a driver to it. That's either the in-box <b>Remote NDIS Compatible Device</b> (<code>rndiscmp.inf</code> / <code>usb8023.sys</code>) or the <b>iDRAC Virtual NIC USB Device</b> driver, which Windows downloads from Windows Update.</li>
+    <li>The iDRAC gives the laptop the address <code>169.254.0.4</code>. You then browse to <code>https://169.254.0.3</code>. The LED blinks green slowly while connected. <b>Amber means the connection failed.</b></li>
+  </ol>
+  <p>The Lenovo worked, so the server, the iDRAC settings and the port are fine. The failure is in steps 2–4 on the HP side. Each cause below lines up with one of those steps.</p>
+
+  <h2>Likely causes, most probable first</h2>
+
+  <div class="card"><span class="tag p1">#1 Physical</span><b>USB-C to USB-C cable on a Thunderbolt 4 port</b>
+    <p>For 17th-generation servers (the XR8720t is one), Dell recommends a <b>USB-C (server) to USB-A (laptop)</b> cable. The EliteBook 8 G1i's USB-C ports are Thunderbolt 4 / USB4 ports with USB Power Delivery. With a C-to-C cable, both ends negotiate power and data roles over the CC line. The HP may end up in device or power-only role, or fall back after the PD handshake, so the iDRAC port never enumerates as a USB 2.0 device. The Lenovo's Type-C controller handled the same handshake differently.</p>
+    <p><b>Fix:</b> Plug a USB-C-to-USB-A cable into one of the HP's <b>USB-A 5 Gbps</b> ports. If you see Device Manager error <b>Code 43</b>, or no device at all and an amber LED, this is the cause.</p></div>
+
+  <div class="card"><span class="tag p1">#2 Driver</span><b>Device shows up but no driver is bound</b>
+    <p>In Device Manager, the device shows under <i>Other devices</i> as "RNDIS", "USB Ethernet/RNDIS Gadget", "iDRAC" or <i>Unknown device</i> with <b>Code 28</b>. Windows only auto-binds <code>rndiscmp.inf</code> when the device's compatible IDs match. When they don't, Dell expects Windows Update to supply the iDRAC Virtual NIC driver. See cause #3 for why that can fail.</p>
+    <p><b>Fix (step B below):</b> Bind <i>Network adapters → Microsoft → Remote NDIS Compatible Device</i> by hand.</p></div>
+
+  <div class="card"><span class="tag p2">#3 Policy</span><b>Corporate image blocks driver download or device installation</b>
+    <p>Corporate HP laptops are often managed by GPO or Intune. They commonly set <code>ExcludeWUDriversInQualityUpdate=1</code> or <code>SearchOrderConfig=0</code> ("don't get drivers from Windows Update"), or <i>Device Installation Restrictions</i>. With any of these, Windows never downloads the "iDRAC Virtual NIC USB Device" driver, or isn't allowed to install a new Net-class device at all. A personal or differently managed Lenovo wouldn't have these settings.</p>
+    <p><b>Fix:</b> The script detects these settings. If a policy blocks installation, ask IT to allow the Net class <code>{4d36e972-e325-11ce-bfc1-08002be10318}</code> or the hardware ID <code>USB\VID_413C*</code>.</p></div>
+
+  <div class="card"><span class="tag p2">#4 Network</span><b>Adapter exists but you can't reach 169.254.0.3</b>
+    <p>Always-on or force-tunnel VPN clients (Zscaler, GlobalProtect, AnyConnect, Netskope, …) and HP Wolf Security / firewall rules often block or redirect link-local traffic. A browser proxy can also send <code>https://169.254.0.3</code> to the proxy instead of the iDRAC.</p>
+    <p><b>Fix:</b> Disconnect the VPN, and add <code>169.254.*</code> to the proxy bypass list. If DHCP doesn't hand out an address, set a static <code>169.254.0.4 / 255.255.0.0</code> on the adapter, with no gateway.</p></div>
+
+  <div class="card"><span class="tag p3">#5 BIOS</span><b>HP BIOS USB / Type-C restrictions</b>
+    <p>In HP BIOS setup (F10), check <i>Advanced → Port Options</i> and the USB / Thunderbolt / Type-C entries. Make sure no USB-device restriction is active (only keyboards and mice, or storage blocked) and that the USB-C/USB-A ports are enabled. Option names differ between BIOS versions. Updating the BIOS and the Intel Thunderbolt/USB4 drivers through <b>HP Support Assistant / HP Image Assistant</b> also fixes many Type-C enumeration bugs.</p></div>
+
+  <h2>Fix procedure</h2>
+  <h3>A. Reconnect correctly</h3>
+  <ol>
+    <li>On the XR8720t, hold the <b>i</b> button for 5 seconds or more until the green wrench LED is <b>solid</b>.</li>
+    <li>Connect the server's USB-C port to the HP's <b>USB-A</b> port with a USB-C-to-A cable. If you only have a C-to-C cable, use a USB-C-to-A adapter on the HP side.</li>
+    <li>Wait 30–60 seconds and watch the LED. If it blinks green slowly, open <code>https://169.254.0.3</code>.</li>
+  </ol>
+
+  <h3>B. Bind "Remote NDIS Compatible Device" manually</h3>
+  <ol>
+    <li>Press <code>Win+X</code> and open <b>Device Manager</b>. Find the device with the yellow mark, under <i>Other devices</i> or <i>Universal Serial Bus controllers</i>.</li>
+    <li>Right-click it and choose <b>Update driver → Browse my computer for drivers → Let me pick from a list…</b></li>
+    <li>Choose <b>Network adapters → Next</b>. Clear <i>Show compatible hardware</i> if it's ticked.</li>
+    <li>Manufacturer: <b>Microsoft</b>. Model: <b>Remote NDIS Compatible Device</b>. Click Next, then answer <b>Yes</b> to the warning.</li>
+    <li>A new Ethernet adapter appears. Check that it has <code>169.254.0.4</code> (<code>ipconfig</code>), then browse to <code>https://169.254.0.3</code>.</li>
+  </ol>
+  <p class="muted">If Microsoft isn't listed as a manufacturer, the image is missing <code>rndiscmp.inf</code>. Run <i>Settings → Windows Update → Advanced options → Optional updates → Driver updates</i> with the cable connected, or run <code>sfc /scannow</code> and <code>DISM /Online /Cleanup-Image /RestoreHealth</code> to restore it.</p>
+
+  <h3>C. Let Windows Update fetch the iDRAC driver</h3>
+  <p>With the cable connected and the laptop online (Wi-Fi), open <i>Settings → Windows Update → Check for updates</i>, then <i>Advanced options → Optional updates → Driver updates</i>. Install any "Dell – Net – iDRAC Virtual NIC" entry. If policy blocks this, use step B instead.</p>
+
+  <h3>D. Run the automated diagnostics</h3>
+  <p>Download <a href="Fix-iDRACDirect.ps1">Fix-iDRACDirect.ps1</a>. Open PowerShell <b>as Administrator</b> with the laptop connected to the iDRAC port, then run:</p>
+<pre>powershell -ExecutionPolicy Bypass -File .\Fix-iDRACDirect.ps1        # diagnose only
+powershell -ExecutionPolicy Bypass -File .\Fix-iDRACDirect.ps1 -Fix   # diagnose + repair</pre>
+  <p>The script checks USB enumeration and error codes, the presence of the in-box RNDIS driver, device-install and Windows Update driver policies, the adapter's IP and reachability of <code>169.254.0.3</code>, and active VPN or proxy settings. With <code>-Fix</code> it also removes failed device entries, re-stages <code>rndiscmp.inf</code>, rescans hardware and allows Windows Update driver download if policy permits. It writes a log to the Desktop.</p>
+
+  <h2>Reading the result</h2>
+  <div class="tbl"><table>
+    <tr><th>Symptom</th><th>Meaning</th><th>Action</th></tr>
+    <tr><td>Nothing appears, LED amber/solid</td><td>USB never enumerated</td><td>Cause #1: USB-A port with a C-to-A cable; cause #5: check BIOS</td></tr>
+    <tr><td>Code 43</td><td>USB descriptor / role negotiation failed</td><td>Cause #1</td></tr>
+    <tr><td>Code 28, "RNDIS" under Other devices</td><td>No driver bound</td><td>Step B or C</td></tr>
+    <tr><td>Policy [FAIL] in the script</td><td>Install blocked by IT</td><td>Ask IT to allow; step B may still be blocked</td></tr>
+    <tr><td>Adapter OK, no 169.254.0.4</td><td>DHCP from iDRAC not received</td><td>Unplug/replug; set static 169.254.0.4/16</td></tr>
+    <tr><td>Has IP, browser fails</td><td>VPN / proxy / firewall</td><td>Cause #4</td></tr>
+  </table></div>
+
+  <h2>References</h2>
+  <ul class="muted">
+    <li><a href="https://www.dell.com/support/kbdoc/en-us/000130077/poweredge-how-to-use-the-idrac-direct-feature">Dell KB 000130077 – PowerEdge: How to Use the iDRAC Direct Feature</a> (17G: USB-C to USB-A cable recommended; LED meanings; 169.254.0.3/.4)</li>
+    <li><a href="https://www.dell.com/support/kbdoc/ar-sa/000434735/poweredge-settings-that-disable-idrac-direct">Dell KB 000434735 – BIOS and iDRAC Settings That Disable iDRAC Direct</a></li>
+    <li><a href="https://www.dell.com/support/manuals/en-us/poweredge-r7715/idrac10_1.20.xx_ug/accessing-idrac-interface-over-direct-usb-connection?guid=guid-0fe3233e-909a-4629-9758-38574a289a8c&amp;lang=en-us">iDRAC10 1.20.xx User's Guide – Accessing iDRAC over direct USB</a> (Windows requires an RNDIS driver)</li>
+    <li><a href="https://nanoreview.net/en/laptop/hp-elitebook-8-g1i-14">HP EliteBook 8 G1i 14" specifications</a> (2× Thunderbolt 4 USB-C, 2× USB-A 5 Gbps)</li>
+  </ul>
+</div>
+</body>
+</html>

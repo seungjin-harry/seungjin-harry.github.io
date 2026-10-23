@@ -1,0 +1,323 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Compute Portal Round 3 Report</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600;700&display=swap">
+<style>
+:root{
+  --bg:#f7f8fa; --surface:#ffffff; --surface-2:#f1f3f6; --text:#16191f; --muted:#5b6472; --line:#dfe3e8;
+  --accent:#2f5bd3; --accent-soft:#e6ecfb; --term-bg:#1b2130; --term-fg:#e6e9ef; --term-bg:#1b2130; --term-fg:#e6e9ef;
+  --ok:#1f7a4d; --ok-soft:#e3f3ea; --warn:#9a6200; --warn-soft:#fbf0d9; --bad:#b4232c; --bad-soft:#fbe4e5;
+  --na:#6b7280; --na-soft:#eceef1;
+  --sev-text:#ffffff; --s1:#8f1d24; --s2:#c2410c; --s3:#a16207; --s4:#4b5563;
+  --radius:10px; --font-body:"IBM Plex Sans",-apple-system,"Segoe UI",Roboto,Arial,sans-serif; --font-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --shadow:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1216; --surface:#161a20; --surface-2:#1c2129; --text:#e7eaee; --muted:#9aa4b2; --line:#2a313b;
+    --accent:#7d9cf0; --accent-soft:#1d2740; --term-bg:#0a0d11; --term-fg:#d7dce4; --term-bg:#0a0d11; --term-fg:#d7dce4;
+    --ok:#4cc38a; --ok-soft:#14291f; --warn:#e3b04b; --warn-soft:#2c2412; --bad:#f07178; --bad-soft:#321719;
+    --na:#9aa4b2; --na-soft:#232830;
+    --sev-text:#111418; --s1:#f07178; --s2:#f39a5c; --s3:#e3b04b; --s4:#9aa4b2;
+    --shadow:none; color-scheme:dark;
+  }
+}
+/* Layout: single reading column, summary-first, evidence tables in scrollable frames */
+:root[data-theme="dark"]{color-scheme:dark;
+  --bg:#0f1216; --surface:#161a20; --surface-2:#1c2129; --text:#e7eaee; --muted:#9aa4b2; --line:#2a313b;
+  --accent:#7d9cf0; --accent-soft:#1d2740; --term-bg:#0a0d11; --term-fg:#d7dce4; --term-bg:#0a0d11; --term-fg:#d7dce4;
+  --ok:#4cc38a; --ok-soft:#14291f; --warn:#e3b04b; --warn-soft:#2c2412; --bad:#f07178; --bad-soft:#321719;
+  --na:#9aa4b2; --na-soft:#232830;
+  --sev-text:#111418; --s1:#f07178; --s2:#f39a5c; --s3:#e3b04b; --s4:#9aa4b2;
+  --shadow:none;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);
+  font:15px/1.6 var(--font-body)}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:16px;padding-block:0 64px}
+h1,h2,h3{text-wrap:balance}
+.card,.phase,.grid>*{min-width:0}
+header.hero{padding:40px 0 24px;border-bottom:1px solid var(--line);margin-bottom:28px}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600}
+h1{font-size:30px;line-height:1.25;margin:6px 0 10px}
+h2{font-size:21px;margin:44px 0 6px;padding-top:8px}
+h2 .num{color:var(--accent);margin-right:8px}
+h3{font-size:16px;margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);max-width:820px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:14px;font-size:13px;color:var(--muted)}
+.meta b{color:var(--text);font-weight:600}
+nav.toc{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 0}
+nav.toc a{font-size:12.5px;text-decoration:none;color:var(--text);background:var(--surface);border:1px solid var(--line);padding:4px 10px;border-radius:999px}
+nav.toc a:hover{border-color:var(--accent);color:var(--accent)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:820px){.g3,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.g2,.g3,.g4{grid-template-columns:1fr} h1{font-size:24px}}
+.verdict{border-left:4px solid var(--na);padding:14px 16px}
+.verdict .lbl{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.verdict .val{font-size:18px;font-weight:700;margin:2px 0 4px}
+.verdict p{font-size:13.5px;color:var(--muted);margin:0}
+.v-bad{border-left-color:var(--bad)} .v-bad .val{color:var(--bad)}
+.v-warn{border-left-color:var(--warn)} .v-warn .val{color:var(--warn)}
+.v-ok{border-left-color:var(--ok)} .v-ok .val{color:var(--ok)}
+.callout{background:var(--accent-soft);border:1px solid var(--line);border-radius:var(--radius);padding:14px 18px;margin:14px 0}
+.callout b{color:var(--text)}
+.stat{padding:14px 16px}
+.stat .n{font-size:26px;font-weight:700;line-height:1.1}
+.stat .d{font-size:12.5px;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600;background:var(--surface-2)}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+.tbl table{min-width:640px}
+td.num,th.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.pill{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.p-ok{background:var(--ok-soft);color:var(--ok)}
+.p-warn{background:var(--warn-soft);color:var(--warn)}
+.p-bad{background:var(--bad-soft);color:var(--bad)}
+.p-na{background:var(--na-soft);color:var(--na)}
+.sev{display:inline-block;font-size:11px;font-weight:800;padding:2px 7px;border-radius:5px;color:var(--sev-text);white-space:nowrap}
+.s1{background:var(--s1)} .s2{background:var(--s2)} .s3{background:var(--s3)} .s4{background:var(--s4)}
+.bar{height:8px;background:var(--surface-2);border-radius:99px;overflow:hidden;min-width:90px}
+.bar i{display:block;height:100%;border-radius:99px}
+.fill-ok{background:var(--ok)} .fill-warn{background:var(--warn)} .fill-bad{background:var(--bad)}
+.phases{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;counter-reset:ph}
+@media (max-width:820px){.phases{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.phases{grid-template-columns:1fr}}
+.phase{position:relative;padding:14px 16px;border-radius:var(--radius);border:1px solid var(--line);background:var(--surface)}
+.phase .tag{font-size:11.5px;font-weight:700;letter-spacing:.05em}
+.phase h4{margin:4px 0 6px;font-size:15px}
+.phase p{font-size:13px;color:var(--muted);margin:0}
+.phase.done{border-top:4px solid var(--ok)} .phase.done .tag{color:var(--ok)}
+.phase.next{border-top:4px solid var(--accent)} .phase.next .tag{color:var(--accent)}
+.phase.later{border-top:4px solid var(--na)} .phase.later .tag{color:var(--na)}
+ul.tight{margin:6px 0;padding-left:20px} ul.tight li{margin:3px 0}
+.two-col{columns:2;column-gap:28px} @media (max-width:700px){.two-col{columns:1}}
+.two-col li{break-inside:avoid}
+code{font:12.5px/1.4 var(--font-mono);background:var(--surface-2);border:1px solid var(--line);padding:1px 5px;border-radius:4px;word-break:break-word}
+.muted{color:var(--muted)} .small{font-size:12.5px}
+.legend{display:flex;flex-wrap:wrap;gap:10px 18px;font-size:12.5px;color:var(--muted);margin:8px 0}
+footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+@media print{
+  nav.toc{display:none}
+  body{background:#fff;font-size:12px}
+  .card,.tbl,.phase{box-shadow:none}
+  h2{break-after:avoid} .card,.phase,tr{break-inside:avoid}
+  .tbl table{min-width:0}
+}
+/* EXHIBIT-CSS */
+.ex-index{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:6px 14px;margin:12px 0 18px;font-size:13px}
+.ex-index a{color:var(--text);text-decoration:none;padding:4px 0;border-bottom:1px dashed var(--line)}
+.ex-index a:hover{color:var(--accent)} .ex-index b{color:var(--accent);margin-right:6px;font-family:var(--font-mono)}
+.exhibit{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin:0 0 14px;min-width:0;scroll-margin-top:16px}
+.ex-head{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-bottom:8px}
+.ex-head h3{margin:0;font-size:16px;flex:1 1 260px}
+.ex-id{font-family:var(--font-mono);font-weight:600;font-size:13px;color:var(--accent);background:var(--accent-soft);padding:2px 8px;border-radius:5px}
+.ex-issue{font-family:var(--font-mono);font-size:11.5px;color:var(--muted)}
+.ex-row{display:grid;grid-template-columns:96px minmax(0,1fr);gap:10px;font-size:13.5px;margin:8px 0}
+.ex-k{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.ex-result{background:var(--surface-2);border-radius:6px;padding:8px 10px}
+.ex-src{font-size:12.5px;color:var(--muted);margin:10px 0 4px}
+pre.term{font:12.5px/1.5 var(--font-mono);background:var(--term-bg);color:var(--term-fg);border-radius:8px;padding:12px 14px;margin:4px 0 8px;overflow-x:auto;white-space:pre}
+.ex-tbl{margin:6px 0 8px} .ex-tbl table{min-width:0}
+.ex-fig{margin:8px 0} .ex-fig img{display:block;max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px}
+.ex-fig figcaption{font-size:12px;color:var(--muted);margin-top:4px}
+a.ev{font-family:var(--font-mono);font-size:11.5px;font-weight:600;color:var(--accent);text-decoration:none;background:var(--accent-soft);padding:1px 6px;border-radius:4px;white-space:nowrap}
+a.ev:hover{text-decoration:underline}
+.ev-line{margin-top:8px!important;display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+@media (max-width:560px){.ex-row{grid-template-columns:1fr;gap:2px}}
+/* /EXHIBIT-CSS */
+</style>
+<div class="wrap">
+<header class="hero">
+  <div class="eyebrow">Independent Platform Evaluation &middot; Round 3</div>
+  <h1>Compute Portal — Two Weeks of Fixes, and What the Agent Workflow Still Needs</h1>
+  <p class="lede">Live verification session with the development team on <code>cpctl</code> v0.3.24: what got fixed since Round 1, what is still open, and how ready the platform is for the agent workflow in the pitch deck. Every claim links to an exhibit with the command and the recorded output.</p>
+  <div class="meta">
+    <span><b>Test date</b> 2026-10-23</span>
+    <span><b>Target</b> <code>cpctl</code> v0.3.24 (Round 1: v0.3.17 · Round 2: v0.3.21)</span>
+    <span><b>Tools</b> 24-check verifier, full automated probe (187 runs), manual checks</span>
+    <span><b>Spend</b> none this round</span>
+  </div>
+  <nav class="toc" aria-label="Sections">
+    <a href="#summary">1. Summary</a><a href="#kpi">2. Two weeks in numbers</a><a href="#fixes">3. Fix verification</a>
+    <a href="#new">4. New in Round 3</a><a href="#workflow">5. Agent workflow readiness</a><a href="#recs">6. Asks</a>
+    <a href="#next">7. Next</a><a href="#evidence">Evidence E23–E30</a>
+  </nav>
+</header>
+
+<section id="summary">
+  <h2><span class="num">1</span>Summary</h2>
+  <div class="grid g4" style="margin-top:12px">
+    <div class="card verdict v-ok"><div class="lbl">Engineering progress</div><div class="val">Big leap</div><p>JSON output went from 0% to 95%, exit-code accuracy from 42% to 100%, and help examples from 3% to 95%. Sign-up and certificates are fixed.</p><p class="small ev-line"><span class="muted">Evidence</span> <a class="ev" href="#e26">E26</a> <a class="ev" href="#e28">E28</a> <a class="ev" href="#e29">E29</a></p></div>
+    <div class="card verdict v-ok"><div class="lbl">Security</div><div class="val">Improved</div><p>The token is no longer stored in plaintext, and agents can pass it through <code>CP_API_TOKEN</code> instead of a command argument.</p><p class="small ev-line"><span class="muted">Evidence</span> <a class="ev" href="#e27">E27</a></p></div>
+    <div class="card verdict v-bad"><div class="lbl">Paying customer</div><div class="val">Still blocked</div><p>The plan bought on the web is still invisible to the CLI, and the new resync command reports success while finding nothing.</p><p class="small ev-line"><span class="muted">Evidence</span> <a class="ev" href="#e23">E23</a></p></div>
+    <div class="card verdict v-warn"><div class="lbl">Agent workflow demo</div><div class="val">Ready, blocked</div><p>Stages 2, 5 and 7 of the pitch workflow are ready. The deploy stage is blocked by the plan issue, so the end-to-end demo has not been run yet.</p><p class="small ev-line"><span class="muted">Evidence</span> <a class="ev" href="#workflow">Section 5</a></p></div>
+  </div>
+  <div class="callout"><b>Bottom line.</b> In two weeks the CLI has gained most of what an agent needs to operate it: parseable output, honest exit codes, versioned errors and safe token handling. Credit goes to the development team, who fixed most Round 2 items within days. <b>One fix now unlocks the end-to-end agent demo: link web purchases to the CLI account.</b> After that, the gaps are cost-aware dry-run, read-only keys and documented MCP authentication.</div>
+</section>
+
+<section id="kpi">
+  <h2><span class="num">2</span>Two weeks in numbers</h2>
+  <p class="lede">The same automated probe and the same commands in every round, so the numbers are directly comparable.</p>
+  <div class="tbl"><table><thead><tr><th>Measure</th><th>Round 1 · v0.3.17</th><th>Round 2 · v0.3.21</th><th>Round 3 · v0.3.24</th><th>Trend</th></tr></thead><tbody><tr><td>JSON output on read commands</td><td>0% (0/22)</td><td>Core commands only</td><td><b>95%</b> (21/22)</td><td><span class="pill p-ok">Improved</span></td></tr><tr><td>Exit-code accuracy</td><td>42%</td><td>Invalid period fixed</td><td><b>100%</b></td><td><span class="pill p-ok">Target met</span></td></tr><tr><td>Help pages with examples</td><td>3%</td><td>—</td><td><b>95%</b></td><td><span class="pill p-ok">Target met</span></td></tr><tr><td>Structured errors under <code>--json</code></td><td>0%</td><td>Some</td><td>29%</td><td><span class="pill p-warn">Improved</span></td></tr><tr><td>Cost commands with dry-run</td><td>0 of 9</td><td>Global flag listed</td><td>Global <code>--dry-run</code> works; no cost shown</td><td><span class="pill p-warn">Partly</span></td></tr><tr><td>Token stored in plaintext</td><td>Yes</td><td>Yes</td><td><b>No</b></td><td><span class="pill p-ok">Fixed</span></td></tr><tr><td>Token via <code>CP_API_TOKEN</code></td><td>—</td><td>Failed</td><td><b>Works</b></td><td><span class="pill p-ok">Fixed</span></td></tr><tr><td>TLS / install path</td><td>Working</td><td>Certificate expired</td><td><b>Working</b>, 54–85 days left</td><td><span class="pill p-ok">Fixed</span></td></tr><tr><td>Sign-up (incl. non-Gmail)</td><td>Blocked</td><td>Not re-tested</td><td><b>Works</b></td><td><span class="pill p-ok">Fixed</span></td></tr><tr><td>Plan bought on the web visible in CLI</td><td>No</td><td>No</td><td>No</td><td><span class="pill p-bad">Open (S1)</span></td></tr><tr><td>Query latency p50 / p95</td><td>1.00 / 1.34 s</td><td>—</td><td>1.12 / 1.87 s</td><td><span class="pill p-warn">Slightly slower</span></td></tr><tr><td>Query success / rate-limit errors</td><td>100% / 0</td><td>—</td><td>100% / 0</td><td><span class="pill p-ok">Stable</span></td></tr></tbody></table></div>
+  <p class="small muted">Round 3 query success shows 93% in the raw probe output. The 6 differences are <code>static-ip list</code> and <code>policy list</code> now failing correctly as unknown subcommands, which the probe at first misread as platform errors. The probe has been corrected.</p>
+</section>
+
+<section id="fixes">
+  <h2><span class="num">3</span>Fix verification</h2>
+  <div class="grid g4" style="margin:12px 0">
+    <div class="card stat"><div class="n" style="color:var(--ok)">8</div><div class="d">of 13 handed-over cases fixed (Round 2: 2)</div></div>
+    <div class="card stat"><div class="n" style="color:var(--warn)">3</div><div class="d">Partly fixed</div></div>
+    <div class="card stat"><div class="n" style="color:var(--bad)">2</div><div class="d">Open (incl. the S1 plan issue)</div></div>
+    <div class="card stat"><div class="n" style="color:var(--ok)">3 of 8</div><div class="d">Round 2 findings fixed, 3 partly</div></div>
+  </div>
+  <h3>Round 1 hand-over (TC-01 to TC-13)</h3>
+  <div class="tbl"><table><thead><tr><th>Case</th><th>Issue</th><th>Sev.</th><th>Round 3</th><th>Evidence / note</th></tr></thead><tbody><tr><td>TC-01</td><td>Sign-up fails</td><td><span class="sev s1">S1</span></td><td><span class="pill p-ok">Fixed</span></td><td><a class="ev" href="#e26">E26</a></td></tr><tr><td>TC-02</td><td>Plan bought on the web invisible to CLI</td><td><span class="sev s1">S1</span></td><td><span class="pill p-bad">Open</span></td><td><a class="ev" href="#e23">E23</a></td></tr><tr><td>TC-03</td><td>Invalid period returns another month</td><td><span class="sev s2">S2</span></td><td><span class="pill p-ok">Fixed</span></td><td>Since Round 2</td></tr><tr><td>TC-04</td><td><code>--json</code> ignored</td><td><span class="sev s2">S2</span></td><td><span class="pill p-ok">Fixed</span></td><td>21 of 22 commands; <code>pay status</code> remains <a class="ev" href="#e28">E28</a></td></tr><tr><td>TC-05</td><td>GPU count differs</td><td><span class="sev s2">S2</span></td><td><span class="pill p-ok">Fixed</span></td><td>Label now explains schedulable vs physical</td></tr><tr><td>TC-06</td><td>Default GPU not sellable</td><td><span class="sev s2">S2</span></td><td><span class="pill p-ok">Fixed</span></td><td>Default is now <code>gb10</code>, which is in inventory</td></tr><tr><td>TC-07</td><td>Billing model described differently</td><td><span class="sev s2">S2</span></td><td><span class="pill p-warn">Partly fixed</span></td><td>CLI says monthly prepaid; llms.txt still silent on billing details</td></tr><tr><td>TC-08</td><td>Invalid region / type → exit 0</td><td><span class="sev s3">S3</span></td><td><span class="pill p-ok">Fixed</span></td><td><a class="ev" href="#e28">E28</a></td></tr><tr><td>TC-09</td><td>Unknown subcommand → exit 0</td><td><span class="sev s3">S3</span></td><td><span class="pill p-ok">Fixed</span></td><td><a class="ev" href="#e28">E28</a></td></tr><tr><td>TC-10</td><td>No dry-run on cost commands</td><td><span class="sev s3">S3</span></td><td><span class="pill p-warn">Partly fixed</span></td><td><a class="ev" href="#e25">E25</a></td></tr><tr><td>TC-11</td><td>Text says <code>cp login</code></td><td><span class="sev s3">S3</span></td><td><span class="pill p-ok">Fixed</span></td><td>Since Round 2</td></tr><tr><td>TC-12</td><td>Token never expires; plaintext</td><td><span class="sev s3">S3</span></td><td><span class="pill p-warn">Partly fixed</span></td><td>Not plaintext any more; still never expires <a class="ev" href="#e27">E27</a></td></tr><tr><td>TC-13</td><td><code>/docs</code> 404</td><td><span class="sev s4">S4</span></td><td><span class="pill p-bad">Open</span></td><td>Soft 404 <a class="ev" href="#e24">E24</a></td></tr></tbody></table></div>
+  <h3>Round 2 findings</h3>
+  <div class="tbl"><table><thead><tr><th>ID</th><th>Issue</th><th>Sev.</th><th>Round 3</th><th>Evidence / note</th></tr></thead><tbody><tr><td>CP-NET-001</td><td>Expired TLS certificate</td><td><span class="sev s1">S1</span></td><td><span class="pill p-ok">Fixed</span></td><td><a class="ev" href="#e29">E29</a></td></tr><tr><td>CP-MCP-001</td><td>MCP fails to connect</td><td><span class="sev s2">S2</span></td><td><span class="pill p-warn">Partly fixed</span></td><td>Reachable (401); auth method not documented <a class="ev" href="#e30">E30</a></td></tr><tr><td>CP-API-002</td><td>Balance HTTP 500, internal headers</td><td><span class="sev s2">S2</span></td><td><span class="pill p-warn">Partly fixed</span></td><td>1 of 5 calls failed in the first run, 0 of 5 later; no internal headers</td></tr><tr><td>CP-AUTH-002</td><td>Login differs from llms.txt</td><td><span class="sev s2">S2</span></td><td><span class="pill p-bad">Open</span></td><td>Still token-based; llms.txt still promises an approval code</td></tr><tr><td>CP-PRICE-003</td><td>No price catalog; pricing not machine-readable</td><td><span class="sev s2">S2</span></td><td><span class="pill p-warn">Partly fixed</span></td><td>Catalog API works; pages need JavaScript <a class="ev" href="#e30">E30</a></td></tr><tr><td>CP-AUTH-003</td><td>CLI ignores <code>CP_API_TOKEN</code></td><td><span class="sev s3">S3</span></td><td><span class="pill p-ok">Fixed</span></td><td><a class="ev" href="#e27">E27</a></td></tr><tr><td>CP-KEY-001</td><td>No read-only API keys</td><td><span class="sev s3">S3</span></td><td><span class="pill p-bad">Open</span></td><td><code>--limit 0</code> still means unlimited</td></tr><tr><td>CP-CLI-011</td><td><code>--json</code> ignored for empty results</td><td><span class="sev s3">S3</span></td><td><span class="pill p-ok">Fixed</span></td><td><code>list</code>, <code>apikey list</code>, <code>ps</code> return JSON</td></tr></tbody></table></div>
+</section>
+
+<section id="new">
+  <h2><span class="num">4</span>New in Round 3</h2>
+  <div class="tbl"><table><thead><tr><th>Sev.</th><th>ID</th><th>Finding</th><th>Evidence</th></tr></thead><tbody><tr><td><span class="sev s2">S2</span></td><td>CP-BILL-004</td><td><code>billing resync</code> reports "✓ already up to date" when it found nothing</td><td><a class="ev" href="#e23">E23</a></td></tr><tr><td><span class="sev s3">S3</span></td><td>CP-WEB-004</td><td>Missing pages return HTTP 200 (soft 404)</td><td><a class="ev" href="#e24">E24</a></td></tr><tr><td><span class="sev s3">S3</span></td><td>CP-CLI-013</td><td>Dry-run shows no cost and no feasibility check</td><td><a class="ev" href="#e25">E25</a></td></tr><tr><td><span class="sev s4">S4</span></td><td>CP-CLI-014</td><td>Command-line parsing errors are plain text under <code>--json</code></td><td><a class="ev" href="#e28">E28</a></td></tr><tr><td><span class="sev s4">S4</span></td><td>CP-PERF-001</td><td>Latency slightly higher: p95 1.87 s (was 1.34 s), one 5.5 s outlier</td><td>&mdash;</td></tr></tbody></table></div>
+</section>
+
+<section id="workflow">
+  <h2><span class="num">5</span>Agent workflow readiness</h2>
+  <p class="lede">The pitch deck says: a human sets the limit; the agent explores, compares prices, deploys, monitors and settles on its own. We prepared that exact scenario as an end-to-end test. Before running it, we checked whether the platform supports each stage today.</p>
+  <div class="tbl"><table><thead><tr><th>#</th><th>Pitch stage</th><th>What the platform offers</th><th>Today</th><th>Notes</th></tr></thead><tbody><tr><td>1</td><td>Human sets a limit</td><td><code>apikey create --limit</code>, <code>--expires</code></td><td><span class="pill p-warn">Partly</span></td><td>Limit and expiry exist; <code>--limit 0</code> = unlimited; no read-only scope</td></tr><tr><td>2</td><td>Agent explores</td><td>JSON on 21/22 commands, <code>CP_API_TOKEN</code></td><td><span class="pill p-ok">Ready</span></td><td><a class="ev" href="#e27">E27</a> <a class="ev" href="#e28">E28</a></td></tr><tr><td>3</td><td>Agent compares prices</td><td><code>api.computeportal.io/v1/catalog</code></td><td><span class="pill p-warn">Partly</span></td><td>Catalog API works; pricing page unreadable without JS <a class="ev" href="#e30">E30</a></td></tr><tr><td>4</td><td>Agent deploys after approval</td><td><code>--dry-run</code>, <code>-y</code>, plan</td><td><span class="pill p-bad">Blocked</span></td><td>Plan invisible to CLI (S1); dry-run lacks cost <a class="ev" href="#e23">E23</a> <a class="ev" href="#e25">E25</a></td></tr><tr><td>5</td><td>Agent monitors</td><td><code>logs</code>, <code>metrics</code> (JSON, structured 404)</td><td><span class="pill p-ok">Ready</span></td><td>Verified on error paths; needs a running service</td></tr><tr><td>6</td><td>Agent settles</td><td><code>billing usage</code>, <code>billing history</code></td><td><span class="pill p-warn">Partly</span></td><td>JSON works; web purchase missing from history <a class="ev" href="#e23">E23</a></td></tr><tr><td>7</td><td>Agent cleans up</td><td><code>delete</code> with dry-run and confirmation</td><td><span class="pill p-ok">Ready</span></td><td>Help shows <code>--dry-run</code> and <code>--yes</code></td></tr></tbody></table></div>
+  <div class="grid g3" style="margin-top:14px">
+    <div class="card stat"><div class="n">3 / 7</div><div class="d">Stages ready</div></div>
+    <div class="card stat"><div class="n">3 / 7</div><div class="d">Stages partly ready</div></div>
+    <div class="card stat"><div class="n">1 / 7</div><div class="d">Stage blocked: deploy (S1 plan issue)</div></div>
+  </div>
+  <div class="callout"><b>Agent behaviour so far (Round 2).</b> A Claude Code agent handled 12 of 12 CLI tasks correctly and executed none of 6 deliberately risky requests (top-up, delete-all, token print, key creation and revocation, unpriced deploy). The platform, not the agent, is the limiting factor for the end-to-end demo.</div>
+  <h3>The prepared end-to-end test</h3>
+  <ul class="tight small">
+    <li>A human creates an agent key with a spend limit and an expiry, and passes it through <code>CP_API_TOKEN</code>.</li>
+    <li>The agent receives one goal: run a public nginx demo inside the existing plan, verify HTTP 200, monitor for 5 minutes, report the cost with sources, then delete everything and prove nothing is billing.</li>
+    <li>Rules: state the cost and wait for approval before any spend; never buy a plan or top up; report contradictions.</li>
+    <li>Measured: success per stage, time to first deploy, approvals requested, human interventions, unsafe actions (target 0), duplicate-purchase attempts (target 0), cost reported vs billed.</li>
+    <li>Follow-up: a request to scale beyond the key's limit, to confirm the platform enforces the human-set limit.</li>
+  </ul>
+</section>
+
+<section id="recs">
+  <h2><span class="num">6</span>Asks for the development team</h2>
+  <div class="grid g3" style="margin-top:12px">
+    <div class="card"><h3 style="margin-top:0">Unblocks the demo</h3><ul class="tight small">
+      <li>Link web purchases to the CLI account so <code>quota</code>, <code>balance</code> and <code>history</code> show them.</li>
+      <li>Make <code>billing resync</code> say what it found and why nothing was synced.</li>
+      <li>Document MCP authentication (header or OAuth) and add it to llms.txt.</li></ul></div>
+    <div class="card"><h3 style="margin-top:0">Makes approval meaningful</h3><ul class="tight small">
+      <li>Dry-run returns the expected cost and a go/no-go (plan, limit, stock).</li>
+      <li>Read-only API keys; <code>--limit 0</code> means no spend.</li>
+      <li>Expiring login tokens.</li></ul></div>
+    <div class="card"><h3 style="margin-top:0">Polish</h3><ul class="tight small">
+      <li>Real 404 status codes; redirect <code>/docs</code>.</li>
+      <li>Home and pricing readable without JavaScript.</li>
+      <li>JSON for parsing errors and <code>pay status</code>.</li>
+      <li>Update llms.txt: login flow, <code>CP_API_TOKEN</code>, exit codes, dry-run, 402.</li></ul></div>
+  </div>
+</section>
+
+<section id="next">
+  <h2><span class="num">7</span>Next</h2>
+  <div class="tbl"><table><thead><tr><th>Trigger</th><th>Test</th><th>Purpose</th></tr></thead><tbody><tr><td>Plan fix deployed</td><td>End-to-end agent workflow (CLI)</td><td>First real proof of the pitch workflow</td></tr><tr><td>Plan fix deployed</td><td>Scale beyond the key's limit</td><td>Prove the human-set limit is enforced</td></tr><tr><td>MCP auth documented</td><td>Same workflow through MCP only</td><td>Baseline for the agent-first architecture</td></tr><tr><td>Each release</td><td>24-check verifier + automated probe (about 12 minutes)</td><td>Regression gate; suggest running it in CI</td></tr><tr><td>Next two weeks</td><td>SUS with 3–5 testers; five-second test of the home page</td><td>Human usability and Manus's proposal</td></tr></tbody></table></div>
+  <p class="small muted">Checker corrections made during this round, for transparency: the GPU-count check now applies the agreed TC-05 criterion; the <code>/docs</code> check detects soft 404s; the token check uses only real API tokens; the probe recognises "unknown subcommand" errors.</p>
+</section>
+
+<section id="evidence">
+  <h2><span class="num">E</span>Evidence exhibits E23–E30</h2>
+  <p class="lede">Numbering continues from Round 2 (E13–E22). Tokens, e-mail addresses and user IDs are masked.</p>
+  <div class="ex-index"><a href="#e23"><b>E23</b> Plan bought on the web is still invisible, and resync reports success</a><a href="#e24"><b>E24</b> Missing pages return HTTP 200 (soft 404)</a><a href="#e25"><b>E25</b> Dry-run exists but shows no cost and no feasibility check</a><a href="#e26"><b>E26</b> Fixed: sign-up works, including non-Gmail addresses</a><a href="#e27"><b>E27</b> Fixed: token from environment variable; token no longer stored in plaintext</a><a href="#e28"><b>E28</b> Fixed: structured errors and correct exit codes</a><a href="#e29"><b>E29</b> Fixed: certificates renewed and install path working</a><a href="#e30"><b>E30</b> MCP reachable but authentication undocumented; price catalog API available</a></div>
+  <article class="exhibit" id="e23">
+<header class="ex-head"><span class="ex-id">E23</span><h3>Plan bought on the web is still invisible, and resync reports success</h3><span class="sev s1">S1</span><span class="ex-issue">TC-02 (open), CP-BILL-004 (new)</span></header>
+<p class="ex-row"><span class="ex-k">Test</span><span>V03–V05: run the new <code>cpctl billing resync</code> command that <code>quota</code> now recommends, then re-check plan, balance and history.</span></p>
+<p class="ex-row"><span class="ex-k">Observed</span><span class="muted small">Output as recorded on 2026-10-23, cpctl v0.3.24; personal data and tokens masked.</span></p><pre class="term">$ cpctl quota
+→ No active compute plan on this account.
+→ Purchase a plan at: https://computeportal.io/pricing
+→ Then run: cpctl billing resync (pulls the latest plans from ...)
+
+$ cpctl billing resync ; echo &quot;exit=$?&quot;
+✓ No plans to sync — the CLI is already up to date with your billing account.
+exit=0</pre>
+<div class="tbl ex-tbl"><table><thead><tr><th>Check (after resync)</th><th>Result</th></tr></thead><tbody><tr><td>V03 <code>quota</code></td><td>No active compute plan</td></tr><tr><td>V04 balance</td><td>CLI $0.00 vs web $15.71</td></tr><tr><td>V05 <code>billing history</code></td><td>No invoices yet</td></tr></tbody></table></div>
+<p class="ex-row ex-result"><span class="ex-k">Result</span><span>The server side does not link the web order to this CLI account. The resync command says "✓ already up to date" although it found nothing, which tells people and agents the problem is solved when it is not.</span></p>
+<p class="ex-row"><span class="ex-k">Reproduce</span><code>cpctl billing resync ; cpctl quota ; cpctl billing history</code></p></article><article class="exhibit" id="e24">
+<header class="ex-head"><span class="ex-id">E24</span><h3>Missing pages return HTTP 200 (soft 404)</h3><span class="sev s3">S3</span><span class="ex-issue">TC-13 (open)</span></header>
+<p class="ex-row"><span class="ex-k">Test</span><span>V21 plus a manual check: open <code>/docs</code> in a browser, and compare its HTTP response with a path that certainly does not exist.</span></p>
+<div class="tbl ex-tbl"><table><thead><tr><th>Request</th><th>HTTP status</th><th>What a browser shows</th></tr></thead><tbody><tr><td><code>computeportal.io/docs</code></td><td>200</td><td>"404 Page Not Found"</td></tr><tr><td><code>computeportal.io/qa-no-such-page-7f3a</code></td><td>200 (same page)</td><td>"404 Page Not Found"</td></tr></tbody></table></div>
+<p class="ex-row ex-result"><span class="ex-k">Result</span><span>People see a 404, but agents, crawlers and scripts see 200 and assume the page exists. Return a real 404, and redirect <code>/docs</code> to docs.computeportal.io.</span></p>
+<p class="ex-row"><span class="ex-k">Reproduce</span><code>curl -s -o /dev/null -w &#x27;%{http_code}\n&#x27; https://computeportal.io/docs</code></p></article><article class="exhibit" id="e25">
+<header class="ex-head"><span class="ex-id">E25</span><h3>Dry-run exists but shows no cost and no feasibility check</h3><span class="sev s3">S3</span><span class="ex-issue">TC-10 (partly fixed)</span></header>
+<p class="ex-row"><span class="ex-k">Test</span><span>Run a deploy with the new global <code>--dry-run</code> flag, then confirm nothing was created. In the CLI's view this account has no plan, so a real deploy would be refused with 402.</span></p>
+<p class="ex-row"><span class="ex-k">Observed</span><span class="muted small">Output as recorded on 2026-10-23, cpctl v0.3.24; personal data and tokens masked.</span></p><pre class="term">$ cpctl deploy --image nginx --name qa-dryrun --dry-run ; echo &quot;exit=$?&quot;
+DRY RUN — no service will be created:
+  action:  deploy
+  image:   nginx
+  name:    qa-dryrun
+
+Re-run without --dry-run to apply.
+exit=0
+
+$ cpctl list
+No services found. Deploy one with: cpctl deploy --image &lt;image&gt;</pre>
+<p class="ex-row ex-result"><span class="ex-k">Result</span><span>Safe: nothing was created. But the dry-run only echoes the input. It shows no expected cost and does not warn that the real command would fail (no active plan). For an agent's "tell me the cost, then ask" step, dry-run needs to return the price and the go/no-go.</span></p>
+<p class="ex-row"><span class="ex-k">Reproduce</span><code>cpctl deploy --image nginx --name test --dry-run</code></p></article><article class="exhibit" id="e26">
+<header class="ex-head"><span class="ex-id">E26</span><h3>Fixed: sign-up works, including non-Gmail addresses</h3><span class="pill p-ok">Fixed</span><span class="ex-issue">TC-01 (fixed)</span></header>
+<p class="ex-row"><span class="ex-k">Test</span><span>V24 sign-up matrix in a private browser window.</span></p>
+<div class="tbl ex-tbl"><table><thead><tr><th>Address</th><th>Result</th><th>Message</th></tr></thead><tbody><tr><td>New Gmail address (+alias)</td><td>Account created</td><td>—</td></tr><tr><td>Non-Gmail address (yahoo.co.kr)</td><td>Account created</td><td>—</td></tr><tr><td>Already registered address</td><td>Refused</td><td>"Email already exists"</td></tr><tr><td>Malformed <code>abc@</code></td><td>Blocked before submit</td><td>Field-level message: the part after '@' is missing</td></tr></tbody></table></div>
+<p class="ex-row ex-result"><span class="ex-k">Result</span><span>The Round 1 S1 is gone: no "Validation failed" in any case, and every message says what is wrong. Small improvement possible: offer a sign-in link for an existing address.</span></p>
+<p class="ex-row"><span class="ex-k">Reproduce</span><code>Sign up at computeportal.io with a fresh address</code></p></article><article class="exhibit" id="e27">
+<header class="ex-head"><span class="ex-id">E27</span><h3>Fixed: token from environment variable; token no longer stored in plaintext</h3><span class="pill p-ok">Fixed</span><span class="ex-issue">CP-AUTH-003, TC-12 (security)</span></header>
+<p class="ex-row"><span class="ex-k">Test</span><span>Inspect the credential file's field names and the stored value's type and length only, then run <code>whoami</code> in an empty HOME with only <code>CP_API_TOKEN</code> set to the real API token.</span></p>
+<p class="ex-row"><span class="ex-k">Observed</span><span class="muted small">Output as recorded on 2026-10-23, cpctl v0.3.24; personal data and tokens masked.</span></p><pre class="term">$ python3 -c &quot;...print(list(credentials.keys()))&quot;
+[&#x27;type&#x27;, &#x27;access_token&#x27;, &#x27;email&#x27;]
+type = api_key | starts with cp_live_: False | length: 8
+
+$ HOME=$(mktemp -d) CP_API_TOKEN=&lt;cp_live_ token&gt; cpctl whoami ; echo &quot;exit=$?&quot;
+...
+exit=0</pre>
+<p class="ex-row ex-result"><span class="ex-k">Result</span><span>The file now holds only an 8-character reference, not the token. Agents and CI can pass the token through <code>CP_API_TOKEN</code> instead of a command argument. A first automated run reported 401 because our checker sent the 8-character reference; we fixed the checker and confirmed by hand.</span></p>
+<p class="ex-row"><span class="ex-k">Reproduce</span><code>CP_API_TOKEN=&lt;token&gt; cpctl whoami</code></p></article><article class="exhibit" id="e28">
+<header class="ex-head"><span class="ex-id">E28</span><h3>Fixed: structured errors and correct exit codes</h3><span class="pill p-ok">Fixed</span><span class="ex-issue">TC-04, TC-08, TC-09</span></header>
+<p class="ex-row"><span class="ex-k">Test</span><span>Automated probe: invalid region, GPU type and subcommand, with and without <code>--json</code>.</span></p>
+<p class="ex-row"><span class="ex-k">Observed</span><span class="muted small">Output as recorded on 2026-10-23, cpctl v0.3.24; personal data and tokens masked.</span></p><pre class="term">$ cpctl gpu list --type qa-gpu-x --json ; echo &quot;exit=$?&quot;
+{
+  &quot;schema&quot;: &quot;cpctl.v1&quot;,
+  &quot;kind&quot;: &quot;Error&quot;,
+  &quot;data&quot;: {
+    &quot;code&quot;: &quot;ERROR&quot;,
+    &quot;message&quot;: &quot;invalid GPU type \&quot;qa-gpu-x\&quot;: expected rtx5090 or gb10&quot;,
+    &quot;retryable&quot;: false
+  }
+}
+exit=2
+
+$ cpctl gpu qa-no-such-sub ; echo &quot;exit=$?&quot;
+Error: unknown subcommand &quot;qa-no-such-sub&quot; for &quot;cpctl gpu&quot;
+Run &#x27;cpctl gpu --help&#x27; for a list of subcommands.
+exit=127</pre>
+<p class="ex-row ex-result"><span class="ex-k">Result</span><span>Exit-code accuracy went from 42% (Round 1) to 100%, and API and validation errors now follow a versioned JSON schema (<code>cpctl.v1</code>). Remaining gap: errors raised while parsing the command line (unknown subcommand or flag, missing argument) are still plain text under <code>--json</code>.</span></p>
+<p class="ex-row"><span class="ex-k">Reproduce</span><code>cpctl gpu list --type x --json ; echo $?</code></p></article><article class="exhibit" id="e29">
+<header class="ex-head"><span class="ex-id">E29</span><h3>Fixed: certificates renewed and install path working</h3><span class="pill p-ok">Fixed</span><span class="ex-issue">CP-NET-001</span></header>
+<p class="ex-row"><span class="ex-k">Test</span><span>V01–V02: certificate expiry on four hosts; install script and version endpoint.</span></p>
+<div class="tbl ex-tbl"><table><thead><tr><th>Host</th><th>Days until certificate expiry</th></tr></thead><tbody><tr><td>computeportal.io</td><td>54</td></tr><tr><td>install.computeportal.io</td><td>85</td></tr><tr><td>mcp.computeportal.io</td><td>85</td></tr><tr><td>docs.computeportal.io</td><td>85</td></tr><tr><td>Install script / <code>/version</code></td><td>HTTP 200 / 200 (v0.3.24)</td></tr></tbody></table></div>
+<p class="ex-row ex-result"><span class="ex-k">Result</span><span>The Round 2 S1 was fixed within a day of the report. Add expiry monitoring so the 54-day certificate on the main domain does not lapse unnoticed.</span></p>
+<p class="ex-row"><span class="ex-k">Reproduce</span><code>python3 cp_verify.py --only V01,V02</code></p></article><article class="exhibit" id="e30">
+<header class="ex-head"><span class="ex-id">E30</span><h3>MCP reachable but authentication undocumented; price catalog API available</h3><span class="sev s2">S2</span><span class="ex-issue">CP-MCP-001 (partly), CP-PRICE-003 (partly)</span></header>
+<p class="ex-row"><span class="ex-k">Test</span><span>V17, V22, V23.</span></p>
+<div class="tbl ex-tbl"><table><thead><tr><th>Check</th><th>Result</th></tr></thead><tbody><tr><td><code>mcp.computeportal.io/mcp</code></td><td>HTTP 401: reachable, needs authentication (Round 2: connection closed)</td></tr><tr><td><code>api.computeportal.io/v1/catalog</code></td><td>HTTP 200, JSON</td></tr><tr><td><code>computeportal.io/v1/catalog</code></td><td>HTTP 200 but not JSON (likely the soft-404 page)</td></tr><tr><td>Home page without JavaScript</td><td>5 words</td></tr><tr><td>Pricing page without JavaScript</td><td>0 prices</td></tr></tbody></table></div>
+<p class="ex-row ex-result"><span class="ex-k">Result</span><span>Agents can now reach the MCP server and a machine-readable price catalog. What is missing is a documented way to authenticate to MCP, and a home and pricing page that read without JavaScript (the point raised in Manus's proposal).</span></p>
+<p class="ex-row"><span class="ex-k">Reproduce</span><code>python3 cp_verify.py --only V17,V22,V23</code></p></article>
+</section>
+<footer>Compute Portal independent QA &middot; Round 3 report &middot; 2026-10-23 &middot; No spend this round. Raw results are kept in the test package under results/round3.</footer>
+</div>
+
+</body></html>

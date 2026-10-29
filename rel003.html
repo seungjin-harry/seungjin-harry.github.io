@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>ETSI GS NFV-REL 003 핵심 요약</title>
+    <style>
+        body { font-family: 'Malgun Gothic', sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto; padding: 20px; background-color: #f8f9fa; }
+        header { background: #1a73e8; color: white; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 20px; }
+        section { background: white; padding: 20px; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        h2 { color: #1a73e8; border-bottom: 2px solid #e0e0e0; padding-bottom: 5px; margin-top: 0; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 8px; }
+        .highlight { background: #e8f0fe; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>ETSI GS NFV-REL 003 핵심 가이드</h1>
+        <p>가상화 기반 네트워크(NFV/5G) 신뢰성, 가용성 및 복원력 모델</p>
+    </header>
+
+    <section>
+        <h2>1. 개요 및 목적</h2>
+        <ul>
+            <li>NFV 환경에서의 <span class="highlight">엔드투엔드(End-to-End) 신뢰성 및 가용성</span> 보장 모델 제시</li>
+            <li>동적 운영 환경(부하 변화, 라이프사이클 관리 등)에서의 안정성 확보</li>
+            <li>소프트웨어 업그레이드 시 시스템 중단 최소화 및 복원력 향상</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>2. 주요 신뢰성 및 가용성 모델</h2>
+        <ul>
+            <li><strong>이중화 및 다이버시티(Diversity):</strong> 장애 대응을 위한 구조적 다중화 설계 및 자원 분산</li>
+            <li><strong>N+K 리던던시 패턴:</strong> 가상화 네트워크 기능(VNF) 자원 할당 및 복구 모델</li>
+            <li><strong>동적 부하 반영:</strong> 트래픽 부하 및 상태 변화에 따른 실시간 신뢰성 추정 모델링</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>3. VNF 소프트웨어 업그레이드 및 복원력</h2>
+        <ul>
+            <li>업그레이드 과정은 시스템 장애 상황과 유사하므로, 이 기간 동안의 <span class="highlight">무중단 서비스 연속성</span> 보장</li>
+            <li>롤링 업그레이드(Rolling Upgrade) 및 단계별 전환 메커니즘을 통한 리스크 최소화</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>4. 서비스 차별화 (Resiliency Differentiation)</h2>
+        <ul>
+            <li>모든 네트워크 서비스에 동일한 수준의 복원력을 적용하는 대신, 서비스 요구사항(SLA)에 따른 <span class="highlight">차등화된 복원력 제공</span></li>
+            <li>미션 크리티컬 서비스와 일반 트래픽 간 자원 및 보호 메커니즘 분리</li>
+        </ul>
+    </section>
+
+</body>
+</html>

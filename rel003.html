@@ -2,27 +2,27 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>ETSI GS NFV-REL 003 상세 규격 및 가이드</title>
+    <title>ETSI GS NFV-REL 003 규격 상세 내용 전문</title>
     <style>
         :root {
-            --primary-color: #0055a5;
-            --secondary-color: #4a90e2;
-            --bg-color: #f4f6f9;
+            --primary: #0f4c81;
+            --secondary: #1b98e0;
+            --bg-color: #f8f9fa;
             --card-bg: #ffffff;
-            --text-color: #333333;
-            --border-color: #dcdcdc;
+            --text-main: #2c3e50;
+            --border-color: #cbd5e1;
         }
         body {
             font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
-            line-height: 1.7;
-            color: var(--text-color);
+            line-height: 1.8;
+            color: var(--text-main);
             background-color: var(--bg-color);
             max-width: 1200px;
             margin: 0 auto;
-            padding: 30px;
+            padding: 40px;
         }
         header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             padding: 40px;
             border-radius: 12px;
@@ -30,71 +30,76 @@
             margin-bottom: 30px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        header h1 { margin: 0 0 10px 0; font-size: 2.2em; }
-        header p { margin: 0; font-size: 1.1em; opacity: 0.9; }
+        header h1 { margin: 0 0 10px 0; font-size: 2.3em; }
+        header p { margin: 0; font-size: 1.15em; opacity: 0.95; }
         
         section {
             background: var(--card-bg);
-            padding: 30px;
+            padding: 35px;
             margin-bottom: 25px;
             border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
         }
         h2 {
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 8px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
             margin-top: 0;
-            font-size: 1.5em;
+            font-size: 1.6em;
         }
         h3 {
-            color: var(--secondary-color);
-            margin-top: 20px;
-            font-size: 1.2em;
+            color: var(--secondary);
+            margin-top: 25px;
+            font-size: 1.25em;
         }
         ul, ol { padding-left: 25px; }
-        li { margin-bottom: 8px; }
+        li { margin-bottom: 10px; }
         
-        .diagram-container {
-            background: #ffffff;
-            border: 2px dashed var(--secondary-color);
-            border-radius: 8px;
+        .diagram-box-wrap {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .diagram-node {
+            background: #f0f7ff;
+            border: 2px solid var(--secondary);
             padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            flex: 1;
+            min-width: 220px;
+            font-weight: bold;
+            color: var(--primary);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .flow-container {
+            background: #ffffff;
+            border: 2px dashed var(--secondary);
+            border-radius: 8px;
+            padding: 25px;
             margin: 20px 0;
             text-align: center;
-        }
-        .diagram-box {
-            display: inline-block;
-            background: #eef4fb;
-            border: 1px solid var(--secondary-color);
-            padding: 15px 25px;
-            margin: 10px;
-            border-radius: 6px;
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-        .diagram-arrow {
-            font-size: 1.5em;
-            color: var(--secondary-color);
-            margin: 0 5px;
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 15px 0;
+            margin: 20px 0;
         }
         th, td {
             border: 1px solid var(--border-color);
-            padding: 12px;
+            padding: 12px 15px;
             text-align: left;
         }
         th {
-            background-color: #f1f5fa;
-            color: var(--primary-color);
+            background-color: #f1f5f9;
+            color: var(--primary);
         }
         .highlight {
-            background-color: #fff3cd;
+            background-color: #eef2ff;
+            color: #3730a3;
             padding: 2px 6px;
             border-radius: 4px;
             font-weight: bold;
@@ -102,7 +107,7 @@
         footer {
             text-align: center;
             padding: 20px;
-            color: #777;
+            color: #64748b;
             font-size: 0.9em;
         }
     </style>
@@ -110,100 +115,107 @@
 <body>
 
     <header>
-        <h1>ETSI GS NFV-REL 003 규격 요약 및 분석</h1>
-        <p>가상화 네트워크 기능(NFV) 환경의 엔드투엔드 신뢰성, 가용성 모델 및 복원력 가이드</p>
+        <h1>ETSI GS NFV-REL 003 규격 상세 분석</h1>
+        <p>엔드투엔드 신뢰성 모델, 소프트웨어 업그레이드 복원력, 그리고 서비스 차별화 가이드</p>
     </header>
 
     <section>
-        <h2>1. 문서 개요 및 적용 범위 (Scope)</h2>
-        <p>본 규격(ETSI GS NFV-REL 003)은 가상화된 네트워크(NFV/5G) 인프라에서 엔드투엔드(End-to-End) 신뢰성과 가용성을 달성하기 위한 모델, 아키텍처, 그리고 방법론을 정의합니다.</p>
+        <h2>1. NFV 엔드투엔드 신뢰성 모델링 아키텍처 (Reliability Modeling Architecture)</h2>
+        <p>가상화 네트워크 환경에서 고신뢰성을 보장하기 위해 규격은 물리적 인프라, 가상화 계층, 그리고 VNF 간의 상호작용을 포괄하는 모델링 아키텍처를 정의합니다.</p>
+        
+        <div class="flow-container">
+            <h3>[도식 1] NFV 멀티 레이어 신뢰성 추정 모델 구조</h3>
+            <div class="diagram-box-wrap">
+                <div class="diagram-node">
+                    VNF 및 네트워크 서비스 계층<br><span style="font-size: 0.85em; font-weight: normal; color: #555;">(Service & VNF Layer)</span>
+                </div>
+                <div class="diagram-node">
+                    NFV-MANO / 라이프사이클 관리<br><span style="font-size: 0.85em; font-weight: normal; color: #555;">(Management & Orchestration)</span>
+                </div>
+                <div class="diagram-node">
+                    물리 인프라 (NFVI) 및 가상화 계층<br><span style="font-size: 0.85em; font-weight: normal; color: #555;">(NFVI / VIM / Hypervisor)</span>
+                </div>
+            </div>
+            <p style="font-size: 0.9em; color: #555; margin-top: 15px;">* 각 계층의 결함(Fault) 전파 경로 분석 및 정량적 가용성·신뢰성 수치 산출 메커니즘 통합</p>
+        </div>
+
+        <h3>주요 신뢰성 평가 핵심 요소</h3>
         <ul>
-            <li><strong>신뢰성 추정 모델:</strong> NFV 모델링 아키텍처를 포함한 정량적·정성적 신뢰성 분석 기법</li>
-            <li><strong>동적 운영 환경 반영:</strong> 트래픽 부하 변동 및 VNF 라이프사이클 관리(LCM) 동작이 신뢰성에 미치는 영향 분석</li>
-            <li><strong>소프트웨어 업그레이드 복원력:</strong> VNF 소프트웨어 갱신 과정에서의 장애 예방 및 무중단 전환 메커니즘</li>
-            <li><strong>서비스 차등화(Resiliency Differentiation):</strong> 다양한 서비스 요구사항(SLA)에 따른 맞춤형 보호 및 복원 수준 제공</li>
+            <li><strong>컴포넌트 종속성 분석:</strong> 가상 머신(VM) 또는 컨테이너가 의존하는 하부 물리 자원(서버, 스토리지, 네트워크 스위치)의 고장 확률과 상관관계 분석</li>
+            <li><strong>동적 자원 할당 신뢰성:</strong> 오토스케일링(Auto-scaling) 및 인스턴스 재배치 시 발생할 수 있는 일시적 장애 및 제어 지연 측정</li>
+            <li><strong>상태 복구 모델:</strong> 장애 발생 시 가상 인스턴스의 자동 치유(Auto-healing) 및 체크포인트 기반 상태 복구 성능 정량화</li>
         </ul>
     </section>
 
     <section>
-        <h2>2. NFV 신뢰성 및 가용성 모델 아키텍처</h2>
-        <p>NFV 환경은 물리 하드웨어와 가상 계층(Virtualization Layer), 그리고 그 위에서 동작하는 VNF로 분리되므로 다중 레이어 관점의 신뢰성 모델링이 필요합니다.</p>
+        <h2>2. 동적 운영 환경 및 부하를 고려한 신뢰성 분석</h2>
+        <p>정적인 상태가 아닌 실제 트래픽 변동과 오케스트레이션 동작(LCM)이 수반되는 동적 환경 속에서 신뢰성이 어떻게 영향을 받는지 규정합니다.</p>
         
-        <div class="diagram-container">
-            <h3>[그림 1] NFV 엔드투엔드 신뢰성 모델링 구조도</h3>
-            <div>
-                <div class="diagram-box">서비스 / VNF 계층<br>(Service / VNF Layer)</div>
-                <span class="diagram-arrow">⇄</span>
-                <div class="diagram-box">가상화 관리 계층<br>(NFV-MANO & LCM)</div>
-                <span class="diagram-arrow">⇄</span>
-                <div class="diagram-box">물리 인프라 계층<br>(NFVI / Hardware)</div>
-            </div>
-            <p style="font-size: 0.9em; color: #666; margin-top: 10px;">* 각 계층 간의 동적 상호작용과 부하 변동에 따른 실시간 가용성 추정 수행</p>
-        </div>
-
-        <h3>주요 구성 요소</h3>
         <table>
             <tr>
-                <th>계층/요소</th>
-                <th>설명 및 신뢰성 확보 방안</th>
+                <th>분석 항목</th>
+                <th>상세 내용 및 복원 메커니즘</th>
             </tr>
             <tr>
-                <td><strong>물리 인프라 (NFVI)</strong></td>
-                <td>서버, 스토리지, 네트워크 장비의 물리적 다중화 및 장애 격리(Fault Isolation)</td>
+                <td><strong>부하 종속적 장애 모델 (Load-Dependent Reliability)</strong></td>
+                <td>트래픽 폭증(Traffic Surge) 시 자원 과부하로 인해 VNF 내부 프로세스 실패율이 증가하는 현상을 모델링하고, 임계치 초과 전 사전 트래픽 분산 및 스케일 아웃 유도</td>
             </tr>
             <tr>
-                <td><strong>가상화 계층 (VIM/Hypervisor)</strong></td>
-                <td>가상 자원 할당 오류 방지 및 하이퍼바이저 고가용성(HA) 구성</td>
+                <td><strong>라이프사이클 관리(LCM) 영향 평가</strong></td>
+                <td>인스턴스 생성, 종료, 마이그레이션 등 관리 동작 수행 중 제어 플레인(Control Plane)의 오류가 데이터 플레인(Data Plane) 서비스 연속성에 미치는 리스크 제어</td>
             </tr>
             <tr>
-                <td><strong>VNF 및 MANO</strong></td>
-                <td>인스턴스 자동 복구(Auto-healing), 스케일링(Scale-out/in), 상태 정보(State) 동기화</td>
+                <td><strong>실시간 신뢰성 추정 기법</strong></td>
+                <td>모니터링 데이터를 기반으로 현재 인프라 상태에서의 잔여 신뢰도(Reliability Estimation)를 실시간으로 계산하여 선제적 장애 예방 조치 트리거</td>
             </tr>
         </table>
     </section>
 
     <section>
-        <h2>3. 동적 운영 환경 및 부하를 고려한 신뢰성 모델</h2>
-        <p>정적 상태가 아닌, <strong>실시간 트래픽 부하</strong>와 <strong>라이프사이클 관리(LCM)</strong> 이벤트가 발생하는 환경에서의 신뢰성 저하 요소를 분석합니다.</p>
-        <ul>
-            <li><strong>부하 종속적 신뢰성(Load-dependent Reliability):</strong> 트래픽이 폭증할 때 가상 자원에 걸리는 부하로 인해 장애 확률이 증가하는 현상을 모델에 반영합니다.</li>
-            <li><strong>마이그레이션 및 재배치 리스크:</strong> VNF 인스턴스를 다른 물리 Host로 라이브 마이그레이션(Live Migration)할 때 발생하는 패킷 손실 및 지연 리스크 최소화 메커니즘을 다룹니다.</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>4. VNF 소프트웨어 업그레이드와 복원력 (Software Upgrade Resilience)</h2>
-        <p>소프트웨어 업그레이드는 계획된 작업이지만 시스템 관점에서는 장애 요인과 유사하므로, 업그레이드 기간 동안 서비스 연속성을 유지하는 것이 핵심입니다.</p>
+        <h2>3. VNF 소프트웨어 업그레이드 및 복원력 메커니즘</h2>
+        <p>소프트웨어 갱신(Software Upgrade)은 시스템에 인위적인 변경을 가하는 과정으로 잠재적 장애 위험이 높기 때문에, 규격은 업그레이드 중 복원력을 극대화하기 위한 상세 메커니즘을 정의합니다.</p>
         
-        <div class="diagram-container">
-            <h3>[그림 2] 무중단 롤링 업그레이드(Rolling Upgrade) 개념도</h3>
-            <div>
-                <div class="diagram-box" style="background: #e2f0d9; border-color: #385723; color: #385723;">VNF 인스턴스 A<br>(신버전 운영 중)</div>
-                <span class="diagram-arrow">➔</span>
-                <div class="diagram-box" style="background: #fff2cc; border-color: #d6b656; color: #b45f06;">VNF 인스턴스 B<br>(업그레이드 진행 중)</div>
-                <span class="diagram-arrow">➔</span>
-                <div class="diagram-box" style="background: #f2f2f2; border-color: #7f7f7f; color: #595959;">VNF 인스턴스 C<br>(구버전 대기)</div>
+        <div class="flow-container">
+            <h3>[도식 2] VNF 무중단 롤링 업그레이드(Rolling Upgrade) 및 트래픽 우회 흐름</h3>
+            <div class="diagram-box-wrap">
+                <div class="diagram-node" style="background: #e6f4ea; border-color: #34a853; color: #137333;">
+                    1단계: 트래픽 배제<br><span style="font-size: 0.85em; font-weight: normal;">대상 인스턴스 트래픽 드레이닝(Draining)</span>
+                </div>
+                <div class="diagram-node" style="background: #fef7e0; border-color: #fbbc05; color: #b06000;">
+                    2단계: 소프트웨어 갱신<br><span style="font-size: 0.85em; font-weight: normal;">신규 버전 이미지 적용 및 패치</span>
+                </div>
+                <div class="diagram-node" style="background: #e8f0fe; border-color: #4285f4; color: #1967d2;">
+                    3단계: 검증 및 복귀<br><span style="font-size: 0.85em; font-weight: normal;">헬스체크 후 트래픽 재유입 (Rollout)</span>
+                </div>
             </div>
         </div>
 
+        <h3>주요 업그레이드 복원 전략</h3>
         <ul>
-            <li><strong>단계별 전환 (Phased Rollout):</strong> 전체 VNF를 한 번에 업그레이드하지 않고, 트래픽을 우회시킨 뒤 일부 인스턴스씩 순차적으로 업그레이드합니다.</li>
-            <li><strong>상태 분리 (State Separation):</strong> 무상태(Stateless) 컴포넌트와 유상태(Stateful) 컴포넌트를 분리하여, 업그레이드 시 세션 유실을 방지합니다.</li>
-            <li><strong>신속한 롤백(Rollback):</strong> 업그레이드 후 이상 징후 감지 시 즉시 이전 버전으로 복구할 수 있는 오케스트레이션 연동 규격을 제공합니다.</li>
+            <li><strong>상태 비저장(Stateless) vs 상태 유지(Stateful) 분리 설계:</strong> 세션 정보를 외부 DB나 스토리지에 분리 저장하여, 업그레이드 중 인스턴스가 재시작되더라도 클라이언트 세션이 유실되지 않도록 보장</li>
+            <li><strong>단계별 롤아웃(Phased Rollout):</strong> 전체 클러스터 중 일부 노드씩 순차적으로 업그레이드를 진행하여 전체 서비스 가용성 유지</li>
+            <li><strong>자동 롤백(Automatic Rollback) 메커니즘:</strong> 업그레이드 후 성능 지표나 에러율이 기준치를 초과할 경우, 즉시 이전 안정 버전으로 자동 복원하는 오케스트레이션 시나리오 제공</li>
         </ul>
     </section>
 
     <section>
-        <h2>5. 복원력 차등화 (Resiliency Differentiation)</h2>
-        <p>모든 네트워크 서비스에 동일한 고비용의 이중화 자원을 할당할 수 없으므로, 서비스의 중요도(SLA)에 따라 <span class="highlight">차등화된 복원력 클래스</span>를 적용합니다.</p>
+        <h2>4. 복원력 차등화 (Resiliency Differentiation)</h2>
+        <p>모든 네트워크 서비스와 테넌트에게 동일한 수준의 과도한 이중화 자원을 할당하는 것은 비효율적이므로, 서비스 요구사항(SLA)에 따른 차등화된 복원력 모델을 제공합니다.</p>
+        
         <ul>
-            <li><strong>미션 크리티컬 서비스 (예: 긴급 통신, 자율주행):</strong> 액티브-액티브(Active-Active) 완전 이중화 및 초저지연 자동 복구(Instant Recovery) 적용</li>
-            <li><strong>일반 비즈니스 서비스 (예: 일반 인터넷, IoT):</strong> N+K 리던던시 또는 재시작 기반 복구(Restart-based Recovery) 적용으로 자원 효율성 극대화</li>
+            <li><strong>서비스 클래스별 요구사항 정의:</strong> 미션 크리티컬 통신, 기업용 전용선, 일반 대중 브로드밴드 등 서비스의 가용성 목표치(예: 99.999% vs 99.9%) 분류</li>
+            <li><strong>자원 및 보호 메커니즘 차등 적용:</strong> 
+                <ul>
+                    <li><span class="highlight">고신뢰 클래스:</span> 액티브-액티브(Active-Active) 다중화 존(Multi-Resource Zone) 배치 및 초고속 페일오버</li>
+                    <li><span class="highlight">일반 클래스:</span> N+1 리던던시 또는 장애 시 재시작(Restart-based) 기반의 자원 절감형 복구 체계 적용</li>
+                </ul>
+            </li>
+            <li><strong>정책 기반 오케스트레이션:</strong> MANO 정책 엔진을 통해 각 VNF 인스턴스의 SLA 등급에 맞는 복원력 정책 자동 바인딩</li>
         </ul>
     </section>
 
     <footer>
-        <p>ETSI GS NFV-REL 003 Specification Summary &copy; 2026 Professional Network Engineering Guide</p>
+        <p>ETSI GS NFV-REL 003 Full Specification Translation &copy; 2026 Network Function Virtualisation Engineering</p>
     </footer>
 
 </body>

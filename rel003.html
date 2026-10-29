@@ -1,222 +1,80 @@
-<!DOCTYPE html>
+import os
+
+chapters = {
+    "chapter1_scope.html": ("제 1장: 개요 및 적용 범위", """
+        <h1>제 1장: 개요 및 적용 범위 (Scope)</h1>
+        <p>ETSI GS NFV-REL 003 규격의 목적과 가상화 네트워크 환경에서의 신뢰성 보장 기본 철학을 정의합니다.</p>
+        <ul>
+            <li><strong>문서 목적:</strong> NFV(Network Functions Virtualisation) 환경에서 엔드투엔드(End-to-End) 신뢰성 및 가용성을 달성하기 위한 모델, 아키텍처 및 방법론 제시</li>
+            <li><strong>적용 범위:</strong> 하부 물리 인프라(NFVI), 가상화 관리 계층(VIM/MANO), 그리고 상위 VNF 및 네트워크 서비스(NS) 전반</li>
+        </ul>
+    """),
+    "chapter2_modeling.html": ("제 2장: 신뢰성 모델링 아키텍처", """
+        <h1>제 2장: 신뢰성 모델링 아키텍처 및 평가 방법론</h1>
+        <p>멀티 레이어 환경에서의 종속성 분석 및 정량적 신뢰성 평가 모델을 다룹니다.</p>
+        <ul>
+            <li><strong>컴포넌트 의존성 그래프:</strong> VNF 구성 요소(VNFC)와 물리 서버, 스토리지 간의 계층적 종속 관계 분석</li>
+            <li><strong>정량적 평가 모델:</strong> 마르코프 체인(Markov Chain) 및 신뢰도 블록 다이어그램(RBD)을 활용한 고장률(λ) 및 복구율(MTTR) 연산</li>
+            <li><strong>안티-콜로케이션(Anti-colocation):</strong> 이중화 대상 VNF 인스턴스가 동일 물리 랙에 동시 배치되는 것을 방지하는 규칙</li>
+        </ul>
+    """),
+    "chapter3_dynamic.html": ("제 3장: 동적 운영 환경 분석", """
+        <h1>제 3장: 동적 운영 환경 및 부하 의존성 분석</h1>
+        <p>실시간 트래픽 변동과 라이프사이클 관리(LCM) 이벤트가 신뢰도에 미치는 영향을 분석합니다.</p>
+        <ul>
+            <li><strong>부하 종속적 장애 모델:</strong> 트래픽 폭증 시 자원 과부하로 인한 VNF 내부 오류율 비선형 증가 현상 모델링</li>
+            <li><strong>LCM 영향 제어:</strong> 오토스케일링 및 라이브 마이그레이션 중 제어 플레인 지연이 서비스에 미치는 리스크 제어</li>
+            <li><strong>실시간 신뢰도 추정:</strong> 텔레메트리 데이터를 통한 인프라 잔여 신뢰도(Confidence Score) 실시간 산출</li>
+        </ul>
+    """),
+    "chapter4_upgrade.html": ("제 4장: 소프트웨어 업그레이드 복원력", """
+        <h1>제 4장: VNF 소프트웨어 업그레이드 및 복원력 메커니즘</h1>
+        <p>계획된 인위적 장애인 소프트웨어 갱신 과정에서의 무중단 서비스 연속성 확보 방안을 규정합니다.</p>
+        <ul>
+            <li><strong>상태 비저장(Stateless) 분리:</strong> 세션 정보를 외부 분산 DB에 격리하여 인스턴스 재시작 시 세션 유실 방지</li>
+            <li><strong>롤링 업그레이드(Rolling Upgrade):</strong> 트래픽 드레이닝(Draining)을 통한 세션 우회 및 순차적 갱신</li>
+            <li><strong>자동 롤백(Automatic Rollback):</strong> 헬스체크 실패 시 이전 버전으로 즉시 원상복구하는 오케스트레이션 절차</li>
+        </ul>
+    """),
+    "chapter5_differentiation.html": ("제 5장: 복원력 차별화 및 정책", """
+        <h1>제 5장: 복원력 차별화 및 정책 관리</h1>
+        <p>서비스 요구사항(SLA)에 따른 맞춤형 복원력 클래스 부여 및 정책 기반 오케스트레이션을 다룹니다.</p>
+        <ul>
+            <li><strong>가용성 등급 세분화:</strong> Class 0(미션 크리티컬, 액티브-액티브 이중화), Class 1(고신뢰, N+K 리던던시), Class 2(일반, 자동 재시작)</li>
+            <li><strong>정책 바인딩:</strong> 서비스 디스크립터에 복원력 메타데이터를 포함시켜 MANO가 자원을 자동 바인딩하도록 설계</li>
+        </ul>
+    """)
+}
+
+base_template = """<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>ETSI GS NFV-REL 003 규격 상세 내용 전문</title>
+    <title>ETSI GS NFV-REL 003 - {title}</title>
     <style>
-        :root {
-            --primary: #0f4c81;
-            --secondary: #1b98e0;
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
-            --text-main: #2c3e50;
-            --border-color: #cbd5e1;
-        }
-        body {
-            font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
-            line-height: 1.8;
-            color: var(--text-main);
-            background-color: var(--bg-color);
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px;
-        }
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 40px;
-            border-radius: 12px;
-            text-align: center;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        header h1 { margin: 0 0 10px 0; font-size: 2.3em; }
-        header p { margin: 0; font-size: 1.15em; opacity: 0.95; }
-        
-        section {
-            background: var(--card-bg);
-            padding: 35px;
-            margin-bottom: 25px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-        }
-        h2 {
-            color: var(--primary);
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 10px;
-            margin-top: 0;
-            font-size: 1.6em;
-        }
-        h3 {
-            color: var(--secondary);
-            margin-top: 25px;
-            font-size: 1.25em;
-        }
-        ul, ol { padding-left: 25px; }
-        li { margin-bottom: 10px; }
-        
-        .diagram-box-wrap {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        .diagram-node {
-            background: #f0f7ff;
-            border: 2px solid var(--secondary);
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            flex: 1;
-            min-width: 220px;
-            font-weight: bold;
-            color: var(--primary);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        .flow-container {
-            background: #ffffff;
-            border: 2px dashed var(--secondary);
-            border-radius: 8px;
-            padding: 25px;
-            margin: 20px 0;
-            text-align: center;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        th, td {
-            border: 1px solid var(--border-color);
-            padding: 12px 15px;
-            text-align: left;
-        }
-        th {
-            background-color: #f1f5f9;
-            color: var(--primary);
-        }
-        .highlight {
-            background-color: #eef2ff;
-            color: #3730a3;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #64748b;
-            font-size: 0.9em;
-        }
+        body {{ font-family: 'Malgun Gothic', sans-serif; line-height: 1.8; color: #1e293b; max-width: 900px; margin: 0 auto; padding: 40px; background-color: #f8fafc; }}
+        header {{ background: #0f172a; color: white; padding: 30px; border-radius: 8px; text-align: center; margin-bottom: 30px; }}
+        .content {{ background: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }}
+        h1 {{ color: #0f172a; border-bottom: 3px solid #0284c7; padding-bottom: 10px; }}
+        ul {{ padding-left: 20px; }}
+        li {{ margin-bottom: 10px; }}
+        .nav {{ margin-top: 20px; text-align: center; }}
+        .nav a {{ color: #0284c7; text-decoration: none; font-weight: bold; }}
     </style>
 </head>
 <body>
-
     <header>
-        <h1>ETSI GS NFV-REL 003 규격 상세 분석</h1>
-        <p>엔드투엔드 신뢰성 모델, 소프트웨어 업그레이드 복원력, 그리고 서비스 차별화 가이드</p>
+        <h2>ETSI GS NFV-REL 003 상세 규격 문서</h2>
     </header>
-
-    <section>
-        <h2>1. NFV 엔드투엔드 신뢰성 모델링 아키텍처 (Reliability Modeling Architecture)</h2>
-        <p>가상화 네트워크 환경에서 고신뢰성을 보장하기 위해 규격은 물리적 인프라, 가상화 계층, 그리고 VNF 간의 상호작용을 포괄하는 모델링 아키텍처를 정의합니다.</p>
-        
-        <div class="flow-container">
-            <h3>[도식 1] NFV 멀티 레이어 신뢰성 추정 모델 구조</h3>
-            <div class="diagram-box-wrap">
-                <div class="diagram-node">
-                    VNF 및 네트워크 서비스 계층<br><span style="font-size: 0.85em; font-weight: normal; color: #555;">(Service & VNF Layer)</span>
-                </div>
-                <div class="diagram-node">
-                    NFV-MANO / 라이프사이클 관리<br><span style="font-size: 0.85em; font-weight: normal; color: #555;">(Management & Orchestration)</span>
-                </div>
-                <div class="diagram-node">
-                    물리 인프라 (NFVI) 및 가상화 계층<br><span style="font-size: 0.85em; font-weight: normal; color: #555;">(NFVI / VIM / Hypervisor)</span>
-                </div>
-            </div>
-            <p style="font-size: 0.9em; color: #555; margin-top: 15px;">* 각 계층의 결함(Fault) 전파 경로 분석 및 정량적 가용성·신뢰성 수치 산출 메커니즘 통합</p>
-        </div>
-
-        <h3>주요 신뢰성 평가 핵심 요소</h3>
-        <ul>
-            <li><strong>컴포넌트 종속성 분석:</strong> 가상 머신(VM) 또는 컨테이너가 의존하는 하부 물리 자원(서버, 스토리지, 네트워크 스위치)의 고장 확률과 상관관계 분석</li>
-            <li><strong>동적 자원 할당 신뢰성:</strong> 오토스케일링(Auto-scaling) 및 인스턴스 재배치 시 발생할 수 있는 일시적 장애 및 제어 지연 측정</li>
-            <li><strong>상태 복구 모델:</strong> 장애 발생 시 가상 인스턴스의 자동 치유(Auto-healing) 및 체크포인트 기반 상태 복구 성능 정량화</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>2. 동적 운영 환경 및 부하를 고려한 신뢰성 분석</h2>
-        <p>정적인 상태가 아닌 실제 트래픽 변동과 오케스트레이션 동작(LCM)이 수반되는 동적 환경 속에서 신뢰성이 어떻게 영향을 받는지 규정합니다.</p>
-        
-        <table>
-            <tr>
-                <th>분석 항목</th>
-                <th>상세 내용 및 복원 메커니즘</th>
-            </tr>
-            <tr>
-                <td><strong>부하 종속적 장애 모델 (Load-Dependent Reliability)</strong></td>
-                <td>트래픽 폭증(Traffic Surge) 시 자원 과부하로 인해 VNF 내부 프로세스 실패율이 증가하는 현상을 모델링하고, 임계치 초과 전 사전 트래픽 분산 및 스케일 아웃 유도</td>
-            </tr>
-            <tr>
-                <td><strong>라이프사이클 관리(LCM) 영향 평가</strong></td>
-                <td>인스턴스 생성, 종료, 마이그레이션 등 관리 동작 수행 중 제어 플레인(Control Plane)의 오류가 데이터 플레인(Data Plane) 서비스 연속성에 미치는 리스크 제어</td>
-            </tr>
-            <tr>
-                <td><strong>실시간 신뢰성 추정 기법</strong></td>
-                <td>모니터링 데이터를 기반으로 현재 인프라 상태에서의 잔여 신뢰도(Reliability Estimation)를 실시간으로 계산하여 선제적 장애 예방 조치 트리거</td>
-            </tr>
-        </table>
-    </section>
-
-    <section>
-        <h2>3. VNF 소프트웨어 업그레이드 및 복원력 메커니즘</h2>
-        <p>소프트웨어 갱신(Software Upgrade)은 시스템에 인위적인 변경을 가하는 과정으로 잠재적 장애 위험이 높기 때문에, 규격은 업그레이드 중 복원력을 극대화하기 위한 상세 메커니즘을 정의합니다.</p>
-        
-        <div class="flow-container">
-            <h3>[도식 2] VNF 무중단 롤링 업그레이드(Rolling Upgrade) 및 트래픽 우회 흐름</h3>
-            <div class="diagram-box-wrap">
-                <div class="diagram-node" style="background: #e6f4ea; border-color: #34a853; color: #137333;">
-                    1단계: 트래픽 배제<br><span style="font-size: 0.85em; font-weight: normal;">대상 인스턴스 트래픽 드레이닝(Draining)</span>
-                </div>
-                <div class="diagram-node" style="background: #fef7e0; border-color: #fbbc05; color: #b06000;">
-                    2단계: 소프트웨어 갱신<br><span style="font-size: 0.85em; font-weight: normal;">신규 버전 이미지 적용 및 패치</span>
-                </div>
-                <div class="diagram-node" style="background: #e8f0fe; border-color: #4285f4; color: #1967d2;">
-                    3단계: 검증 및 복귀<br><span style="font-size: 0.85em; font-weight: normal;">헬스체크 후 트래픽 재유입 (Rollout)</span>
-                </div>
-            </div>
-        </div>
-
-        <h3>주요 업그레이드 복원 전략</h3>
-        <ul>
-            <li><strong>상태 비저장(Stateless) vs 상태 유지(Stateful) 분리 설계:</strong> 세션 정보를 외부 DB나 스토리지에 분리 저장하여, 업그레이드 중 인스턴스가 재시작되더라도 클라이언트 세션이 유실되지 않도록 보장</li>
-            <li><strong>단계별 롤아웃(Phased Rollout):</strong> 전체 클러스터 중 일부 노드씩 순차적으로 업그레이드를 진행하여 전체 서비스 가용성 유지</li>
-            <li><strong>자동 롤백(Automatic Rollback) 메커니즘:</strong> 업그레이드 후 성능 지표나 에러율이 기준치를 초과할 경우, 즉시 이전 안정 버전으로 자동 복원하는 오케스트레이션 시나리오 제공</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>4. 복원력 차등화 (Resiliency Differentiation)</h2>
-        <p>모든 네트워크 서비스와 테넌트에게 동일한 수준의 과도한 이중화 자원을 할당하는 것은 비효율적이므로, 서비스 요구사항(SLA)에 따른 차등화된 복원력 모델을 제공합니다.</p>
-        
-        <ul>
-            <li><strong>서비스 클래스별 요구사항 정의:</strong> 미션 크리티컬 통신, 기업용 전용선, 일반 대중 브로드밴드 등 서비스의 가용성 목표치(예: 99.999% vs 99.9%) 분류</li>
-            <li><strong>자원 및 보호 메커니즘 차등 적용:</strong> 
-                <ul>
-                    <li><span class="highlight">고신뢰 클래스:</span> 액티브-액티브(Active-Active) 다중화 존(Multi-Resource Zone) 배치 및 초고속 페일오버</li>
-                    <li><span class="highlight">일반 클래스:</span> N+1 리던던시 또는 장애 시 재시작(Restart-based) 기반의 자원 절감형 복구 체계 적용</li>
-                </ul>
-            </li>
-            <li><strong>정책 기반 오케스트레이션:</strong> MANO 정책 엔진을 통해 각 VNF 인스턴스의 SLA 등급에 맞는 복원력 정책 자동 바인딩</li>
-        </ul>
-    </section>
-
-    <footer>
-        <p>ETSI GS NFV-REL 003 Full Specification Translation &copy; 2026 Network Function Virtualisation Engineering</p>
-    </footer>
-
+    <div class="content">
+        {content}
+    </div>
 </body>
 </html>
+"""
+
+for filename, (title, html_content) in chapters.items():
+    full_html = base_template.format(title=title, content=html_content)
+    with open(filename, "w", encoding="utf-8") as f:
+        f.write(full_html)
+    print(f"생성 완료: {filename}")

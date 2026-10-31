@@ -144,7 +144,7 @@ a.ev:hover{text-decoration:underline}
     <span><b>Spend</b> none</span>
   </div>
   <nav class="toc" aria-label="Sections">
-    <a href="#summary">1. Summary</a><a href="#tracker">2. Issue tracker</a><a href="#findings">3. What we found</a>
+    <a href="#summary">1. Summary</a><a href="#tracker">2. Issue tracker</a><a href="#findings">3. What I found</a>
     <a href="#demo">4. Agent demo status</a><a href="#asks">5. Asks</a><a href="#evidence">Evidence E31–E35</a>
   </nav>
 </header>
@@ -157,7 +157,7 @@ a.ev:hover{text-decoration:underline}
     <div class="card verdict v-bad"><div class="lbl">Regressions</div><div class="val">Two</div><p>llms.txt lost its agent guidance; 3 of 5 balance reads hit the rate limit.</p><p class="small ev-line"><span class="muted">Evidence</span> <a class="ev" href="#e32">E32</a> <a class="ev" href="#e33">E33</a></p></div>
     <div class="card verdict v-warn"><div class="lbl">Agent demo</div><div class="val">Still gated</div><p>Waiting on billing: a CLI release with the fixes and a confirmed invoice.</p><p class="small ev-line"><span class="muted">Evidence</span> <a class="ev" href="#demo">Section 4</a></p></div>
   </div>
-  <div class="callout"><b>Bottom line.</b> The fixes that landed on 23–24 October are holding, and the home page improved. But from the customer's side, the "all fixes done" notice is not visible yet: the CLI version and its billing output are unchanged, and llms.txt went back to an older version. We suggest two habits that would prevent this: <b>a short release note for every deploy</b>, and <b>running the verifier before each deploy</b>.</div>
+  <div class="callout"><b>Bottom line.</b> The fixes that landed on 23–24 October are holding, and the home page improved. But from the customer's side, the "all fixes done" notice is not visible yet: the CLI version and its billing output are unchanged, and llms.txt went back to an older version. I suggest two habits that would prevent this: <b>a short release note for every deploy</b>, and <b>running the verifier before each deploy</b>.</div>
 </section>
 
 <section id="tracker">
@@ -168,7 +168,7 @@ a.ev:hover{text-decoration:underline}
 </section>
 
 <section id="findings">
-  <h2><span class="num">3</span>What we found on 29 October</h2>
+  <h2><span class="num">3</span>What I found on 29 October</h2>
   <div class="tbl"><table><thead><tr><th>Sev.</th><th>Finding</th><th>Why it matters</th><th>Evidence</th></tr></thead><tbody><tr><td><span class="sev s2">S2</span></td><td>No new CLI release; the billing output is word-for-word the same as on 24 October.</td><td>The fixes customers and agents need are in the CLI: invoice history, renewal date, plan name.</td><td><a class="ev" href="#e31">E31</a></td></tr><tr><td><span class="sev s2">S2</span></td><td>llms.txt lost the JSON, exit-code, dry-run and 402 guidance it had on 24 October; its login section still describes a flow the CLI does not have.</td><td>llms.txt is the first file an agent reads. Wrong guidance there misleads every agent at step one.</td><td><a class="ev" href="#e32">E32</a></td></tr><tr><td><span class="sev s3">S3</span></td><td>Three of five balance reads two seconds apart were refused with 429 (24 Oct: none).</td><td>Agents check the balance around every action; an undocumented limit makes them fail mid-task.</td><td><a class="ev" href="#e33">E33</a></td></tr><tr><td><span class="pill p-ok">Better</span></td><td>The home page now has 86 words readable without JavaScript (was 5).</td><td>Agents, crawlers and link previews can now tell what the product is.</td><td><a class="ev" href="#e34">E34</a></td></tr><tr><td><span class="pill p-ok">Holding</span></td><td>All fixes verified on 23–24 October still work.</td><td>No regressions outside llms.txt.</td><td><a class="ev" href="#e35">E35</a></td></tr></tbody></table></div>
 </section>
 

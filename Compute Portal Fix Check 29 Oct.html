@@ -1,0 +1,242 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Compute Portal Fix Check 29 Oct</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600;700&display=swap">
+<style>
+:root{
+  --bg:#f7f8fa; --surface:#ffffff; --surface-2:#f1f3f6; --text:#16191f; --muted:#5b6472; --line:#dfe3e8;
+  --accent:#2f5bd3; --accent-soft:#e6ecfb; --term-bg:#1b2130; --term-fg:#e6e9ef; --term-bg:#1b2130; --term-fg:#e6e9ef;
+  --ok:#1f7a4d; --ok-soft:#e3f3ea; --warn:#9a6200; --warn-soft:#fbf0d9; --bad:#b4232c; --bad-soft:#fbe4e5;
+  --na:#6b7280; --na-soft:#eceef1;
+  --sev-text:#ffffff; --s1:#8f1d24; --s2:#c2410c; --s3:#a16207; --s4:#4b5563;
+  --radius:10px; --font-body:"IBM Plex Sans",-apple-system,"Segoe UI",Roboto,Arial,sans-serif; --font-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --shadow:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1216; --surface:#161a20; --surface-2:#1c2129; --text:#e7eaee; --muted:#9aa4b2; --line:#2a313b;
+    --accent:#7d9cf0; --accent-soft:#1d2740; --term-bg:#0a0d11; --term-fg:#d7dce4; --term-bg:#0a0d11; --term-fg:#d7dce4;
+    --ok:#4cc38a; --ok-soft:#14291f; --warn:#e3b04b; --warn-soft:#2c2412; --bad:#f07178; --bad-soft:#321719;
+    --na:#9aa4b2; --na-soft:#232830;
+    --sev-text:#111418; --s1:#f07178; --s2:#f39a5c; --s3:#e3b04b; --s4:#9aa4b2;
+    --shadow:none; color-scheme:dark;
+  }
+}
+/* Layout: single reading column, summary-first, evidence tables in scrollable frames */
+:root[data-theme="dark"]{color-scheme:dark;
+  --bg:#0f1216; --surface:#161a20; --surface-2:#1c2129; --text:#e7eaee; --muted:#9aa4b2; --line:#2a313b;
+  --accent:#7d9cf0; --accent-soft:#1d2740; --term-bg:#0a0d11; --term-fg:#d7dce4; --term-bg:#0a0d11; --term-fg:#d7dce4;
+  --ok:#4cc38a; --ok-soft:#14291f; --warn:#e3b04b; --warn-soft:#2c2412; --bad:#f07178; --bad-soft:#321719;
+  --na:#9aa4b2; --na-soft:#232830;
+  --sev-text:#111418; --s1:#f07178; --s2:#f39a5c; --s3:#e3b04b; --s4:#9aa4b2;
+  --shadow:none;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);
+  font:15px/1.6 var(--font-body)}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:16px;padding-block:0 64px}
+h1,h2,h3{text-wrap:balance}
+.card,.phase,.grid>*{min-width:0}
+header.hero{padding:40px 0 24px;border-bottom:1px solid var(--line);margin-bottom:28px}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600}
+h1{font-size:30px;line-height:1.25;margin:6px 0 10px}
+h2{font-size:21px;margin:44px 0 6px;padding-top:8px}
+h2 .num{color:var(--accent);margin-right:8px}
+h3{font-size:16px;margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);max-width:820px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:14px;font-size:13px;color:var(--muted)}
+.meta b{color:var(--text);font-weight:600}
+nav.toc{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 0}
+nav.toc a{font-size:12.5px;text-decoration:none;color:var(--text);background:var(--surface);border:1px solid var(--line);padding:4px 10px;border-radius:999px}
+nav.toc a:hover{border-color:var(--accent);color:var(--accent)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:820px){.g3,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.g2,.g3,.g4{grid-template-columns:1fr} h1{font-size:24px}}
+.verdict{border-left:4px solid var(--na);padding:14px 16px}
+.verdict .lbl{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.verdict .val{font-size:18px;font-weight:700;margin:2px 0 4px}
+.verdict p{font-size:13.5px;color:var(--muted);margin:0}
+.v-bad{border-left-color:var(--bad)} .v-bad .val{color:var(--bad)}
+.v-warn{border-left-color:var(--warn)} .v-warn .val{color:var(--warn)}
+.v-ok{border-left-color:var(--ok)} .v-ok .val{color:var(--ok)}
+.callout{background:var(--accent-soft);border:1px solid var(--line);border-radius:var(--radius);padding:14px 18px;margin:14px 0}
+.callout b{color:var(--text)}
+.stat{padding:14px 16px}
+.stat .n{font-size:26px;font-weight:700;line-height:1.1}
+.stat .d{font-size:12.5px;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600;background:var(--surface-2)}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+.tbl table{min-width:640px}
+td.num,th.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.pill{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.p-ok{background:var(--ok-soft);color:var(--ok)}
+.p-warn{background:var(--warn-soft);color:var(--warn)}
+.p-bad{background:var(--bad-soft);color:var(--bad)}
+.p-na{background:var(--na-soft);color:var(--na)}
+.sev{display:inline-block;font-size:11px;font-weight:800;padding:2px 7px;border-radius:5px;color:var(--sev-text);white-space:nowrap}
+.s1{background:var(--s1)} .s2{background:var(--s2)} .s3{background:var(--s3)} .s4{background:var(--s4)}
+.bar{height:8px;background:var(--surface-2);border-radius:99px;overflow:hidden;min-width:90px}
+.bar i{display:block;height:100%;border-radius:99px}
+.fill-ok{background:var(--ok)} .fill-warn{background:var(--warn)} .fill-bad{background:var(--bad)}
+.phases{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;counter-reset:ph}
+@media (max-width:820px){.phases{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.phases{grid-template-columns:1fr}}
+.phase{position:relative;padding:14px 16px;border-radius:var(--radius);border:1px solid var(--line);background:var(--surface)}
+.phase .tag{font-size:11.5px;font-weight:700;letter-spacing:.05em}
+.phase h4{margin:4px 0 6px;font-size:15px}
+.phase p{font-size:13px;color:var(--muted);margin:0}
+.phase.done{border-top:4px solid var(--ok)} .phase.done .tag{color:var(--ok)}
+.phase.next{border-top:4px solid var(--accent)} .phase.next .tag{color:var(--accent)}
+.phase.later{border-top:4px solid var(--na)} .phase.later .tag{color:var(--na)}
+ul.tight{margin:6px 0;padding-left:20px} ul.tight li{margin:3px 0}
+.two-col{columns:2;column-gap:28px} @media (max-width:700px){.two-col{columns:1}}
+.two-col li{break-inside:avoid}
+code{font:12.5px/1.4 var(--font-mono);background:var(--surface-2);border:1px solid var(--line);padding:1px 5px;border-radius:4px;word-break:break-word}
+.muted{color:var(--muted)} .small{font-size:12.5px}
+.legend{display:flex;flex-wrap:wrap;gap:10px 18px;font-size:12.5px;color:var(--muted);margin:8px 0}
+footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+@media print{
+  nav.toc{display:none}
+  body{background:#fff;font-size:12px}
+  .card,.tbl,.phase{box-shadow:none}
+  h2{break-after:avoid} .card,.phase,tr{break-inside:avoid}
+  .tbl table{min-width:0}
+}
+/* EXHIBIT-CSS */
+.ex-index{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:6px 14px;margin:12px 0 18px;font-size:13px}
+.ex-index a{color:var(--text);text-decoration:none;padding:4px 0;border-bottom:1px dashed var(--line)}
+.ex-index a:hover{color:var(--accent)} .ex-index b{color:var(--accent);margin-right:6px;font-family:var(--font-mono)}
+.exhibit{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin:0 0 14px;min-width:0;scroll-margin-top:16px}
+.ex-head{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-bottom:8px}
+.ex-head h3{margin:0;font-size:16px;flex:1 1 260px}
+.ex-id{font-family:var(--font-mono);font-weight:600;font-size:13px;color:var(--accent);background:var(--accent-soft);padding:2px 8px;border-radius:5px}
+.ex-issue{font-family:var(--font-mono);font-size:11.5px;color:var(--muted)}
+.ex-row{display:grid;grid-template-columns:96px minmax(0,1fr);gap:10px;font-size:13.5px;margin:8px 0}
+.ex-k{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.ex-result{background:var(--surface-2);border-radius:6px;padding:8px 10px}
+.ex-src{font-size:12.5px;color:var(--muted);margin:10px 0 4px}
+pre.term{font:12.5px/1.5 var(--font-mono);background:var(--term-bg);color:var(--term-fg);border-radius:8px;padding:12px 14px;margin:4px 0 8px;overflow-x:auto;white-space:pre}
+.ex-tbl{margin:6px 0 8px} .ex-tbl table{min-width:0}
+.ex-fig{margin:8px 0} .ex-fig img{display:block;max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px}
+.ex-fig figcaption{font-size:12px;color:var(--muted);margin-top:4px}
+a.ev{font-family:var(--font-mono);font-size:11.5px;font-weight:600;color:var(--accent);text-decoration:none;background:var(--accent-soft);padding:1px 6px;border-radius:4px;white-space:nowrap}
+a.ev:hover{text-decoration:underline}
+.ev-line{margin-top:8px!important;display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+@media (max-width:560px){.ex-row{grid-template-columns:1fr;gap:2px}}
+/* /EXHIBIT-CSS */
+</style>
+<div class="wrap">
+<header class="hero">
+  <div class="eyebrow">Independent Platform Evaluation &middot; Round 3 follow-up</div>
+  <h1>Compute Portal — What Changed After the "All Fixes Done" Notice</h1>
+  <p class="lede">Re-verification on 29 October after the development team reported all fixes complete, tracked against the runs on 23 and 24 October. Every claim links to an exhibit with the command and the recorded output.</p>
+  <div class="meta">
+    <span><b>Test date</b> 2026-10-29</span>
+    <span><b>Target</b> <code>cpctl</code> v0.3.26 (no newer release available)</span>
+    <span><b>Tools</b> 24-check verifier, billing commands, llms.txt check</span>
+    <span><b>Spend</b> none</span>
+  </div>
+  <nav class="toc" aria-label="Sections">
+    <a href="#summary">1. Summary</a><a href="#tracker">2. Issue tracker</a><a href="#findings">3. What we found</a>
+    <a href="#demo">4. Agent demo status</a><a href="#asks">5. Asks</a><a href="#evidence">Evidence E31–E35</a>
+  </nav>
+</header>
+
+<section id="summary">
+  <h2><span class="num">1</span>Summary</h2>
+  <div class="grid g4" style="margin-top:12px">
+    <div class="card verdict v-ok"><div class="lbl">Earlier fixes</div><div class="val">Holding</div><p>Certificates, plan visibility, JSON 9/9, exit codes, <code>/docs</code>, price API: all still work.</p><p class="small ev-line"><span class="muted">Evidence</span> <a class="ev" href="#e35">E35</a></p></div>
+    <div class="card verdict v-warn"><div class="lbl">Latest fixes</div><div class="val">Not visible yet</div><p>No new CLI release, and the billing output is identical to 24 October.</p><p class="small ev-line"><span class="muted">Evidence</span> <a class="ev" href="#e31">E31</a></p></div>
+    <div class="card verdict v-bad"><div class="lbl">Regressions</div><div class="val">Two</div><p>llms.txt lost its agent guidance; 3 of 5 balance reads hit the rate limit.</p><p class="small ev-line"><span class="muted">Evidence</span> <a class="ev" href="#e32">E32</a> <a class="ev" href="#e33">E33</a></p></div>
+    <div class="card verdict v-warn"><div class="lbl">Agent demo</div><div class="val">Still gated</div><p>Waiting on billing: a CLI release with the fixes and a confirmed invoice.</p><p class="small ev-line"><span class="muted">Evidence</span> <a class="ev" href="#demo">Section 4</a></p></div>
+  </div>
+  <div class="callout"><b>Bottom line.</b> The fixes that landed on 23–24 October are holding, and the home page improved. But from the customer's side, the "all fixes done" notice is not visible yet: the CLI version and its billing output are unchanged, and llms.txt went back to an older version. We suggest two habits that would prevent this: <b>a short release note for every deploy</b>, and <b>running the verifier before each deploy</b>.</div>
+</section>
+
+<section id="tracker">
+  <h2><span class="num">2</span>Issue tracker: 23, 24 and 29 October</h2>
+  <p class="lede">Every open or recently fixed item, with its status on each test day.</p>
+  <div class="tbl"><table><thead><tr><th>Item</th><th>Sev.</th><th>23 Oct · v0.3.24</th><th>24 Oct · v0.3.26</th><th>29 Oct · v0.3.26</th><th>Next / owner</th></tr></thead><tbody><tr><td>Plan bought on the web visible in CLI</td><td><span class="sev s1">S1</span></td><td><span class="pill p-bad">Open</span></td><td><span class="pill p-ok">OK</span></td><td><span class="pill p-ok">OK</span></td><td>&mdash;</td></tr><tr><td>Invoice total adds up ($1.98 gap)</td><td><span class="sev s1">S1</span></td><td>&mdash;</td><td><span class="pill p-bad">Open (to confirm)</span></td><td><span class="pill p-na">Not checked</span></td><td>Tester re-checks the web invoice</td></tr><tr><td>Paid plan shown as "Due"</td><td><span class="sev s2">S2</span></td><td>&mdash;</td><td><span class="pill p-bad">Open</span></td><td><span class="pill p-na">Not checked</span></td><td>Tester re-checks the web invoice</td></tr><tr><td>Invoice visible in <code>billing history</code></td><td><span class="sev s2">S2</span></td><td><span class="pill p-bad">Open</span></td><td><span class="pill p-bad">Open</span></td><td><span class="pill p-bad">Open</span></td><td>Dev team <a class="ev" href="#e31">E31</a></td></tr><tr><td>Renewal date (CLI shows 1970-01-01)</td><td><span class="sev s2">S2</span></td><td>&mdash;</td><td><span class="pill p-bad">Open</span></td><td><span class="pill p-bad">Open</span></td><td>Dev team <a class="ev" href="#e31">E31</a></td></tr><tr><td>llms.txt: JSON, exit codes, dry-run, 402</td><td><span class="sev s2">S2</span></td><td><span class="pill p-bad">Open</span></td><td><span class="pill p-ok">OK</span></td><td><span class="pill p-bad">Regressed</span></td><td>Dev team <a class="ev" href="#e32">E32</a></td></tr><tr><td>llms.txt: login description matches CLI</td><td><span class="sev s2">S2</span></td><td><span class="pill p-bad">Open</span></td><td><span class="pill p-bad">Open</span></td><td><span class="pill p-bad">Open</span></td><td>Dev team <a class="ev" href="#e32">E32</a></td></tr><tr><td>MCP authentication documented</td><td><span class="sev s2">S2</span></td><td><span class="pill p-bad">Open</span></td><td><span class="pill p-bad">Open</span></td><td><span class="pill p-bad">Open</span></td><td>Dev team (endpoint returns 401)</td></tr><tr><td>One plan name (<code>whoami</code> vs <code>quota</code>)</td><td><span class="sev s3">S3</span></td><td><span class="pill p-bad">Open</span></td><td><span class="pill p-bad">Open</span></td><td><span class="pill p-bad">Open</span></td><td>Dev team <a class="ev" href="#e31">E31</a></td></tr><tr><td>Login token expires</td><td><span class="sev s3">S3</span></td><td><span class="pill p-bad">Open</span></td><td><span class="pill p-bad">Open</span></td><td><span class="pill p-bad">Open</span></td><td>Dev team <a class="ev" href="#e31">E31</a></td></tr><tr><td><code>--limit 0</code> means no spend</td><td><span class="sev s3">S3</span></td><td><span class="pill p-bad">Open</span></td><td><span class="pill p-warn">Partly</span></td><td><span class="pill p-warn">Partly</span></td><td>Read-only keys added on 24 Oct</td></tr><tr><td>Dry-run shows cost and go/no-go</td><td><span class="sev s3">S3</span></td><td><span class="pill p-bad">Open</span></td><td><span class="pill p-na">Not checked</span></td><td><span class="pill p-na">Not checked</span></td><td>Re-test after next CLI release</td></tr><tr><td>Balance reads not rate-limited at normal pace</td><td><span class="sev s3">S3</span></td><td><span class="pill p-ok">OK</span></td><td><span class="pill p-ok">OK</span></td><td><span class="pill p-bad">3/5 refused</span></td><td>Dev team <a class="ev" href="#e33">E33</a></td></tr><tr><td>Home page readable without JavaScript</td><td><span class="sev s3">S3</span></td><td>5 words</td><td>5 words</td><td><span class="pill p-ok">86 words</span></td><td><a class="ev" href="#e34">E34</a></td></tr><tr><td>Pricing page readable without JavaScript</td><td><span class="sev s3">S3</span></td><td>0 prices</td><td>0 prices</td><td>0 prices</td><td>Price API works meanwhile</td></tr><tr><td>JSON on core read commands</td><td><span class="sev s2">S2</span></td><td>8/9</td><td><span class="pill p-ok">OK</span></td><td><span class="pill p-ok">OK</span></td><td>&mdash;</td></tr><tr><td><code>/docs</code> works</td><td><span class="sev s4">S4</span></td><td><span class="pill p-bad">Soft 404</span></td><td><span class="pill p-ok">OK</span></td><td><span class="pill p-ok">OK</span></td><td>&mdash;</td></tr><tr><td>Certificates and install path</td><td><span class="sev s1">S1</span></td><td><span class="pill p-ok">OK</span></td><td><span class="pill p-ok">OK</span></td><td><span class="pill p-ok">OK</span></td><td>Main domain: 47 days left</td></tr><tr><td>Price API</td><td><span class="sev s2">S2</span></td><td><span class="pill p-ok">OK</span></td><td><span class="pill p-ok">OK</span></td><td><span class="pill p-ok">OK</span></td><td>One transient 429 on 24 Oct</td></tr></tbody></table></div>
+  <p class="small muted">"Not checked" means the item was not re-tested that day; the web invoice re-check after the fix notice is still pending. The verifier on the tester's Mac was one version behind on 29 October (a GitHub sign-in issue), which only affected how the token-expiry line was displayed; the <code>whoami</code> output confirms the result.</p>
+</section>
+
+<section id="findings">
+  <h2><span class="num">3</span>What we found on 29 October</h2>
+  <div class="tbl"><table><thead><tr><th>Sev.</th><th>Finding</th><th>Why it matters</th><th>Evidence</th></tr></thead><tbody><tr><td><span class="sev s2">S2</span></td><td>No new CLI release; the billing output is word-for-word the same as on 24 October.</td><td>The fixes customers and agents need are in the CLI: invoice history, renewal date, plan name.</td><td><a class="ev" href="#e31">E31</a></td></tr><tr><td><span class="sev s2">S2</span></td><td>llms.txt lost the JSON, exit-code, dry-run and 402 guidance it had on 24 October; its login section still describes a flow the CLI does not have.</td><td>llms.txt is the first file an agent reads. Wrong guidance there misleads every agent at step one.</td><td><a class="ev" href="#e32">E32</a></td></tr><tr><td><span class="sev s3">S3</span></td><td>Three of five balance reads two seconds apart were refused with 429 (24 Oct: none).</td><td>Agents check the balance around every action; an undocumented limit makes them fail mid-task.</td><td><a class="ev" href="#e33">E33</a></td></tr><tr><td><span class="pill p-ok">Better</span></td><td>The home page now has 86 words readable without JavaScript (was 5).</td><td>Agents, crawlers and link previews can now tell what the product is.</td><td><a class="ev" href="#e34">E34</a></td></tr><tr><td><span class="pill p-ok">Holding</span></td><td>All fixes verified on 23–24 October still work.</td><td>No regressions outside llms.txt.</td><td><a class="ev" href="#e35">E35</a></td></tr></tbody></table></div>
+</section>
+
+<section id="demo">
+  <h2><span class="num">4</span>Agent demo status</h2>
+  <div class="tbl"><table><thead><tr><th>Pitch stage</th><th>24 Oct</th><th>29 Oct</th><th>What is needed</th></tr></thead><tbody><tr><td>1 Human sets a limit</td><td><span class="pill p-warn">Partly</span></td><td><span class="pill p-warn">Partly</span></td><td><code>--limit 0</code> should mean no spend</td></tr><tr><td>2 Agent explores</td><td><span class="pill p-ok">OK</span></td><td><span class="pill p-ok">OK</span></td><td>&mdash;</td></tr><tr><td>3 Agent compares prices</td><td><span class="pill p-warn">Partly</span></td><td><span class="pill p-warn">Partly</span></td><td>Pricing page without JS; price API works</td></tr><tr><td>4 Agent deploys after approval</td><td><span class="pill p-warn">Partly</span></td><td><span class="pill p-warn">Partly</span></td><td>Dry-run with cost</td></tr><tr><td>5 Agent monitors</td><td><span class="pill p-ok">OK</span></td><td><span class="pill p-warn">Rate-limited</span></td><td>Documented limits for status and balance reads</td></tr><tr><td>6 Agent settles</td><td><span class="pill p-bad">Blocked</span></td><td><span class="pill p-bad">Blocked</span></td><td>Invoice in CLI history; correct invoice total; real renewal date</td></tr><tr><td>7 Agent cleans up</td><td><span class="pill p-ok">OK</span></td><td><span class="pill p-ok">OK</span></td><td>&mdash;</td></tr></tbody></table></div>
+  <div class="callout"><b>The agent side is ready.</b> In Round 2 a Claude Code agent handled 12 of 12 CLI tasks correctly and refused all 6 deliberately risky requests. The end-to-end test is written and waits only on stage 6.</div>
+</section>
+
+<section id="asks">
+  <h2><span class="num">5</span>Asks and decisions for this meeting</h2>
+  <div class="tbl"><table><thead><tr><th>#</th><th>Ask</th><th>Owner</th><th>Why</th></tr></thead><tbody><tr><td>1</td><td>Say what the latest fixes changed and where (web, server, CLI), with a short release note per deploy.</td><td>Dev team</td><td>So testers verify the right thing, and changes are traceable.</td></tr><tr><td>2</td><td>Ship a CLI release with the billing fixes: invoice in history, real renewal date, one plan name.</td><td>Dev team</td><td>Unblocks the "settle" stage of the agent demo.</td></tr><tr><td>3</td><td>Restore llms.txt and correct the login section; add <code>CP_API_TOKEN</code>.</td><td>Dev team</td><td>llms.txt is the first file an agent reads.</td></tr><tr><td>4</td><td>Confirm the invoice: the $1.98 gap and the "Due" status of a paid plan.</td><td>Dev team + tester</td><td>Billing accuracy is the gate for the demo.</td></tr><tr><td>5</td><td>Publish the rate limits per endpoint.</td><td>Dev team</td><td>Agents need to pace themselves; Retry-After is already there.</td></tr><tr><td>6</td><td>Run the 24-check verifier in CI before each deploy.</td><td>Dev team + tester</td><td>It would have caught the llms.txt regression automatically.</td></tr><tr><td>7</td><td>Set the agent-demo date once 2–4 are done.</td><td>All</td><td>The scenario is prepared; the agent side is ready.</td></tr></tbody></table></div>
+</section>
+
+<section id="evidence">
+  <h2><span class="num">E</span>Evidence exhibits E31–E35</h2>
+  <p class="lede">Numbering continues from the Round 3 report (E23–E30). Personal data is masked.</p>
+  <div class="ex-index"><a href="#e31"><b>E31</b> No new CLI release; billing output identical to 24 October</a><a href="#e32"><b>E32</b> llms.txt lost the agent guidance it had on 24 October</a><a href="#e33"><b>E33</b> Balance calls now hit the rate limit</a><a href="#e34"><b>E34</b> Home page now partly readable without JavaScript</a><a href="#e35"><b>E35</b> Fixes from 23–24 October are holding</a></div>
+  <article class="exhibit" id="e31">
+<header class="ex-head"><span class="ex-id">E31</span><h3>No new CLI release; billing output identical to 24 October</h3><span class="sev s2">S2</span><span class="ex-issue">CP-BILL-004, CP-BILL-007, CP-PLAN-002, TC-12</span></header>
+<p class="ex-row"><span class="ex-k">Test</span><span>After the "all fixes done" notice, upgrade the CLI and repeat the billing commands from 24 October.</span></p>
+<p class="ex-row"><span class="ex-k">Observed</span><span class="muted small">Output as recorded on 2026-10-29, cpctl v0.3.26; personal data masked.</span></p><pre class="term">$ cpctl upgrade
+  current  0.3.26
+  latest  0.3.26
+✓ Already up to date.
+
+$ cpctl billing resync
+✓ Refreshed 1 plan(s) — entitlement unchanged.
+  invoices  1 backfilled
+  basic-1-2-50         auto-renew: on   renews 1970-01-01 ($14.55/mo)
+
+$ cpctl billing history
+No invoices yet.
+
+$ cpctl whoami
+  plan     pro
+  token_expires_at  non-expiring (revoke via `cpctl logout`)</pre>
+<p class="ex-row ex-result"><span class="ex-k">Result</span><span>Every line matches the 24 October run. The CLI still claims a backfilled invoice that history does not show, still shows a 1970 renewal date, still calls the plan "pro" while <code>quota</code> says "basic", and the token still never expires. Either the fixes are server-side and not yet visible here, or they have not been deployed.</span></p>
+<p class="ex-row"><span class="ex-k">Reproduce</span><code>cpctl upgrade ; cpctl billing resync ; cpctl billing history ; cpctl whoami</code></p></article><article class="exhibit" id="e32">
+<header class="ex-head"><span class="ex-id">E32</span><h3>llms.txt lost the agent guidance it had on 24 October</h3><span class="sev s2">S2</span><span class="ex-issue">CP-DOC-004 (regression), CP-AUTH-002</span></header>
+<p class="ex-row"><span class="ex-k">Test</span><span>Search llms.txt for the agent-relevant topics the verifier found on 24 October.</span></p>
+<p class="ex-row"><span class="ex-k">Observed</span><span class="muted small">Output as recorded on 2026-10-29, cpctl v0.3.26; personal data masked.</span></p><pre class="term"># 24 Oct (verifier V20): mentions --json, exit code, dry-run, 402
+
+# 29 Oct:
+$ curl -s https://computeportal.io/llms.txt | grep -n -i -E &quot;json|exit code|dry-run|402|login&quot;
+17:2. Authenticate: `cpctl login` prints a short code for a human to approve.
+18:   Headless / CI uses `cpctl login --token cp_live_...`.</pre>
+<p class="ex-row ex-result"><span class="ex-k">Result</span><span>The guidance on JSON output, exit codes, dry-run and the 402 "plan required" error is gone, which looks like an older file was redeployed. Line 17 still describes an approval-code login that the CLI does not offer, and the working <code>CP_API_TOKEN</code> method is not mentioned. llms.txt is the first thing an agent reads.</span></p>
+<p class="ex-row"><span class="ex-k">Reproduce</span><code>curl -s https://computeportal.io/llms.txt | grep -n -i -E &#x27;json|exit code|dry-run|402|login&#x27;</code></p></article><article class="exhibit" id="e33">
+<header class="ex-head"><span class="ex-id">E33</span><h3>Balance calls now hit the rate limit</h3><span class="sev s3">S3</span><span class="ex-issue">CP-API-003 (new)</span></header>
+<p class="ex-row"><span class="ex-k">Test</span><span>Verifier V18: five <code>billing balance</code> calls, two seconds apart.</span></p>
+<p class="ex-row"><span class="ex-k">Observed</span><span class="muted small">Output as recorded on 2026-10-29, cpctl v0.3.26; personal data masked.</span></p><pre class="term">V18  3/5 calls failed; internal details exposed in 0
+     first failure: call 3: exit 8, 884 ms:
+     Error: API error 429 (retry after 28s): Too many requests, please try again later.</pre>
+<p class="ex-row ex-result"><span class="ex-k">Result</span><span>The error itself is well formed: a specific exit code, a Retry-After hint and no internal details. But three of five reads at a two-second pace were refused (24 Oct: 0 of 5). An agent that checks the balance before and after each step will hit this. Please document the limit per endpoint.</span></p>
+<p class="ex-row"><span class="ex-k">Reproduce</span><code>for i in 1 2 3 4 5; do cpctl billing balance &gt;/dev/null; echo $?; sleep 2; done</code></p></article><article class="exhibit" id="e34">
+<header class="ex-head"><span class="ex-id">E34</span><h3>Home page now partly readable without JavaScript</h3><span class="sev s3">S3</span><span class="ex-issue">CP-PRICE-003 (partly)</span></header>
+<p class="ex-row"><span class="ex-k">Test</span><span>Verifier V22: fetch the home and pricing pages without running JavaScript.</span></p>
+<div class="tbl ex-tbl"><table><thead><tr><th>Page</th><th>23 Oct</th><th>24 Oct</th><th>29 Oct</th></tr></thead><tbody><tr><td>Home: words readable without JS</td><td>5</td><td>5</td><td><b>86</b></td></tr><tr><td>Pricing: prices readable without JS</td><td>0</td><td>0</td><td>0</td></tr></tbody></table></div>
+<p class="ex-row ex-result"><span class="ex-k">Result</span><span>Progress on the point raised in Manus's proposal: the home page now carries real text. The pricing page still shows no prices without JavaScript; the price API (<code>api.computeportal.io/v1/catalog</code>) remains the working path.</span></p>
+<p class="ex-row"><span class="ex-k">Reproduce</span><code>python3 cp_verify.py --only V22</code></p></article><article class="exhibit" id="e35">
+<header class="ex-head"><span class="ex-id">E35</span><h3>Fixes from 23–24 October are holding</h3><span class="pill p-ok">Holding</span><span class="ex-issue">Regression check</span></header>
+<p class="ex-row"><span class="ex-k">Test</span><span>Full 24-check verifier on 29 October, compared with 24 October.</span></p>
+<div class="tbl ex-tbl"><table><thead><tr><th>Check</th><th>29 Oct</th></tr></thead><tbody><tr><td>Certificates (4 hosts)</td><td>Valid; main domain 47 days left</td></tr><tr><td>Install script / version endpoint</td><td>200 / 200</td></tr><tr><td>Plan bought on the web visible in <code>quota</code></td><td>basic-1-2-50</td></tr><tr><td>JSON on core read commands</td><td>9 / 9</td></tr><tr><td>Exit codes for invalid input</td><td>2, 2, 127</td></tr><tr><td><code>/docs</code></td><td>301 → docs.computeportal.io</td></tr><tr><td>Price API</td><td>200, JSON</td></tr><tr><td>MCP endpoint</td><td>401 (reachable, auth undocumented)</td></tr></tbody></table></div>
+<p class="ex-row ex-result"><span class="ex-k">Result</span><span>Nothing that was fixed has broken, apart from llms.txt (E32). The main domain's certificate has 47 days left; an expiry alert would prevent a repeat of Round 2's outage.</span></p>
+<p class="ex-row"><span class="ex-k">Reproduce</span><code>python3 cp_verify.py</code></p></article>
+</section>
+<footer>Compute Portal independent QA &middot; Round 3 follow-up &middot; 2026-10-29 &middot; No spend. Raw results are kept in the test package under results/round3.</footer>
+</div>
+
+</body></html>

@@ -136,7 +136,7 @@ a.ev:hover{text-decoration:underline}
 <header class="hero">
   <div class="eyebrow">Independent Platform Evaluation &middot; Round 4</div>
   <h1>Compute Portal — Almost Ready for the Agent Demo</h1>
-  <p class="lede">Verification of the development team's Round-4 fixes on 7 November: public checks run directly against production, account checks on cpctl v0.3.27, and a go/no-go view for the agent demo proposed for 11 November. Every claim links to an exhibit with the command and the recorded output.</p>
+  <p class="lede">Verification of the development team's Round-4 fixes on 7 November: public checks run directly against production, account checks on cpctl v0.3.27, and a go/no-go view for the agent demo. Every claim links to an exhibit with the command and the recorded output.</p>
   <div class="meta">
     <span><b>Test date</b> 2026-11-07</span>
     <span><b>Target</b> <code>cpctl</code> v0.3.27, cp-api v0.4.1, cp-mcp 0.4.0</span>
@@ -155,9 +155,9 @@ a.ev:hover{text-decoration:underline}
     <div class="card verdict v-ok"><div class="lbl">Fixes verified</div><div class="val">Most of them</div><p>llms.txt, MCP authentication, plan name, renewal date, key limits, dry-run plan, rate limits, prerendered pricing. The verifier went from 15 to 20 passes.</p><p class="small ev-line"><span class="muted">Evidence</span> <a class="ev" href="#e36">E36</a> <a class="ev" href="#e37">E37</a> <a class="ev" href="#e39">E39</a></p></div>
     <div class="card verdict v-bad"><div class="lbl">Price</div><div class="val">Three prices</div><p>Published and quoted $11.64, billed $14.55 (+25%), charged $15.71 with tax. This also explains October's $1.98 gap.</p><p class="small ev-line"><span class="muted">Evidence</span> <a class="ev" href="#e41">E41</a></p></div>
     <div class="card verdict v-warn"><div class="lbl">Docs vs release</div><div class="val">Two gaps</div><p>Two commands in the Round-4 note do not exist in v0.3.27; the CLI still shows no invoices; login has no device code.</p><p class="small ev-line"><span class="muted">Evidence</span> <a class="ev" href="#e42">E42</a></p></div>
-    <div class="card verdict v-warn"><div class="lbl">Agent demo (11 Nov)</div><div class="val">Conditional</div><p>Go if, by Monday, the quoted price equals the billed price and the CLI shows invoices.</p><p class="small ev-line"><span class="muted">Evidence</span> <a class="ev" href="#decision">Section 6</a></p></div>
+    <div class="card verdict v-warn"><div class="lbl">Agent demo (14 Nov meeting)</div><div class="val">Conditional</div><p>Go if, at the check before the 14 November meeting, the quoted price equals the billed price and the CLI shows invoices.</p><p class="small ev-line"><span class="muted">Evidence</span> <a class="ev" href="#decision">Section 6</a></p></div>
   </div>
-  <div class="callout"><b>Bottom line.</b> This is the strongest round so far, and the first in which we tested production directly. The remaining blockers are both about money: <b>the price an agent quotes must be the price the customer pays</b>, and <b>the agent must be able to see the invoice it settles against</b>. Fix those two and the demo can go ahead on 11 November.</div>
+  <div class="callout"><b>Bottom line.</b> This is the strongest round so far, and the first in which we tested production directly. The remaining blockers are both about money: <b>the price an agent quotes must be the price the customer pays</b>, and <b>the agent must be able to see the invoice it settles against</b>. Fix those two, and the demo can run at our next meeting on 14 November.</div>
 </section>
 
 <section id="claims">
@@ -194,9 +194,9 @@ a.ev:hover{text-decoration:underline}
 </section>
 
 <section id="decision">
-  <h2><span class="num">6</span>Demo decision: Wednesday 11 November, 14:00 KST, conditional</h2>
-  <div class="tbl"><table><thead><tr><th>Go criterion (checked Monday 9 Nov)</th><th>How we check</th><th>Today</th></tr></thead><tbody><tr><td>The quoted price equals the billed price (or the fee is shown everywhere a price appears)</td><td>dry-run estimate, <code>billing plans</code>, pricing page, invoice</td><td><span class="pill p-bad">No</span></td></tr><tr><td>The CLI shows the October and November invoices</td><td><code>cpctl billing history</code></td><td><span class="pill p-bad">No</span></td></tr><tr><td>Dry-run is stable across runs</td><td>Run the same dry-run three times</td><td><span class="pill p-warn">Once unstable</span></td></tr><tr><td>MCP connects with the documented header</td><td><code>claude mcp list</code> shows Connected</td><td><span class="pill p-na">Not yet tried</span></td></tr><tr><td>Verifier has no new failures</td><td>24-check verifier + Round-4 checks</td><td><span class="pill p-ok">Yes</span></td></tr></tbody></table></div>
-  <p class="small muted">If the first two criteria are not met by Monday evening, the fallback is Thursday 12 November, as the development team offered.</p>
+  <h2><span class="num">6</span>Demo decision: at the 14 November meeting, conditional</h2>
+  <div class="tbl"><table><thead><tr><th>Go criterion (checked on 13–14 Nov, before the meeting)</th><th>How we check</th><th>Today</th></tr></thead><tbody><tr><td>The quoted price equals the billed price (or the fee is shown everywhere a price appears)</td><td>dry-run estimate, <code>billing plans</code>, pricing page, invoice</td><td><span class="pill p-bad">No</span></td></tr><tr><td>The CLI shows the October and November invoices</td><td><code>cpctl billing history</code></td><td><span class="pill p-bad">No</span></td></tr><tr><td>Dry-run is stable across runs</td><td>Run the same dry-run three times</td><td><span class="pill p-warn">Once unstable</span></td></tr><tr><td>MCP connects with the documented header</td><td><code>claude mcp list</code> shows Connected</td><td><span class="pill p-na">Not yet tried</span></td></tr><tr><td>Verifier has no new failures</td><td>24-check verifier + Round-4 checks</td><td><span class="pill p-ok">Yes</span></td></tr></tbody></table></div>
+  <p class="small muted">The development team proposed a demo on 11 November. We suggest the 14 November meeting instead, which gives a full week for the two money-related fixes, with the verifier run the day before. If the first two criteria are still open then, the demo moves to the following meeting.</p>
 </section>
 
 <section id="evidence">

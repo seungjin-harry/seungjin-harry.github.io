@@ -1,0 +1,407 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Compute Portal Round 5 Report</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600;700&display=swap">
+<style>
+:root{
+  --bg:#f7f8fa; --surface:#ffffff; --surface-2:#f1f3f6; --text:#16191f; --muted:#5b6472; --line:#dfe3e8;
+  --accent:#2f5bd3; --accent-soft:#e6ecfb; --term-bg:#1b2130; --term-fg:#e6e9ef; --term-bg:#1b2130; --term-fg:#e6e9ef;
+  --ok:#1f7a4d; --ok-soft:#e3f3ea; --warn:#9a6200; --warn-soft:#fbf0d9; --bad:#b4232c; --bad-soft:#fbe4e5;
+  --na:#6b7280; --na-soft:#eceef1;
+  --sev-text:#ffffff; --s1:#8f1d24; --s2:#c2410c; --s3:#a16207; --s4:#4b5563;
+  --radius:10px; --font-body:"IBM Plex Sans",-apple-system,"Segoe UI",Roboto,Arial,sans-serif; --font-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --shadow:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1216; --surface:#161a20; --surface-2:#1c2129; --text:#e7eaee; --muted:#9aa4b2; --line:#2a313b;
+    --accent:#7d9cf0; --accent-soft:#1d2740; --term-bg:#0a0d11; --term-fg:#d7dce4; --term-bg:#0a0d11; --term-fg:#d7dce4;
+    --ok:#4cc38a; --ok-soft:#14291f; --warn:#e3b04b; --warn-soft:#2c2412; --bad:#f07178; --bad-soft:#321719;
+    --na:#9aa4b2; --na-soft:#232830;
+    --sev-text:#111418; --s1:#f07178; --s2:#f39a5c; --s3:#e3b04b; --s4:#9aa4b2;
+    --shadow:none; color-scheme:dark;
+  }
+}
+/* Layout: single reading column, summary-first, evidence tables in scrollable frames */
+:root[data-theme="dark"]{color-scheme:dark;
+  --bg:#0f1216; --surface:#161a20; --surface-2:#1c2129; --text:#e7eaee; --muted:#9aa4b2; --line:#2a313b;
+  --accent:#7d9cf0; --accent-soft:#1d2740; --term-bg:#0a0d11; --term-fg:#d7dce4; --term-bg:#0a0d11; --term-fg:#d7dce4;
+  --ok:#4cc38a; --ok-soft:#14291f; --warn:#e3b04b; --warn-soft:#2c2412; --bad:#f07178; --bad-soft:#321719;
+  --na:#9aa4b2; --na-soft:#232830;
+  --sev-text:#111418; --s1:#f07178; --s2:#f39a5c; --s3:#e3b04b; --s4:#9aa4b2;
+  --shadow:none;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);
+  font:15px/1.6 var(--font-body)}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+h1,h2,h3{text-wrap:balance}
+.card,.phase,.grid>*{min-width:0}
+header.hero{padding:40px 0 24px;border-bottom:1px solid var(--line);margin-bottom:28px}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600}
+h1{font-size:30px;line-height:1.25;margin:6px 0 10px}
+h2{font-size:21px;margin:44px 0 6px;padding-top:8px}
+h2 .num{color:var(--accent);margin-right:8px}
+h3{font-size:16px;margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);max-width:820px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:14px;font-size:13px;color:var(--muted)}
+.meta b{color:var(--text);font-weight:600}
+nav.toc{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 0}
+nav.toc a{font-size:12.5px;text-decoration:none;color:var(--text);background:var(--surface);border:1px solid var(--line);padding:4px 10px;border-radius:999px}
+nav.toc a:hover{border-color:var(--accent);color:var(--accent)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:820px){.g3,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.g2,.g3,.g4{grid-template-columns:1fr} h1{font-size:24px}}
+.verdict{border-left:4px solid var(--na);padding:14px 16px}
+.verdict .lbl{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.verdict .val{font-size:18px;font-weight:700;margin:2px 0 4px}
+.verdict p{font-size:13.5px;color:var(--muted);margin:0}
+.v-bad{border-left-color:var(--bad)} .v-bad .val{color:var(--bad)}
+.v-warn{border-left-color:var(--warn)} .v-warn .val{color:var(--warn)}
+.v-ok{border-left-color:var(--ok)} .v-ok .val{color:var(--ok)}
+.callout{background:var(--accent-soft);border:1px solid var(--line);border-radius:var(--radius);padding:14px 18px;margin:14px 0}
+.callout b{color:var(--text)}
+.stat{padding:14px 16px}
+.stat .n{font-size:26px;font-weight:700;line-height:1.1}
+.stat .d{font-size:12.5px;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600;background:var(--surface-2)}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+.tbl table{min-width:640px}
+td.num,th.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.pill{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.p-ok{background:var(--ok-soft);color:var(--ok)}
+.p-warn{background:var(--warn-soft);color:var(--warn)}
+.p-bad{background:var(--bad-soft);color:var(--bad)}
+.p-na{background:var(--na-soft);color:var(--na)}
+.sev{display:inline-block;font-size:11px;font-weight:800;padding:2px 7px;border-radius:5px;color:var(--sev-text);white-space:nowrap}
+.s1{background:var(--s1)} .s2{background:var(--s2)} .s3{background:var(--s3)} .s4{background:var(--s4)}
+.bar{height:8px;background:var(--surface-2);border-radius:99px;overflow:hidden;min-width:90px}
+.bar i{display:block;height:100%;border-radius:99px}
+.fill-ok{background:var(--ok)} .fill-warn{background:var(--warn)} .fill-bad{background:var(--bad)}
+.phases{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;counter-reset:ph}
+@media (max-width:820px){.phases{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.phases{grid-template-columns:1fr}}
+.phase{position:relative;padding:14px 16px;border-radius:var(--radius);border:1px solid var(--line);background:var(--surface)}
+.phase .tag{font-size:11.5px;font-weight:700;letter-spacing:.05em}
+.phase h4{margin:4px 0 6px;font-size:15px}
+.phase p{font-size:13px;color:var(--muted);margin:0}
+.phase.done{border-top:4px solid var(--ok)} .phase.done .tag{color:var(--ok)}
+.phase.next{border-top:4px solid var(--accent)} .phase.next .tag{color:var(--accent)}
+.phase.later{border-top:4px solid var(--na)} .phase.later .tag{color:var(--na)}
+ul.tight{margin:6px 0;padding-left:20px} ul.tight li{margin:3px 0}
+.two-col{columns:2;column-gap:28px} @media (max-width:700px){.two-col{columns:1}}
+.two-col li{break-inside:avoid}
+code{font:12.5px/1.4 var(--font-mono);background:var(--surface-2);border:1px solid var(--line);padding:1px 5px;border-radius:4px;word-break:break-word}
+.muted{color:var(--muted)} .small{font-size:12.5px}
+.legend{display:flex;flex-wrap:wrap;gap:10px 18px;font-size:12.5px;color:var(--muted);margin:8px 0}
+footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+@media print{
+  nav.toc{display:none}
+  body{background:#fff;font-size:12px}
+  .card,.tbl,.phase{box-shadow:none}
+  h2{break-after:avoid} .card,.phase,tr{break-inside:avoid}
+  .tbl table{min-width:0}
+}
+/* EXHIBIT-CSS */
+.ex-index{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:6px 14px;margin:12px 0 18px;font-size:13px}
+.ex-index a{color:var(--text);text-decoration:none;padding:4px 0;border-bottom:1px dashed var(--line)}
+.ex-index a:hover{color:var(--accent)} .ex-index b{color:var(--accent);margin-right:6px;font-family:var(--font-mono)}
+.exhibit{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin:0 0 14px;min-width:0;scroll-margin-top:16px}
+.ex-head{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-bottom:8px}
+.ex-head h3{margin:0;font-size:16px;flex:1 1 260px}
+.ex-id{font-family:var(--font-mono);font-weight:600;font-size:13px;color:var(--accent);background:var(--accent-soft);padding:2px 8px;border-radius:5px}
+.ex-issue{font-family:var(--font-mono);font-size:11.5px;color:var(--muted)}
+.ex-row{display:grid;grid-template-columns:96px minmax(0,1fr);gap:10px;font-size:13.5px;margin:8px 0}
+.ex-k{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.ex-result{background:var(--surface-2);border-radius:6px;padding:8px 10px}
+.ex-src{font-size:12.5px;color:var(--muted);margin:10px 0 4px}
+pre.term{font:12.5px/1.5 var(--font-mono);background:var(--term-bg);color:var(--term-fg);border-radius:8px;padding:12px 14px;margin:4px 0 8px;overflow-x:auto;white-space:pre}
+.ex-tbl{margin:6px 0 8px} .ex-tbl table{min-width:0}
+.ex-fig{margin:8px 0} .ex-fig img{display:block;max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px}
+.ex-fig figcaption{font-size:12px;color:var(--muted);margin-top:4px}
+a.ev{font-family:var(--font-mono);font-size:11.5px;font-weight:600;color:var(--accent);text-decoration:none;background:var(--accent-soft);padding:1px 6px;border-radius:4px;white-space:nowrap}
+a.ev:hover{text-decoration:underline}
+.ev-line{margin-top:8px!important;display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+@media (max-width:560px){.ex-row{grid-template-columns:1fr;gap:2px}}
+/* /EXHIBIT-CSS */
+</style>
+<div class="wrap">
+<header class="hero">
+  <div class="eyebrow">Independent Platform Evaluation &middot; Round 5</div>
+  <h1>Compute Portal — First Full Deploy Lifecycle</h1>
+  <p class="lede">At the team's request, one real service was taken through its whole life with <code>cpctl</code> on 14 November: dry-run, deploy, observe, redeploy, stop and start, delete, and a billing check. Deploying is fast and clean. The gaps are in what the CLI tells a script or an agent afterwards. Every claim links to an exhibit with the command and the recorded output.</p>
+  <div class="meta">
+    <span><b>Test date</b> 2026-11-14, 09:50 KST</span>
+    <span><b>Target</b> <code>cpctl</code> v0.3.27, plan basic-1-2-50</span>
+    <span><b>Service</b> <code>nginx:alpine</code> as <code>qa-nginx-11140950</code>, region eu-west</span>
+    <span><b>Method</b> scripted run on the tester's Mac (<code>tools/cp_deploy_test.sh</code>), output captured to a log</span>
+    <span><b>Spend</b> none beyond the prepaid plan; service deleted after the test</span>
+  </div>
+  <nav class="toc" aria-label="Sections">
+    <a href="#summary">1. Summary</a><a href="#lifecycle">2. The lifecycle, step by step</a><a href="#timings">3. Timings</a>
+    <a href="#findings">4. Findings</a><a href="#agent">5. What it means for agents</a><a href="#next">6. Next steps</a><a href="#evidence">Evidence E43–E50</a>
+  </nav>
+</header>
+
+<section id="summary">
+  <h2><span class="num">1</span>Summary</h2>
+  <div class="grid g4">
+    <div class="card verdict v-ok"><div class="lbl">Deploy</div><div class="val">15 s to a live URL</div><p>Command returned in 2 s; the nginx page answered 13 s later. <a class="ev" href="#e44">E44</a></p></div>
+    <div class="card verdict v-ok"><div class="lbl">Operate</div><div class="val">Logs, stop, start work</div><p>Every request appeared in the logs; stop took 6 s, start 12 s. <a class="ev" href="#e45">E45</a></p></div>
+    <div class="card verdict v-bad"><div class="lbl">Delete</div><div class="val">Reported success, deleted nothing</div><p>Without <code>--yes</code> and a terminal, exit 0 and the service kept running. <a class="ev" href="#e46">E46</a></p></div>
+    <div class="card verdict v-warn"><div class="lbl">Machine-readable output</div><div class="val">Three gaps</div><p><code>--json metrics</code> is plain text, redeploy is ambiguous, and resource numbers disagree. <a class="ev" href="#e47">E47</a> <a class="ev" href="#e48">E48</a> <a class="ev" href="#e49">E49</a></p></div>
+  </div>
+  <div class="callout"><b>Bottom line.</b> A developer gets a working service in about 15 seconds, which is a strong first impression. For an agent, two things need fixing first: <code>delete</code> must not report success when it did nothing, and every <code>--json</code> command must return JSON.</div>
+</section>
+
+<section id="lifecycle">
+  <h2><span class="num">2</span>The lifecycle, step by step</h2>
+  <p class="muted">Steps in order. The script asked the tester to confirm (y/N) before each step that created, changed or deleted something.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Step</th><th>What we did</th><th>What happened</th><th>Result</th><th>Evidence</th></tr></thead>
+    <tbody>
+      <tr><td>0. Preflight</td><td>version, whoami, quota, plans, balance, usage, list, deploy help</td><td>All exit 0. No services running. Plan basic-1-2-50, renewal 2026-12-05.</td><td><span class="pill p-ok">OK</span></td><td><a class="ev" href="#e50">E50</a></td></tr>
+      <tr><td>1. Dry-run ×3</td><td>Same dry-run three times, 5 s apart</td><td>Identical: <code>can_deploy=true</code>, $11.64/mo, nothing created. Still echoes <code>gpu_count: 1</code>.</td><td><span class="pill p-ok">Stable</span></td><td><a class="ev" href="#e43">E43</a></td></tr>
+      <tr><td>2. Deploy</td><td><code>cpctl deploy --image nginx:alpine --name …</code></td><td>URL printed at once; HTTP 200 after 15 s; nginx welcome page.</td><td><span class="pill p-ok">OK</span></td><td><a class="ev" href="#e44">E44</a></td></tr>
+      <tr><td>3. Observe</td><td>ps, list, logs, 20 requests, logs, metrics, quota</td><td>Logs show all 22 requests. Metrics show CPU 0m and network N/A. <code>--json metrics</code> is not JSON. ps says 1 CPU / 1 Gi, quota says 100m / 128 MiB.</td><td><span class="pill p-warn">Partly</span></td><td><a class="ev" href="#e45">E45</a> <a class="ev" href="#e48">E48</a> <a class="ev" href="#e49">E49</a></td></tr>
+      <tr><td>4. Same deploy again</td><td>Identical command, same name</td><td><code>✓ Deployed</code>, status starting, exit 0. No hint that the service already existed.</td><td><span class="pill p-warn">Ambiguous</span></td><td><a class="ev" href="#e47">E47</a></td></tr>
+      <tr><td>5. Stop / start</td><td><code>cpctl stop</code>, then <code>cpctl start</code></td><td>503 after 6 s; 200 again 12 s after start.</td><td><span class="pill p-ok">OK</span></td><td><a class="ev" href="#e45">E45</a></td></tr>
+      <tr><td>6. Delete</td><td><code>cpctl delete &lt;name&gt;</code> with output captured</td><td>Printed "Pass --force or --yes to confirm", exit 0. Service still running after 3 minutes. Deleted afterwards with <code>--yes</code>.</td><td><span class="pill p-bad">Defect</span></td><td><a class="ev" href="#e46">E46</a></td></tr>
+      <tr><td>7. Billing after</td><td>usage, balance, plans, history</td><td>Usage $0 with blank rows; burn rate 0; plan still $14.55; history still empty.</td><td><span class="pill p-warn">Unchanged</span></td><td><a class="ev" href="#e50">E50</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="timings">
+  <h2><span class="num">3</span>Timings</h2>
+  <p class="muted">Measured by polling the service URL every 5 seconds, so each value is accurate to about 5 seconds.</p>
+  <div class="grid g4">
+    <div class="card stat"><div class="n">2 s</div><div class="d"><code>deploy</code> command returns</div></div>
+    <div class="card stat"><div class="n">15 s</div><div class="d">deploy → first HTTP 200</div></div>
+    <div class="card stat"><div class="n">6 s</div><div class="d"><code>stop</code> → URL returns 503</div></div>
+    <div class="card stat"><div class="n">12 s</div><div class="d"><code>start</code> → HTTP 200 again</div></div>
+  </div>
+  <p class="small muted">Delete → URL down was not measured because the delete did not run (E46). The test script now passes <code>--yes</code> after the tester confirms, so the next run will measure it.</p>
+</section>
+
+<section id="findings">
+  <h2><span class="num">4</span>Findings</h2>
+  <div class="legend"><span><span class="sev s2">S2</span> affects agents or cost; fix before the agent demo</span><span><span class="sev s3">S3</span> confusing; fix with the restructuring</span><span><span class="sev s4">S4</span> minor</span></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Sev</th><th>Finding</th><th>Why it matters</th><th>Suggestion</th><th>Evidence</th></tr></thead>
+    <tbody>
+      <tr><td><span class="sev s2">S2</span></td><td><code>delete</code> without <code>--yes</code>, when output is not a terminal, prints a prompt and exits 0 without deleting</td><td>An agent reads exit 0 as "deleted" and stops watching. The service keeps running and, on usage billing, keeps costing.</td><td>When confirmation is needed and there is no terminal, exit non-zero (e.g. 2) with a clear message; return an error envelope in <code>--json</code>.</td><td><a class="ev" href="#e46">E46</a></td></tr>
+      <tr><td><span class="sev s2">S2</span></td><td><code>--json metrics</code> returns the same plain text as without <code>--json</code></td><td>The one command an agent uses to check health is the one it cannot parse.</td><td>Return a <code>cpctl.v1</code> envelope like the other commands.</td><td><a class="ev" href="#e48">E48</a></td></tr>
+      <tr><td><span class="sev s3">S3</span></td><td>Deploying an existing name again prints <code>✓ Deployed</code>, exactly like a new deploy</td><td>No one can tell whether it was a no-op, a restart or a replacement.</td><td>Say which: <code>unchanged</code>, <code>restarted</code> or <code>updated</code>, with a matching JSON field.</td><td><a class="ev" href="#e47">E47</a></td></tr>
+      <tr><td><span class="sev s3">S3</span></td><td>Resources disagree: dry-run and quota say 100m CPU / 128 MiB; ps and list say 1 CPU / 1 Gi</td><td>Customers and agents cannot tell how many services fit in the plan.</td><td>Label both: <code>request</code> and <code>limit</code>.</td><td><a class="ev" href="#e49">E49</a></td></tr>
+      <tr><td><span class="sev s3">S3</span></td><td>Billing does not reflect the running service: usage $0 with blank rows, burn rate 0</td><td>Fine for a prepaid plan, but blank rows look like missing data.</td><td>Show "covered by plan basic-1-2-50" instead of empty rows.</td><td><a class="ev" href="#e50">E50</a></td></tr>
+      <tr><td><span class="sev s3">S3</span></td><td>Carried over: plan $14.55 vs estimate $11.64; <code>billing history</code> empty</td><td>Known; the team is restructuring. Recorded for tracking only.</td><td>As agreed at the last meeting (pricing rulebook).</td><td><a class="ev" href="#e50">E50</a></td></tr>
+      <tr><td><span class="sev s4">S4</span></td><td>Dry-run still echoes <code>request.gpu_count: 1</code>; cause found: <code>--gpu-count</code> defaults to 1</td><td>Small, but it makes a CPU deploy look like a GPU request.</td><td>Default to 0 unless <code>--gpu</code> is given.</td><td><a class="ev" href="#e43">E43</a></td></tr>
+      <tr><td><span class="sev s4">S4</span></td><td>Metrics show CPU 0m and network N/A right after traffic; region defaults to eu-west; logs show only internal 10.244.x client IPs</td><td>Less useful monitoring; Korean customers may expect an Asia region or a choice.</td><td>Fill network metrics; offer a region prompt; pass the real client IP.</td><td><a class="ev" href="#e45">E45</a> <a class="ev" href="#e48">E48</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="agent">
+  <h2><span class="num">5</span>What it means for agents</h2>
+  <p>An agent runs <code>cpctl</code> exactly the way our script did: no terminal, output captured, decisions made from exit codes and JSON. Seen that way, each step of the lifecycle either gives the agent a reliable signal or it doesn't.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Agent step</th><th>Signal the agent relies on</th><th>Today</th></tr></thead>
+    <tbody>
+      <tr><td>Estimate and get approval</td><td>Dry-run JSON: <code>can_deploy</code>, cost</td><td><span class="pill p-ok">Reliable</span> stable 3 of 3; price gap tracked separately</td></tr>
+      <tr><td>Deploy</td><td>Exit 0 and a URL</td><td><span class="pill p-ok">Reliable</span></td></tr>
+      <tr><td>Check health</td><td><code>--json metrics</code>, <code>--json list</code></td><td><span class="pill p-warn">Partly</span> list is JSON; metrics is not</td></tr>
+      <tr><td>Re-run safely</td><td>Clear outcome for a repeated deploy</td><td><span class="pill p-warn">Ambiguous</span></td></tr>
+      <tr><td>Clean up</td><td>Exit code of <code>delete</code></td><td><span class="pill p-bad">Misleading</span> exit 0 without deleting</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout">Agents should always pass <code>--yes</code> to destructive commands. Our guidance in llms.txt can say so too. The CLI still has to return an error when it refuses, because sooner or later an agent will forget the flag.</div>
+</section>
+
+<section id="next">
+  <h2><span class="num">6</span>Next steps</h2>
+  <div class="phases">
+    <div class="phase next"><div class="tag">TEAM</div><h4>Two agent fixes</h4><p>Non-zero exit when <code>delete</code> refuses; JSON from <code>--json metrics</code>.</p></div>
+    <div class="phase next"><div class="tag">TEAM</div><h4>With the restructuring</h4><p>Redeploy outcome, request/limit labels, usage table, <code>gpu_count</code> default.</p></div>
+    <div class="phase later"><div class="tag">QA</div><h4>Re-run the lifecycle</h4><p>Same script, now with <code>--yes</code>: measures delete → URL down and re-checks every row above.</p></div>
+    <div class="phase later"><div class="tag">QA</div><h4>Agent demo rehearsal</h4><p>Run the same lifecycle through MCP with a read-only key, then with provision and destroy scopes.</p></div>
+  </div>
+</section>
+
+<section id="evidence">
+  <h2><span class="num">E</span>Evidence exhibits E43–E50</h2>
+  <p class="muted small">All output recorded on 2026-11-14 with cpctl v0.3.27; personal data and IDs masked. Full log: <code>results/round5/2026-11-14_deploy_log.md</code>.</p>
+  <div class="ex-index"><a href="#e43"><b>E43</b> Dry-run is stable, gpu_count default explained</a><a href="#e44"><b>E44</b> Deploy to a live URL in 15 seconds</a><a href="#e45"><b>E45</b> Logs, quota, stop and start</a><a href="#e46"><b>E46</b> Delete reports success but deletes nothing</a><a href="#e47"><b>E47</b> Redeploy looks like a new deploy</a><a href="#e48"><b>E48</b> --json metrics is not JSON</a><a href="#e49"><b>E49</b> Resource numbers disagree</a><a href="#e50"><b>E50</b> Billing before and after</a></div>
+
+<article class="exhibit" id="e43">
+<header class="ex-head"><span class="ex-id">E43</span><h3>Dry-run is stable, gpu_count default explained</h3><span class="pill p-ok">Verified</span><span class="sev s4">S4</span></header>
+<p class="ex-row"><span class="ex-k">Test</span><span>The same JSON dry-run three times, 5 seconds apart, then <code>list</code> to confirm nothing was created.</span></p>
+<pre class="term">$ cpctl --json deploy --image nginx:alpine --name qa-nginx-11140950 --dry-run
+  "precheck": {
+    "can_deploy": true,
+    "requested": { "vcpu_milli": 100, "memory_mib": 128, "gpu_count": 0 },
+    "estimated_cost_usd_per_month": 11.64
+  },
+  "request": { "image": "nginx:alpine", "name": "qa-nginx-11140950", "gpu_count": 1 }
+
+Summary of 3 runs:
+can_deploy=True cost=11.64 requested_gpu=0 request_gpu=1
+can_deploy=True cost=11.64 requested_gpu=0 request_gpu=1
+can_deploy=True cost=11.64 requested_gpu=0 request_gpu=1
+
+$ cpctl list
+No services found.
+
+$ cpctl deploy --help
+      --gpu-count int     Number of GPUs to attach (default 1)</pre>
+<p class="ex-row ex-result"><span class="ex-k">Result</span><span>Stable across three runs, unlike the one unstable run on 7 November. The <code>gpu_count: 1</code> echo comes from the flag's default of 1.</span></p>
+<p class="ex-row"><span class="ex-k">Reproduce</span><code>for i in 1 2 3; do cpctl --json deploy --image nginx:alpine --name t --dry-run; sleep 5; done</code></p>
+</article>
+
+<article class="exhibit" id="e44">
+<header class="ex-head"><span class="ex-id">E44</span><h3>Deploy to a live URL in 15 seconds</h3><span class="pill p-ok">Verified</span></header>
+<p class="ex-row"><span class="ex-k">Test</span><span>Deploy, then poll the printed URL every 5 seconds until it returns HTTP 200.</span></p>
+<pre class="term">$ cpctl deploy --image nginx:alpine --name qa-nginx-11140950
+→ Deploying nginx:alpine...
+✓ Deployed qa-nginx-11140950
+  service  qa-nginx-11140950
+  url      https://qa-nginx-11140950-72eab8.cpctl.app
+  status   starting
+  port     80 (from image EXPOSE)
+exit=0  (2 s)
+  -> HTTP 200 after 13s
+
+$ curl -s https://qa-nginx-11140950-72eab8.cpctl.app | head -4
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Welcome to nginx!&lt;/title&gt;</pre>
+<p class="ex-row ex-result"><span class="ex-k">Result</span><span>HTTPS URL printed at once, port detected from the image, page live 15 seconds after the command started.</span></p>
+<p class="ex-row"><span class="ex-k">Reproduce</span><code>cpctl deploy --image nginx:alpine --name &lt;name&gt; ; curl -s -o /dev/null -w '%{http_code}' &lt;url&gt;</code></p>
+</article>
+
+<article class="exhibit" id="e45">
+<header class="ex-head"><span class="ex-id">E45</span><h3>Logs, quota, stop and start</h3><span class="pill p-ok">Verified</span></header>
+<p class="ex-row"><span class="ex-k">Test</span><span>Read logs, send 20 requests, read logs again; check quota; stop and start while polling the URL.</span></p>
+<pre class="term">$ cpctl logs qa-nginx-11140950
+/docker-entrypoint.sh: Configuration complete; ready for start up
+2026/11/14 00:52:22 [notice] 1#1: nginx/1.31.4
+10.244.4.19 - - [14/Nov/2026:00:52:28 +0000] "GET / HTTP/1.1" 200 896 "-" "curl/8.7.1" "10.244.3.0"
+...  (22 request lines after the traffic step)
+
+$ cpctl quota
+│ CPU      │ 100m    │ 1000m    │ 10% │
+│ Memory   │ 128 MiB │ 2048 MiB │ 6%  │
+
+$ cpctl stop qa-nginx-11140950
+✓ Stopped qa-nginx-11140950
+  -> HTTP 503 after 6s
+$ cpctl start qa-nginx-11140950
+✓ Started qa-nginx-11140950
+  -> HTTP 200 after 12s</pre>
+<p class="ex-row ex-result"><span class="ex-k">Result</span><span>All requests appear in the logs within seconds; stop and start behave as expected. The logged client addresses are internal (10.244.x), not the caller's IP.</span></p>
+<p class="ex-row"><span class="ex-k">Reproduce</span><code>cpctl logs &lt;name&gt; ; cpctl stop &lt;name&gt; ; cpctl start &lt;name&gt;</code></p>
+</article>
+
+<article class="exhibit" id="e46">
+<header class="ex-head"><span class="ex-id">E46</span><h3>Delete reports success but deletes nothing</h3><span class="sev s2">S2</span><span class="ex-issue">CP-CLI-014 (new)</span></header>
+<p class="ex-row"><span class="ex-k">Test</span><span>Run <code>delete</code> with its output captured to a log, as an agent or CI job would. Poll the URL for 3 minutes, then check list and ps.</span></p>
+<pre class="term">$ cpctl delete qa-nginx-11140950
+Delete qa-nginx-11140950? This cannot be undone. Pass --force or --yes to confirm.
+exit=0  (0 s)
+  -> still not 'not200' after 180s (last HTTP 200)
+
+$ cpctl list
+│ qa-nginx-11140950 │ nginx:alpine │ running │ eu-west │ https://qa-nginx-11140950-72eab8.cpctl.app │
+
+$ cpctl ps
+│ qa-nginx-11140950 │ running │      │ eu-west │ -   │ 1   │ 1Gi    │</pre>
+<p class="ex-row ex-result"><span class="ex-k">Result</span><span>The CLI correctly refused to delete without confirmation, but returned exit 0. A caller that checks the exit code concludes the service is gone. The tester deleted it afterwards with <code>cpctl delete qa-nginx-11140950 --yes</code>.</span></p>
+<p class="ex-row"><span class="ex-k">Reproduce</span><code>cpctl delete &lt;name&gt; &gt; out.txt 2&gt;&amp;1; echo "exit=$?"; cpctl list</code></p>
+</article>
+
+<article class="exhibit" id="e47">
+<header class="ex-head"><span class="ex-id">E47</span><h3>Redeploy looks like a new deploy</h3><span class="sev s3">S3</span><span class="ex-issue">CP-CLI-015 (new)</span></header>
+<p class="ex-row"><span class="ex-k">Test</span><span>Run the identical deploy command again while the service is running.</span></p>
+<pre class="term">$ cpctl deploy --image nginx:alpine --name qa-nginx-11140950
+→ Deploying nginx:alpine...
+✓ Deployed qa-nginx-11140950
+  url      https://qa-nginx-11140950-72eab8.cpctl.app
+  status   starting
+exit=0  (4 s)
+
+$ cpctl list
+│ qa-nginx-11140950 │ nginx:alpine │ running │ eu-west │ https://qa-nginx-11140950-72eab8.cpctl.app │</pre>
+<p class="ex-row ex-result"><span class="ex-k">Result</span><span>Still one service with the same URL, which is good. But the output is identical to a first deploy, so the caller cannot tell whether anything changed or restarted.</span></p>
+<p class="ex-row"><span class="ex-k">Reproduce</span><code>cpctl deploy --image nginx:alpine --name &lt;existing name&gt;</code></p>
+</article>
+
+<article class="exhibit" id="e48">
+<header class="ex-head"><span class="ex-id">E48</span><h3>--json metrics is not JSON</h3><span class="sev s2">S2</span><span class="ex-issue">CP-CLI-016 (new)</span></header>
+<p class="ex-row"><span class="ex-k">Test</span><span>Read metrics with and without <code>--json</code> after 20 requests.</span></p>
+<pre class="term">$ cpctl metrics qa-nginx-11140950
+  cpu_usage     0m
+  memory_usage  5Mi
+  network_rx    N/A
+  network_tx    N/A
+  replicas      1
+
+$ cpctl --json metrics qa-nginx-11140950
+  cpu_usage     0m
+  memory_usage  5Mi
+  network_rx    N/A
+  network_tx    N/A
+  replicas      1</pre>
+<p class="ex-row ex-result"><span class="ex-k">Result</span><span>Both outputs are identical text; <code>--json</code> is ignored here, while <code>--json list</code> returns a proper <code>ServiceList</code> envelope. Network metrics are not reported.</span></p>
+<p class="ex-row"><span class="ex-k">Reproduce</span><code>cpctl --json metrics &lt;name&gt; | python3 -m json.tool</code></p>
+</article>
+
+<article class="exhibit" id="e49">
+<header class="ex-head"><span class="ex-id">E49</span><h3>Resource numbers disagree</h3><span class="sev s3">S3</span><span class="ex-issue">CP-CLI-017 (new)</span></header>
+<p class="ex-row"><span class="ex-k">Test</span><span>Compare what each command reports for the same running service.</span></p>
+<div class="tbl ex-tbl"><table>
+  <thead><tr><th>Command</th><th class="num">CPU</th><th class="num">Memory</th></tr></thead>
+  <tbody>
+    <tr><td>dry-run <code>precheck.requested</code></td><td class="num">100m</td><td class="num">128 MiB</td></tr>
+    <tr><td><code>quota</code> while running</td><td class="num">100m</td><td class="num">128 MiB</td></tr>
+    <tr><td><code>ps</code> / <code>--json list</code></td><td class="num">1</td><td class="num">1Gi</td></tr>
+    <tr><td><code>metrics</code> (actual use)</td><td class="num">0m</td><td class="num">5Mi</td></tr>
+  </tbody>
+</table></div>
+<p class="ex-row ex-result"><span class="ex-k">Result</span><span>Probably request versus limit, but nothing says so. On a 2 GiB plan, a 1 Gi figure suggests only two services fit, while quota suggests ten (1000m ÷ 100m).</span></p>
+<p class="ex-row"><span class="ex-k">Reproduce</span><code>cpctl quota ; cpctl ps ; cpctl --json list</code></p>
+</article>
+
+<article class="exhibit" id="e50">
+<header class="ex-head"><span class="ex-id">E50</span><h3>Billing before and after</h3><span class="sev s3">S3</span><span class="ex-issue">CP-BILL-008 (carried over), CP-BILL-009 (new)</span></header>
+<p class="ex-row"><span class="ex-k">Test</span><span>Billing commands before deploying and after the lifecycle.</span></p>
+<pre class="term">$ cpctl billing usage                     (before and after: identical)
+Period: 2026-11    Total: $0.0000 USD
+│         │          │       │ $0.000000     │
+│         │          │       │ $0.000000     │
+
+$ cpctl --json billing balance            (before and after: identical)
+  "balance_usd": 0, "amount_due_usd": 0, "status": "active", "burn_rate_usd_per_hour": 0
+
+$ cpctl billing plans
+│ sub_&lt;masked&gt; │ basic-1-2-50 │ $14.55 │ on │ 22d │ 2026-12-05 │
+
+$ cpctl billing history
+No invoices yet.</pre>
+<p class="ex-row ex-result"><span class="ex-k">Result</span><span>No usage charge for a prepaid plan is expected, but the table prints blank rows. The $14.55 vs $11.64 gap and the empty history are unchanged from Round 4, as expected during the restructuring.</span></p>
+<p class="ex-row"><span class="ex-k">Reproduce</span><code>cpctl billing usage ; cpctl billing plans ; cpctl billing history</code></p>
+</article>
+</section>
+
+<footer>Compute Portal independent evaluation, Round 5 (14 November 2026). Test script: <code>tools/cp_deploy_test.sh</code>. Raw log and summary: <code>results/round5/</code>. Previous rounds: E1–E42.</footer>
+</div>
+
+</body></html>
